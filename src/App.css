@@ -6,9 +6,9 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f7fa;
-  color: #17202a;
+  font-family: inherit;
+  background: #04070c;
+  color: #e5e7eb;
 }
 
 button {

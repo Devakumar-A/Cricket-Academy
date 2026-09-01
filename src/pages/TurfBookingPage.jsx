@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { sendTurfBookingToWhatsApp } from "../lib/whatsappConfig";
 import "./TurfBookingPage.css";
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
@@ -466,6 +467,18 @@ export default function TurfBookingPage({ onBack, user }) {
     );
     setMessageType("success");
 
+    // 📲 Send booking notification to owner's WhatsApp
+    sendTurfBookingToWhatsApp({
+      turfName: selectedTurfObject?.name || "Turf Slot",
+      bookingDate: selectedDate,
+      startTime: startTimeText,
+      endTime: endTimeText,
+      duration,
+      userName: name,
+      userPhone: phone.trim(),
+      userEmail: user.email,
+    });
+
     setSelectedHour(null);
     setDuration(1);
 
@@ -696,7 +709,7 @@ export default function TurfBookingPage({ onBack, user }) {
             <div className="duration-header">
               <div>
                 <label>Duration</label>
-                <p>Maximum 3 hours</p>
+                <p>Maximum 6 hours</p>
               </div>
 
               <strong>
@@ -710,8 +723,8 @@ export default function TurfBookingPage({ onBack, user }) {
             <input
               className="duration-slider"
               type="range"
-              min="0"
-              max="3"
+              min="1"
+              max="6"
               step="1"
               value={duration}
               onChange={(e) =>
@@ -722,10 +735,12 @@ export default function TurfBookingPage({ onBack, user }) {
             />
 
             <div className="duration-labels">
-              <span>0</span>
-              <span>1</span>
-              <span>2</span>
+              <span>1 hr</span>
+              <span>2 hrs</span>
               <span>3 hrs</span>
+              <span>4 hrs</span>
+              <span>5 hrs</span>
+              <span>6 hrs</span>
             </div>
 
           </div>

@@ -1,0 +1,325 @@
+/* ============================================
+   FOOTER — BLACK & GOLD THEME
+   ============================================ */
+
+.mg-footer {
+  background: linear-gradient(180deg, #080c12 0%, #040608 100%);
+  border-top: 1px solid rgba(212, 160, 23, 0.22);
+  color: #e5e7eb;
+  font-family: inherit;
+}
+
+/* ---- TOP BANNER ---- */
+.footer-top-banner {
+  background: linear-gradient(135deg, #0c1219 0%, #0a0f17 50%, #080c12 100%);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.14);
+  padding: 44px 0 36px;
+}
+
+.footer-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6%;
+}
+
+.footer-brand-statement {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  max-width: 680px;
+  margin-bottom: 28px;
+}
+
+.footer-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #d4a017;
+  background: rgba(212, 160, 23, 0.1);
+  border: 1px solid rgba(212, 160, 23, 0.28);
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.footer-tagline {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.footer-subtext {
+  margin: 0;
+  font-size: 13px;
+  color: #9ca3af;
+  line-height: 1.65;
+}
+
+/* Live Clock Box */
+.footer-clock-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.live-pulse-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  padding: 6px 14px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: footerPulse 1.5s infinite;
+}
+
+@keyframes footerPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.65; }
+}
+
+.pulse-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #34d399;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.clock-digits {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d4a017;
+  letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- MAIN LINKS SECTION ---- */
+.footer-main-content {
+  padding: 48px 0 36px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+}
+
+.footer-col {}
+
+.footer-col-title {
+  margin: 0 0 18px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #d4a017;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(212, 160, 23, 0.15);
+  padding-bottom: 10px;
+}
+
+/* Nav Links */
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-nav-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.footer-nav-btn:hover {
+  color: #d4a017;
+  transform: translateX(5px);
+}
+
+/* Facility Locations */
+.footer-location-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.location-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.location-address {
+  margin: 2px 0 4px;
+  font-size: 13px;
+  color: #9ca3af;
+  line-height: 1.45;
+}
+
+.location-types {
+  display: inline-block;
+  font-size: 11px;
+  color: #d4a017;
+  background: rgba(212, 160, 23, 0.07);
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid rgba(212, 160, 23, 0.18);
+  font-weight: 600;
+}
+
+/* Contact Items */
+.footer-contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-contact-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer-contact-link:hover {
+  color: #d4a017;
+}
+
+.footer-contact-link span {
+  line-height: 1.4;
+}
+
+/* CTA Button */
+.footer-quick-action {
+  margin-top: 4px;
+}
+
+.footer-cta-turf-btn {
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #06090e;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.35);
+  width: 100%;
+}
+
+.footer-cta-turf-btn:hover {
+  background: linear-gradient(135deg, #ffe066 0%, #d4a017 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(212, 160, 23, 0.5);
+}
+
+/* ---- BOTTOM BAR ---- */
+.footer-bottom-bar {
+  border-top: 1px solid rgba(212, 160, 23, 0.12);
+  padding: 20px 0;
+}
+
+.footer-bottom-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.copyright-text {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+  letter-spacing: 0.3px;
+}
+
+.footer-legal-tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footer-legal-tags .sep {
+  color: rgba(212, 160, 23, 0.4);
+}
+
+/* ============ TABLET ============ */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 600px) {
+  .footer-top-banner {
+    padding: 36px 0 28px;
+  }
+
+  .footer-main-content {
+    padding: 36px 0 28px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-bottom-flex {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .footer-legal-tags {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-cta-turf-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,275 @@
+.admission-plans-section {
+  padding: 90px 6%;
+  background: radial-gradient(circle at 50% 30%, #151a24 0%, #0a0d13 70%, #06080d 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.admission-plans-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(212, 160, 23, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+.admission-card {
+  background: linear-gradient(180deg, #131822 0%, #0d1017 100%);
+  border: 1px solid rgba(212, 160, 23, 0.25);
+  border-radius: 22px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+
+.admission-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: #d4a017;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 160, 23, 0.2);
+}
+
+.admission-card:focus-visible {
+  border-color: #d4a017;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.4);
+}
+
+/* COMBO HIGHLIGHT CARD */
+.admission-card.combo-highlight {
+  border-color: rgba(212, 160, 23, 0.6);
+  background: linear-gradient(180deg, #1a202d 0%, #0e121a 100%);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 160, 23, 0.15);
+}
+
+.admission-card.combo-highlight:hover {
+  border-color: #ffd700;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 160, 23, 0.35);
+}
+
+.combo-ribbon {
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #0c0f17;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.4);
+}
+
+.plan-card-top {
+  margin-bottom: 20px;
+}
+
+.plan-brand-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d4a017;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.plan-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.plan-price-block {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.plan-currency {
+  font-size: 24px;
+  font-weight: 800;
+  color: #d4a017;
+}
+
+.plan-amount {
+  font-size: 40px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.plan-period {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-left: 4px;
+}
+
+.plan-description {
+  font-size: 13px;
+  color: #9ca3af;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  min-height: 42px;
+}
+
+.plan-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-grow: 1;
+}
+
+.plan-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.plan-check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(212, 160, 23, 0.15);
+  color: #d4a017;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.plan-cta-wrapper {
+  margin-top: auto;
+}
+
+.plan-explore-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 13px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.plan-explore-btn:hover {
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #0c0f17;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.35);
+}
+
+.combo-highlight .plan-explore-btn {
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #0c0f17;
+  border-color: transparent;
+}
+
+.combo-highlight .plan-explore-btn:hover {
+  background: linear-gradient(135deg, #e5b324 0%, #c49210 100%);
+  box-shadow: 0 8px 25px rgba(212, 160, 23, 0.5);
+}
+
+/* BOTTOM SECTION CTA BANNER */
+.plans-bottom-cta {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.12) 0%, rgba(212, 160, 23, 0.04) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: 18px;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.bottom-cta-text h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.bottom-cta-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.bottom-cta-btn {
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #0c0f17;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 13px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 18px rgba(212, 160, 23, 0.3);
+}
+
+.bottom-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 160, 23, 0.45);
+}
+
+@media (max-width: 1024px) {
+  .plans-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .admission-plans-section {
+    padding: 60px 20px;
+  }
+  .plans-bottom-cta {
+    padding: 24px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .bottom-cta-btn {
+    width: 100%;
+  }
+}

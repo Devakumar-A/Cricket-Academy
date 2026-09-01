@@ -1,0 +1,336 @@
+/* ============================================================
+   WHY CHOOSE US — SINGLE UNIFIED CARD GRID WITH 3D BG
+   Mobile & Desktop Optimized | Black & Gold Luxury Theme
+   ============================================================ */
+
+.why-choose-section {
+  padding: 85px 6% 75px;
+  background: radial-gradient(circle at 50% 30%, #0c121c 0%, #06090e 70%, #040609 100%);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(212, 160, 23, 0.15);
+}
+
+/* Subtle gold grid overlay */
+.why-choose-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 160, 23, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 160, 23, 0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+
+/* ---- SECTION HEADER ---- */
+.section-heading-center {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #fde047;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  padding: 6px 16px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+
+.section-subtitle {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: #9ca3af;
+  line-height: 1.65;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   DESKTOP 4-COLUMN GRID
+   ============================================================ */
+.why-choose-desktop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Common Pillar Card Styling */
+.why-pillar-card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(19, 26, 38, 0.9) 0%, rgba(13, 17, 24, 0.95) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.18);
+  border-radius: 22px;
+  padding: 30px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  min-height: 280px;
+}
+
+.why-pillar-card:hover,
+.why-pillar-card.active-pillar {
+  transform: translateY(-6px);
+  border-color: #fde047;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 160, 23, 0.18);
+}
+
+/* 3D Background Canvas (Embedded in Card) */
+.why-card-3d-bg-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+/* Card Content Overlay */
+.pillar-content-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pillar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.pillar-icon-box {
+  font-size: 26px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.pillar-number {
+  font-size: 12px;
+  font-weight: 900;
+  color: #fde047;
+  letter-spacing: 1px;
+  background: rgba(10, 14, 22, 0.8);
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 160, 23, 0.25);
+}
+
+.pillar-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 10px;
+  letter-spacing: -0.2px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.pillar-desc {
+  font-size: 13.5px;
+  color: #cbd5e1;
+  line-height: 1.65;
+  margin: 0 0 18px;
+  flex-grow: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+.pillar-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fde047;
+  background: rgba(10, 14, 22, 0.85);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  padding: 6px 14px;
+  border-radius: 8px;
+  align-self: flex-start;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   MOBILE SINGLE UNIFIED CARD VIEW & CONTROLS
+   ============================================================ */
+.why-choose-mobile-wrapper {
+  display: none;
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.why-single-mobile-card {
+  position: relative;
+  background: linear-gradient(160deg, #131a26 0%, #0a0e16 100%);
+  border: 1px solid rgba(212, 160, 23, 0.4);
+  border-radius: 22px;
+  padding: 30px 22px 26px;
+  overflow: hidden;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 160, 23, 0.12);
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- MOBILE INTERACTIVE CONTROLS BAR ---- */
+.why-mobile-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, rgba(17, 24, 38, 0.85) 0%, rgba(9, 13, 20, 0.9) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.why-nav-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  color: #fde047;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.why-nav-btn:hover,
+.why-nav-btn:active {
+  background: rgba(212, 160, 23, 0.2);
+  border-color: #fde047;
+  transform: scale(0.97);
+}
+
+.why-pause-btn {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.15) 0%, rgba(212, 160, 23, 0.06) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.4);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+
+.why-pause-btn .ctrl-icon {
+  font-size: 13px;
+  color: #fde047;
+}
+
+.why-pause-btn.is-paused {
+  background: linear-gradient(135deg, #fde047 0%, #d4a017 100%);
+  color: #06090e;
+  border-color: #fde047;
+  box-shadow: 0 0 16px rgba(253, 224, 71, 0.45);
+}
+
+.why-pause-btn.is-paused .ctrl-icon {
+  color: #06090e;
+}
+
+/* ---- DOT INDICATORS ---- */
+.carousel-dots-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: #fde047;
+  width: 26px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(253, 224, 71, 0.6);
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+@media (max-width: 1080px) {
+  .why-choose-desktop-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-choose-section {
+    padding: 60px 16px 50px;
+  }
+
+  .section-heading-center {
+    margin-bottom: 28px;
+  }
+
+  /* Hide multi-column desktop grid */
+  .why-choose-desktop-grid {
+    display: none;
+  }
+
+  /* Show ONE unified mobile card with controls */
+  .why-choose-mobile-wrapper {
+    display: block;
+  }
+}

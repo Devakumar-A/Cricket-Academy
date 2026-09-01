@@ -1,0 +1,333 @@
+/* ============================================================
+   MG CRICKETER'S DEN — COACHES PAGE STYLING
+   Luxury Black & Gold Theme | 3D Coaching Pitch Lab Engine
+   ============================================================ */
+
+.coaches-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #04070c;
+  color: #e5e7eb;
+  font-family: inherit;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding-bottom: 90px;
+}
+
+/* Subtle background grid */
+.coaches-page-wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 160, 23, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 160, 23, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   1. HERO BANNER & 3D COACHING VIEWPORT
+   ============================================================ */
+.coaches-hero-section {
+  position: relative;
+  z-index: 1;
+  padding: 36px 20px 24px;
+  background: radial-gradient(circle at 50% 20%, #151e2e 0%, #0c111a 60%, #04070c 100%);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+  text-align: center;
+}
+
+.coaches-hero-inner {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.coaches-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  color: #fde047;
+  font-size: 12.5px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 18px;
+  transition: all 0.2s ease;
+}
+
+.coaches-back-btn:hover {
+  background: rgba(212, 160, 23, 0.2);
+  border-color: #fde047;
+  transform: translateY(-2px);
+}
+
+.coaches-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #fde047;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.badge-glow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: 0 0 8px #fde047;
+}
+
+.coaches-hero-title {
+  font-size: clamp(26px, 4.5vw, 44px);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 10px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.coaches-gold-glow {
+  background: linear-gradient(135deg, #ffffff 0%, #fde047 50%, #d4a017 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 25px rgba(212, 160, 23, 0.35);
+}
+
+.coaches-hero-subtitle {
+  font-size: clamp(13.5px, 1.6vw, 16px);
+  color: #9ca3af;
+  line-height: 1.6;
+  margin: 0 auto 20px;
+  max-width: 640px;
+}
+
+/* 3D Coaching Viewport Card */
+.coaches-3d-viewport-card {
+  width: 100%;
+  max-width: 640px;
+  height: 240px;
+  margin: 0 auto;
+  background: linear-gradient(160deg, #111724 0%, #080c13 100%);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: 20px;
+  padding: 12px;
+  position: relative;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 160, 23, 0.08);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.viewport-label {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 9.5px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #fde047;
+  background: rgba(10, 14, 22, 0.85);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  padding: 3px 9px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 2;
+}
+
+.dot-live {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
+}
+
+.coaches-3d-tactical-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+/* ============================================================
+   2. COACHES MAIN CARDS (3-COLUMN LUXURY GRID)
+   ============================================================ */
+.coaches-main-content {
+  position: relative;
+  z-index: 1;
+  padding: 40px 20px 60px;
+}
+
+.coaches-page-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.coaches-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin-bottom: 48px;
+}
+
+.coach-card {
+  background: linear-gradient(170deg, #111724 0%, #080c13 100%);
+  border: 1px solid rgba(212, 160, 23, 0.22);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.coach-card:hover {
+  transform: translateY(-8px);
+  border-color: #fde047;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 160, 23, 0.18);
+}
+
+.coach-avatar-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 4.8;
+  background: radial-gradient(circle at 50% 30%, #1a2333 0%, #0c111a 80%, #05070a 100%);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.coach-img-full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.4s ease;
+}
+
+.coach-card:hover .coach-img-full {
+  transform: scale(1.06);
+}
+
+.coach-box-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 70%, rgba(8, 12, 19, 0.95) 100%);
+  pointer-events: none;
+}
+
+.coach-details {
+  padding: 22px 20px;
+  text-align: center;
+  background: #080c13;
+  border-top: 1px solid rgba(212, 160, 23, 0.15);
+}
+
+.coach-name {
+  margin: 0 0 6px;
+  font-size: 21px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+}
+
+.coach-role {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fde047;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: block;
+}
+
+/* ============================================================
+   3. CTA BANNER
+   ============================================================ */
+.coaches-cta-banner {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.14) 0%, rgba(212, 160, 23, 0.04) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  border-radius: 20px;
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6);
+}
+
+.coaches-cta-banner h3 {
+  margin: 0 0 6px;
+  font-size: clamp(19px, 2.4vw, 24px);
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.coaches-cta-banner p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+.coaches-enroll-btn {
+  background: linear-gradient(135deg, #fde047 0%, #d4a017 50%, #b8860b 100%);
+  color: #06090e;
+  font-size: 13.5px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.4);
+  white-space: nowrap;
+}
+
+.coaches-enroll-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(212, 160, 23, 0.6);
+  background: linear-gradient(135deg, #ffffff 0%, #fde047 40%, #d4a017 100%);
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS (TABLET & MOBILE)
+   ============================================================ */
+@media (max-width: 900px) {
+  .coaches-3d-viewport-card {
+    height: 200px;
+  }
+
+  .coaches-cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto 36px;
+  }
+
+  .coaches-cta-banner {
+    padding: 22px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .coaches-enroll-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

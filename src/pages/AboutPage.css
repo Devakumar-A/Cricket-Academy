@@ -1,0 +1,621 @@
+/* ============================================================
+   MG CRICKETER'S DEN — ABOUT PAGE STYLING
+   Luxury Black & Gold Theme | 3D Canvas & Fully Responsive
+   ============================================================ */
+
+.about-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #04070c;
+  color: #e5e7eb;
+  font-family: inherit;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding-bottom: 90px;
+}
+
+/* Subtle background grid */
+.about-page-wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 160, 23, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 160, 23, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   1. HERO BANNER
+   ============================================================ */
+.about-hero-section {
+  position: relative;
+  z-index: 1;
+  padding: 36px 20px 32px;
+  background: radial-gradient(circle at 50% 20%, #151e2e 0%, #0c111a 60%, #04070c 100%);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+  text-align: center;
+}
+
+.about-hero-inner {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.about-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  color: #fde047;
+  font-size: 12.5px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+}
+
+.about-back-btn:hover {
+  background: rgba(212, 160, 23, 0.2);
+  border-color: #fde047;
+  transform: translateY(-2px);
+}
+
+.about-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #fde047;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.badge-glow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: 0 0 8px #fde047;
+}
+
+.about-hero-title {
+  font-size: clamp(24px, 4.2vw, 42px);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 12px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.about-gold-glow {
+  background: linear-gradient(135deg, #ffffff 0%, #fde047 50%, #d4a017 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 25px rgba(212, 160, 23, 0.35);
+}
+
+.about-hero-subtitle {
+  font-size: clamp(13.5px, 1.6vw, 16px);
+  color: #9ca3af;
+  line-height: 1.65;
+  margin: 0 auto;
+  max-width: 680px;
+}
+
+/* ============================================================
+   2. MAIN CONTAINER & STORY SPLIT
+   ============================================================ */
+.about-story-section {
+  position: relative;
+  z-index: 1;
+  padding: 40px 20px 60px;
+}
+
+.about-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.about-story-grid {
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: 28px;
+  align-items: stretch;
+  margin-bottom: 50px;
+}
+
+/* 3D Visual Display Card */
+.about-3d-display-card {
+  background: linear-gradient(160deg, #111724 0%, #080c13 100%);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: 22px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 160, 23, 0.08);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.card-top-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #fde047;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  padding: 4px 10px;
+  border-radius: 6px;
+  align-self: flex-start;
+  margin-bottom: 12px;
+}
+
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  margin-bottom: 16px;
+}
+
+.about-3d-crest-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+.about-crest-footer {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about-crest-footer h3 {
+  margin: 0 0 2px;
+  font-size: 17px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.about-crest-footer p {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #d4a017;
+}
+
+.crest-stats-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+}
+
+.c-stat {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 160, 23, 0.15);
+  padding: 8px 12px;
+  border-radius: 10px;
+  flex: 1;
+}
+
+.c-stat strong {
+  font-size: 13px;
+  font-weight: 900;
+  color: #fde047;
+}
+
+.c-stat span {
+  font-size: 10px;
+  color: #9ca3af;
+}
+
+/* Narrative Card */
+.about-narrative-card {
+  background: linear-gradient(170deg, #111724 0%, #080c13 100%);
+  border: 1px solid rgba(212, 160, 23, 0.22);
+  border-radius: 22px;
+  padding: 32px 30px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.narrative-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d4a017;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.about-narrative-card h2 {
+  font-size: clamp(22px, 2.5vw, 28px);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+}
+
+.narrative-lead {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #fde047;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.narrative-body-text p {
+  font-size: 13.5px;
+  color: #cbd5e1;
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+.narrative-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 16px 0 24px;
+}
+
+.highlight-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 160, 23, 0.18);
+  padding: 10px 14px;
+  border-radius: 12px;
+}
+
+.h-icon {
+  font-size: 20px;
+}
+
+.highlight-pill strong {
+  display: block;
+  font-size: 13px;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.highlight-pill small {
+  display: block;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.narrative-cta-row {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.about-primary-btn {
+  background: linear-gradient(135deg, #fde047 0%, #d4a017 50%, #b8860b 100%);
+  color: #06090e;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  padding: 12px 22px;
+  border-radius: 11px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(212, 160, 23, 0.35);
+}
+
+.about-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 160, 23, 0.55);
+}
+
+.about-secondary-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  color: #fde047;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 12px 20px;
+  border-radius: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.about-secondary-btn:hover {
+  background: rgba(212, 160, 23, 0.15);
+  border-color: #fde047;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   3. 4 CORE PILLARS SECTION
+   ============================================================ */
+.about-pillars-section {
+  margin-bottom: 50px;
+}
+
+.pillars-header-center {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.pillars-header-center h2 {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 4px 0 6px;
+}
+
+.pillars-header-center p {
+  font-size: 13.5px;
+  color: #9ca3af;
+  margin: 0 auto;
+  max-width: 580px;
+}
+
+.pillars-4-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.about-pillar-box {
+  background: linear-gradient(160deg, #111724 0%, #090d15 100%);
+  border: 1px solid rgba(212, 160, 23, 0.2);
+  border-radius: 18px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.about-pillar-box:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 160, 23, 0.5);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 160, 23, 0.12);
+}
+
+.p-icon-box {
+  font-size: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.p-num {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #fde047;
+  background: rgba(10, 14, 22, 0.8);
+  border: 1px solid rgba(212, 160, 23, 0.25);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.about-pillar-box h3 {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 8px;
+  letter-spacing: -0.2px;
+}
+
+.about-pillar-box p {
+  font-size: 12.5px;
+  color: #9ca3af;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================================
+   4. VENUES SHOWCASE SECTION
+   ============================================================ */
+.about-venues-section {
+  background: linear-gradient(170deg, #111724 0%, #080c13 100%);
+  border: 1px solid rgba(212, 160, 23, 0.22);
+  border-radius: 22px;
+  padding: 36px 30px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+}
+
+.about-venues-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.venue-detail-box {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(212, 160, 23, 0.25);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.venue-detail-box:hover {
+  border-color: rgba(212, 160, 23, 0.5);
+  background: rgba(212, 160, 23, 0.04);
+}
+
+.venue-detail-box.arena-box {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.venue-detail-box.arena-box:hover {
+  border-color: rgba(16, 185, 129, 0.55);
+}
+
+.v-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  align-self: flex-start;
+  margin-bottom: 8px;
+}
+
+.gold-tag {
+  color: #fde047;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+}
+
+.green-tag {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.venue-detail-box h3 {
+  font-size: 19px;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+
+.v-addr {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin: 0 0 14px;
+}
+
+.v-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.v-bullets span {
+  font-size: 12.5px;
+  color: #9ca3af;
+  line-height: 1.45;
+}
+
+.v-action-btn {
+  background: linear-gradient(135deg, #fde047 0%, #d4a017 100%);
+  color: #06090e;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.v-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(212, 160, 23, 0.4);
+}
+
+.v-action-btn.arena-btn {
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+  color: #ffffff;
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS (TABLET & MOBILE)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .about-story-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pillars-4-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-hero-section {
+    padding: 24px 16px 20px;
+  }
+
+  .about-story-section {
+    padding: 20px 14px 60px;
+  }
+
+  .about-3d-display-card {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .canvas-wrapper {
+    height: 240px;
+  }
+
+  .about-narrative-card {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+
+  .narrative-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pillars-4-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .about-venues-section {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+
+  .about-venues-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .v-action-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

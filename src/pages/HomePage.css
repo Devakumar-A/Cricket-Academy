@@ -1,0 +1,369 @@
+.mg-home-landing {
+  background: #04070c;
+  color: #e5e7eb;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.home-section-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* SECTION TITLES & HEADINGS */
+.section-heading-center {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 42px;
+  padding: 0 10px;
+}
+
+.section-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: #d4a017;
+  text-transform: uppercase;
+  background: rgba(212, 160, 23, 0.1);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  margin: 0 0 14px;
+  line-height: 1.15;
+}
+
+.section-subtitle {
+  font-size: 15px;
+  color: #9ca3af;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fde047 0%, #d4a017 50%, #b8860b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 3. ABOUT SECTION — COMPACT */
+.mg-about-preview-section {
+  padding: 80px 0;
+  background: linear-gradient(180deg, #04070c 0%, #0c101a 100%);
+  width: 100%;
+}
+
+.about-compact-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.about-lead {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #cbd5e1;
+  margin: 0 0 24px;
+}
+
+.about-compact-points {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.compact-point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 14px 16px;
+  border-radius: 14px;
+}
+
+.point-icon {
+  font-size: 20px;
+  background: rgba(212, 160, 23, 0.12);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.compact-point-item strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.compact-point-item p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+.about-explore-btn {
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #0c0f17;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 13px 26px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.3);
+}
+
+.about-explore-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 160, 23, 0.45);
+}
+
+.about-compact-card {
+  background: linear-gradient(180deg, #131822 0%, #0d1117 100%);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  border-radius: 22px;
+  padding: 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+}
+
+.card-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d4a017;
+  background: rgba(212, 160, 23, 0.12);
+  padding: 4px 12px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.about-emblem-slot {
+  text-align: center;
+  padding: 24px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 20px;
+}
+
+.big-emblem {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.about-emblem-slot h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  color: #fff;
+}
+
+.about-emblem-slot p {
+  margin: 0;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.card-quick-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.qm-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.qm-box span {
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  color: #9ca3af;
+  letter-spacing: 1px;
+}
+
+.qm-box strong {
+  display: block;
+  font-size: 13px;
+  color: #d4a017;
+  margin-top: 4px;
+}
+
+/* 8. TURF CTA BANNER */
+.mg-turf-cta-section {
+  padding: 60px 0;
+  background: linear-gradient(180deg, #04070c 0%, #0d121c 100%);
+  width: 100%;
+}
+
+.turf-cta-box {
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.15) 0%, rgba(16, 185, 129, 0.08) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.4);
+  border-radius: 22px;
+  padding: 42px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+}
+
+.turf-cta-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #34d399;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.turf-cta-text h2 {
+  margin: 0 0 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.turf-cta-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+.turf-cta-btn {
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #0c0f17;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 15px 30px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 25px rgba(212, 160, 23, 0.35);
+  white-space: nowrap;
+}
+
+.turf-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(212, 160, 23, 0.55);
+}
+
+/* 9. CONTACT CTA SECTION */
+.mg-contact-cta-section {
+  padding: 60px 0 80px;
+  background: #04070c;
+  width: 100%;
+}
+
+.contact-cta-box {
+  background: linear-gradient(180deg, #131822 0%, #0d1117 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  padding: 40px 24px;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.contact-cta-box h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 10px;
+}
+
+.contact-cta-box p {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0 0 24px;
+}
+
+.contact-main-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(212, 160, 23, 0.4);
+  color: #d4a017;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 13px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contact-main-btn:hover {
+  background: #d4a017;
+  color: #0c0f17;
+  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.35);
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1080px) {
+  .about-compact-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .mg-about-preview-section {
+    padding: 50px 0;
+  }
+  .about-lead {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .compact-point-item {
+    padding: 10px 12px;
+  }
+  .turf-cta-box {
+    padding: 28px 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .turf-cta-btn {
+    width: 100%;
+  }
+  .contact-cta-box {
+    padding: 28px 16px;
+  }
+}
