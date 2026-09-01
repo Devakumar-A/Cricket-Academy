@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { jsPDF } from "jspdf";
 import { supabase } from "../lib/supabase";
+import { generateAdmissionPDF, calculateAge, formatDate } from "../lib/admissionPdfGenerator";
 import "./Dashboard.css";
 
 function DashboardPage({ user, onBack, onNavigate }) {
@@ -77,7 +77,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
           }
           return {
             ...admission,
-            signed_photo_url: signedPhotoUrl
+            signed_photo_url: signedPhotoUrl || admission.photo_url || null
           };
         })
       );
@@ -106,20 +106,11 @@ function DashboardPage({ user, onBack, onNavigate }) {
     });
   }
 
-  function formatDate(date) {
-    if (!date) return "-";
-    return new Date(date + "T00:00:00").toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric"
-    });
-  }
-
   async function getSignedPhotoUrl(photoPath) {
     if (!photoPath) return null;
     try {
-      // If already a full public or signed URL
-      if (photoPath.startsWith("http://") || photoPath.startsWith("https://")) {
+      // If already a full public or signed URL or base64
+      if (photoPath.startsWith("http://") || photoPath.startsWith("https://") || photoPath.startsWith("data:")) {
         return photoPath;
       }
 
@@ -136,7 +127,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
 
       const { data, error } = await supabase.storage
         .from(bucket)
-        .createSignedUrl(filePath, 60 * 60);
+        .createSignedUrl(filePath, 60 * 60 * 24);
 
       if (!error && data?.signedUrl) {
         return data.signedUrl;
@@ -155,146 +146,17 @@ function DashboardPage({ user, onBack, onNavigate }) {
   }
 
   // --------------------------------------------------
-  // DOWNLOAD ADMISSION PDF
+  // DOWNLOAD OFFICIAL EXECUTIVE ADMISSION PDF
   // --------------------------------------------------
   async function downloadAdmissionPDF(admission) {
     setPdfLoading(admission.id);
-
     try {
-      const doc = new jsPDF();
-      const pageWidth = doc.internal.pageSize.getWidth();
-      let y = 20;
-
-      // Header
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(20);
-      doc.text("MG CRICKETER'S DEN", pageWidth / 2, y, { align: "center" });
-
-      y += 8;
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "normal");
-      doc.text("OFFICIAL ACADEMY ADMISSION APPLICATION", pageWidth / 2, y, { align: "center" });
-
-      y += 12;
-      doc.setDrawColor(212, 160, 23);
-      doc.line(15, y, pageWidth - 15, y);
-
-      y += 10;
-
-      // Photo
-      let photoUrl = admission.signed_photo_url;
-      if (!photoUrl && admission.photo_url) {
-        photoUrl = await getSignedPhotoUrl(admission.photo_url);
-      }
-
-      if (photoUrl) {
-        try {
-          const response = await fetch(photoUrl);
-          if (response.ok) {
-            const blob = await response.blob();
-            const reader = new FileReader();
-            const imageData = await new Promise((resolve, reject) => {
-              reader.onloadend = () => resolve(reader.result);
-              reader.onerror = reject;
-              reader.readAsDataURL(blob);
-            });
-
-            const imageFormat = blob.type?.toLowerCase().includes("png") ? "PNG" : "JPEG";
-            doc.addImage(imageData, imageFormat, pageWidth - 55, y, 35, 42);
-          }
-        } catch (photoError) {
-          console.warn("Could not load photo for PDF:", photoError);
-        }
-      }
-
-      // Student Details
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(13);
-      doc.text("Student Details", 15, y);
-      y += 8;
-
-      doc.setFontSize(10);
-      const studentDetails = [
-        ["Full Name", admission.full_name],
-        ["Date of Birth", formatDate(admission.dob)],
-        ["Gender", admission.gender],
-        ["Blood Group", admission.blood_group],
-        ["Aadhaar Number", admission.aadhaar_number]
-      ];
-
-      studentDetails.forEach(([label, value]) => {
-        doc.setFont("helvetica", "bold");
-        doc.text(`${label}:`, 15, y);
-        doc.setFont("helvetica", "normal");
-        doc.text(String(value || "-"), 55, y);
-        y += 6;
+      await generateAdmissionPDF({
+        admission,
+        photoDataOrUrl: admission.signed_photo_url || admission.photo_url,
       });
-
-      y += 5;
-
-      // Parent Details
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(13);
-      doc.text("Parent / Guardian Details", 15, y);
-      y += 8;
-
-      const parentName =
-        admission.parent_type === "Guardian"
-          ? admission.guardian_name
-          : `Father: ${admission.father_name || "-"} | Mother: ${admission.mother_name || "-"}`;
-
-      const parentDetails = [
-        ["Type", admission.parent_type],
-        ["Name", parentName],
-        ["Phone", admission.phone],
-        ["WhatsApp", admission.whatsapp],
-        ["Address", admission.address]
-      ];
-
-      parentDetails.forEach(([label, value]) => {
-        doc.setFont("helvetica", "bold");
-        doc.text(`${label}:`, 15, y);
-        doc.setFont("helvetica", "normal");
-        const text = String(value || "-");
-        const lines = doc.splitTextToSize(text, 130);
-        doc.text(lines, 55, y);
-        y += Math.max(6, lines.length * 5);
-      });
-
-      y += 5;
-
-      // Cricket Details
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(13);
-      doc.text("Cricket Training Profile", 15, y);
-      y += 8;
-
-      const cricketDetails = [
-        ["Playing Category", admission.playing_category],
-        ["Batting Style", admission.batting_style],
-        ["Bowling Style", admission.bowling_style],
-        ["Batch Selected", admission.batch_name],
-        ["Joining Date", formatDate(admission.joining_date)],
-        ["Fee Status", `INR ${admission.fee_amount || "-"} (${admission.status || "Submitted"})`]
-      ];
-
-      cricketDetails.forEach(([label, value]) => {
-        doc.setFont("helvetica", "bold");
-        doc.text(`${label}:`, 15, y);
-        doc.setFont("helvetica", "normal");
-        doc.text(String(value || "-"), 55, y);
-        y += 6;
-      });
-
-      // Footer notice
-      y += 12;
-      doc.setFontSize(8);
-      doc.setTextColor(120, 120, 120);
-      doc.text("MG Cricketer's Den • Puducherry • Contact: +91 83008 79748 • mgcricketersden@gmail.com", pageWidth / 2, y, { align: "center" });
-
-      doc.save(`MG_Admission_${admission.full_name?.replace(/\s+/g, "_") || "Application"}.pdf`);
     } catch (err) {
-      console.error("PDF generation failed:", err);
+      console.error("PDF GENERATION ERROR:", err);
     } finally {
       setPdfLoading(null);
     }
@@ -573,10 +435,22 @@ function DashboardPage({ user, onBack, onNavigate }) {
                             src={admission.signed_photo_url}
                             alt={admission.full_name}
                             className="adm-student-photo"
+                            onError={(e) => {
+                              e.currentTarget.style.display = "none";
+                              if (e.currentTarget.nextSibling) {
+                                e.currentTarget.nextSibling.style.display = "flex";
+                              }
+                            }}
                           />
-                        ) : (
-                          <div className="adm-photo-fallback">👤</div>
-                        )}
+                        ) : null}
+                        <div
+                          className="adm-photo-fallback"
+                          style={{ display: admission.signed_photo_url ? "none" : "flex" }}
+                        >
+                          <svg viewBox="0 0 24 24" className="adm-fallback-svg" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                        </div>
 
                         <div className="adm-info">
                           <h4>{admission.full_name}</h4>
@@ -586,6 +460,9 @@ function DashboardPage({ user, onBack, onNavigate }) {
                           <div className="adm-sub-details">
                             <span>🏏 {admission.playing_category || "Cricket Trainee"}</span>
                             <span>🗓️ Joining: {formatDate(admission.joining_date)}</span>
+                            {calculateAge(admission.dob) ? (
+                              <span>🎂 Age: {calculateAge(admission.dob)} Yrs</span>
+                            ) : null}
                             <span>💰 Fee: ₹{admission.fee_amount || "Standard"}</span>
                           </div>
                         </div>
@@ -605,7 +482,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
                           {pdfLoading === admission.id ? (
                             "⏳ Generating PDF..."
                           ) : (
-                            "📄 Download Application PDF"
+                            "📄 Download Official PDF"
                           )}
                         </button>
                       </div>

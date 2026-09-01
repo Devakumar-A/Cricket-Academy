@@ -427,6 +427,30 @@
   cursor: default;
 }
 
+.adm-age-calc-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.adm-age-calc-wrapper .adm-readonly-input {
+  padding-right: 92px;
+}
+
+.adm-age-badge-pill {
+  position: absolute;
+  right: 8px;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #34d399;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
 /* TOGGLES */
 .adm-type-toggle-row {
   display: flex;
