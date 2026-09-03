@@ -1,6 +1,6 @@
 import HeroVideoBackground from "../components/HeroVideoBackground";
 import FacilitiesSection from "../components/FacilitiesSection";
-import About3DCard from "../components/About3DCard";
+import SponsorsSection from "../components/SponsorsSection";
 import WhyChooseUs from "../components/WhyChooseUs";
 import CoachesHomePreview from "../components/CoachesHomePreview";
 import PlayerStatsCarousel from "../components/PlayerStatsCarousel";
@@ -54,52 +54,8 @@ function HomePage({ onSection }) {
       {/* 2. FACILITIES INTERACTIVE SECTION */}
       <FacilitiesSection onBookTurf={() => onSection("booking")} />
 
-      {/* 3. ABOUT SECTION (COMPACT PREVIEW) */}
-      <section className="mg-about-preview-section">
-        <div className="home-section-container">
-          <div className="about-compact-layout">
-            <div className="about-compact-text">
-              <span className="section-badge">ABOUT THE DEN</span>
-              <h2 className="section-title">
-                WHERE PASSION MEETS <span className="gold-gradient-text">PERFORMANCE</span>
-              </h2>
-              <p className="about-lead">
-                MG Cricketer's Den is a dedicated cricket academy in Puducherry built to give aspiring
-                players the best possible training environment. From grassroots fundamentals to match-ready
-                athleticism, we develop athletes with discipline and technical clarity.
-              </p>
-
-              <div className="about-compact-points">
-                <div className="compact-point-item">
-                  <span className="point-icon">🎯</span>
-                  <div>
-                    <strong>Focused Coaching System</strong>
-                    <p>Technique correction, video review, and tactical decision-making.</p>
-                  </div>
-                </div>
-
-                <div className="compact-point-item">
-                  <span className="point-icon">🏟️</span>
-                  <div>
-                    <strong>Multiple Turf Conditions</strong>
-                    <p>Astro Turf and Natural Turf nets in Thengaithittu + Open Match Ground in Royapudupakkam.</p>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="about-explore-btn"
-                onClick={() => onSection("about")}
-              >
-                LEARN MORE ABOUT US →
-              </button>
-            </div>
-
-            <About3DCard onExplore={() => onSection("about")} />
-          </div>
-        </div>
-      </section>
+      {/* 3. OFFICIAL SPONSORS & PARTNERS SECTION */}
+      <SponsorsSection onPartnerWithUs={() => onSection("contact")} />
 
       {/* 4. WHY CHOOSE US (4-PILLARS / MOBILE TOUCH-SWIPEABLE DECK) */}
       <WhyChooseUs onExploreFacilities={() => onSection("booking")} />
