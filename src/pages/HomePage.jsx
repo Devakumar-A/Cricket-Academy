@@ -22,30 +22,82 @@ function HomePage({ onSection }) {
         }}
       />
 
-      {/* 2. ELITE TRAINING HUBS & VENUE STATUS STRIP */}
-      <section className="mg-live-action-strip" aria-label="Academy Training Venues & Operating Hours">
-        <div className="home-section-container">
-          <div className="live-strip-inner">
-            <div className="live-venue-hubs">
-              <div className="venue-hub-item">
-                <span className="hub-tag gold-tag">MAIN ACADEMY</span>
-                <span className="hub-name">MG Training Complex, Thengaithittu</span>
-                <span className="hub-desc">(Daily Coaching, Turf & Astro Nets)</span>
-              </div>
-              
-              <span className="hub-separator" aria-hidden="true">|</span>
-              
-              <div className="venue-hub-item">
-                <span className="hub-tag cyan-tag">MATCH STADIUM</span>
-                <span className="hub-name">MG Open Ground, Royapudupakkam</span>
-                <span className="hub-desc">(11v11 Match Simulations & Tournaments)</span>
-              </div>
-            </div>
+      {/* 2. LIVE FLASH NEWS & ANNOUNCEMENTS MARQUEE TICKER */}
+      <section className="mg-flash-news-ticker" aria-label="Live Academy Announcements">
+        <div className="flash-news-badge">
+          <span className="flash-live-dot" />
+          <span className="flash-badge-text">FLASH NEWS</span>
+        </div>
 
-            <div className="live-hours-pill">
-              <span className="live-pulse-dot" />
-              <span className="hours-text">Open Daily: 6:00 AM – 10:00 PM</span>
+        <div className="flash-marquee-container">
+          <div className="flash-marquee-track">
+            {/* Loop Item Set 1 */}
+            <div className="flash-news-item">
+              <span className="flash-item-icon">⚡</span>
+              <span className="flash-item-text">
+                <strong>24/7 ONLINE BOOKING:</strong> Turf & Practice Nets can be booked 24 Hours Online with Instant Slot Confirmation
+              </span>
             </div>
+            <span className="flash-item-sep">✦</span>
+
+            <div className="flash-news-item">
+              <span className="flash-item-icon">🤝</span>
+              <span className="flash-item-text">
+                <strong>SPONSORSHIP & PARTNERSHIPS:</strong> For Tournament Sponsorship & Brand Partnerships, Contact{" "}
+                <a href="tel:+918122432905" className="flash-link">+91 81224 32905</a>
+              </span>
+            </div>
+            <span className="flash-item-sep">✦</span>
+
+            <div className="flash-news-item">
+              <span className="flash-item-icon">🏏</span>
+              <span className="flash-item-text">
+                <strong>ACADEMY ADMISSIONS OPEN:</strong> Weekday & Weekend Coaching Batches Open for Junior & Senior Players
+              </span>
+            </div>
+            <span className="flash-item-sep">✦</span>
+
+            <div className="flash-news-item">
+              <span className="flash-item-icon">🏟️</span>
+              <span className="flash-item-text">
+                <strong>DUAL VENUE FACILITIES:</strong> Floodlit Astro & Natural Clay Turf Pitches at Thengaithittu & Royapudupakkam
+              </span>
+            </div>
+            <span className="flash-item-sep">✦</span>
+
+            {/* Duplicate Item Set 2 for seamless infinite loop */}
+            <div className="flash-news-item" aria-hidden="true">
+              <span className="flash-item-icon">⚡</span>
+              <span className="flash-item-text">
+                <strong>24/7 ONLINE BOOKING:</strong> Turf & Practice Nets can be booked 24 Hours Online with Instant Slot Confirmation
+              </span>
+            </div>
+            <span className="flash-item-sep" aria-hidden="true">✦</span>
+
+            <div className="flash-news-item" aria-hidden="true">
+              <span className="flash-item-icon">🤝</span>
+              <span className="flash-item-text">
+                <strong>SPONSORSHIP & PARTNERSHIPS:</strong> For Tournament Sponsorship & Brand Partnerships, Contact{" "}
+                <a href="tel:+918122432905" className="flash-link">+91 81224 32905</a>
+              </span>
+            </div>
+            <span className="flash-item-sep" aria-hidden="true">✦</span>
+
+            <div className="flash-news-item" aria-hidden="true">
+              <span className="flash-item-icon">🏏</span>
+              <span className="flash-item-text">
+                <strong>ACADEMY ADMISSIONS OPEN:</strong> Weekday & Weekend Coaching Batches Open for Junior & Senior Players
+              </span>
+            </div>
+            <span className="flash-item-sep" aria-hidden="true">✦</span>
+
+            <div className="flash-news-item" aria-hidden="true">
+              <span className="flash-item-icon">🏟️</span>
+              <span className="flash-item-text">
+                <strong>DUAL VENUE FACILITIES:</strong> Floodlit Astro & Natural Clay Turf Pitches at Thengaithittu & Royapudupakkam
+              </span>
+            </div>
+            <span className="flash-item-sep" aria-hidden="true">✦</span>
           </div>
         </div>
       </section>
