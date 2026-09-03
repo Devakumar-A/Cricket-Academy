@@ -1,11 +1,11 @@
 /* ============================================================
-   MG CRICKETER'S DEN — MINIMAL LUXURY SPONSORS / PARTNERS SECTION
-   Clean Minimalist Typography & Vector Badges | Zero Clutter
+   MG CRICKETER'S DEN — MINIMAL REAL SPONSORS / PARTNERS SECTION
+   Cognolynx Official Technology Partner | Clean Minimalist Theme
    ============================================================ */
 
 .mg-minimal-partners-section {
   width: 100%;
-  padding: 60px 0 54px;
+  padding: 58px 0 52px;
   background: #04070c;
   position: relative;
   overflow: hidden;
@@ -32,14 +32,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 38px;
+  margin-bottom: 28px;
 }
 
 .partners-accent-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .accent-line {
@@ -51,23 +51,22 @@
 .accent-icon {
   font-size: 9px;
   color: #fde047;
-  letter-spacing: 0;
   text-shadow: 0 0 8px #fde047;
 }
 
 .partners-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 900;
   letter-spacing: 4px;
   color: #ffffff;
   text-transform: uppercase;
-  margin: 0 0 6px;
+  margin: 0 0 5px;
   line-height: 1.2;
 }
 
 .partners-subtitle {
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 500;
   color: #94a3b8;
   letter-spacing: 0.5px;
@@ -75,143 +74,105 @@
 }
 
 /* -------------------------------------------------------------
-   DESKTOP DESIGN: SINGLE CLEAN HORIZONTAL ROW
+   COGNOLYNX REAL SPONSOR SHOWCASE STAGE
    ------------------------------------------------------------- */
-.partners-desktop-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1100px;
-  gap: 32px;
-  padding: 10px 0;
-}
-
-.partner-logo-item {
+.partners-showcase-stage {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-  flex-shrink: 0;
+  width: 100%;
+  max-width: 680px;
 }
 
-.partner-mark {
+.sponsor-brand-hero-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  padding: 8px 12px;
-  opacity: 0.62;
+  gap: 12px;
+  padding: 18px 36px;
+  background: rgba(13, 19, 31, 0.45);
+  border: 1px solid rgba(212, 160, 23, 0.22);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 
-.partner-brand-name {
-  font-family: 'Outfit', sans-serif;
-  font-size: 18px;
-  font-weight: 900;
-  color: #e2e8f0;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  white-space: nowrap;
+.sponsor-brand-hero-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: rgba(18, 26, 42, 0.7);
+  border-color: rgba(212, 160, 23, 0.5);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.6), 0 0 24px rgba(212, 160, 23, 0.12);
 }
 
-.partner-brand-sub {
-  font-size: 8.5px;
-  font-weight: 800;
-  color: #64748b;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-
-/* Desktop Hover Animations */
-.partner-logo-item:hover {
-  transform: scale(1.08);
-}
-
-.partner-logo-item:hover .partner-mark {
-  opacity: 1;
-}
-
-.partner-logo-item:hover .partner-brand-name {
-  color: #fde047;
-  text-shadow: 0 0 16px rgba(253, 224, 71, 0.45);
-}
-
-.partner-logo-item:hover .partner-brand-sub {
-  color: #d4a017;
-}
-
-/* -------------------------------------------------------------
-   MOBILE DESIGN: INFINITE SEAMLESS HORIZONTAL MARQUEE
-   ------------------------------------------------------------- */
-.partners-mobile-marquee-wrap {
-  display: none;
-  position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  overflow: hidden;
-  padding: 8px 0;
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-}
-
-.marquee-fade-left,
-.marquee-fade-right {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 48px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.marquee-fade-left {
-  left: 0;
-  background: linear-gradient(90deg, #04070c 0%, transparent 100%);
-}
-
-.marquee-fade-right {
-  right: 0;
-  background: linear-gradient(270deg, #04070c 0%, transparent 100%);
-}
-
-.marquee-track {
+.sponsor-logo-frame {
+  width: 100%;
+  max-width: 290px;
+  height: 72px;
   display: flex;
   align-items: center;
-  gap: 40px;
-  width: max-content;
-  animation: partnersMarqueeScroll 24s linear infinite;
-  will-change: transform;
+  justify-content: center;
 }
 
-@keyframes partnersMarqueeScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.sponsor-brand-svg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+  transition: filter 0.3s ease;
+}
+
+.sponsor-brand-hero-card:hover .sponsor-brand-svg-img {
+  filter: drop-shadow(0 0 14px rgba(253, 224, 71, 0.35));
+}
+
+.sponsor-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  transition: all 0.25s ease;
+}
+
+.sponsor-brand-hero-card:hover .sponsor-meta-pill {
+  color: #fde047;
+  border-color: rgba(212, 160, 23, 0.35);
+  background: rgba(212, 160, 23, 0.08);
+}
+
+.sponsor-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
 }
 
 /* -------------------------------------------------------------
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE BREAKPOINTS (MOBILE & TABLET)
    ------------------------------------------------------------- */
 @media (max-width: 768px) {
   .mg-minimal-partners-section {
-    padding: 44px 0 38px;
+    padding: 42px 0 36px;
   }
 
   .partners-header {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .partners-title {
-    font-size: 16px;
+    font-size: 15.5px;
     letter-spacing: 3px;
   }
 
@@ -219,44 +180,21 @@
     font-size: 11px;
   }
 
-  .partners-desktop-row {
-    display: none;
-  }
-
-  .partners-mobile-marquee-wrap {
-    display: block;
-  }
-
-  .partner-mark {
-    opacity: 0.78;
-    padding: 6px 10px;
-  }
-
-  .partner-brand-name {
-    font-size: 15px;
-    letter-spacing: 1.5px;
-  }
-
-  .partner-brand-sub {
-    font-size: 8px;
-    letter-spacing: 2px;
-  }
-}
-
-/* -------------------------------------------------------------
-   ACCESSIBILITY: REDUCED MOTION PREFERENCE
-   ------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
+  .sponsor-brand-hero-card {
+    padding: 14px 20px;
+    border-radius: 16px;
     width: 100%;
-    justify-content: flex-start;
-    padding: 0 20px;
+    box-sizing: border-box;
   }
 
-  .partner-logo-item {
-    scroll-snap-align: center;
+  .sponsor-logo-frame {
+    max-width: 250px;
+    height: 62px;
+  }
+
+  .sponsor-meta-pill {
+    font-size: 9.5px;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
   }
 }
