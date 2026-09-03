@@ -243,6 +243,11 @@
     padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   }
 
+  .hero-bg-video {
+    object-fit: cover;
+    transform: translate(-50%, -50%) scale(0.90);
+  }
+
   .hero-top-stage {
     margin-top: 2px;
   }
