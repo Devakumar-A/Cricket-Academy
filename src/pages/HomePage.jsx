@@ -10,11 +10,40 @@ import "./HomePage.css";
 function HomePage({ onSection }) {
   return (
     <main className="mg-home-landing">
-      {/* 1. HERO SECTION WITH VIDEO BACKGROUND & FLOATING 3D BRAND */}
+      {/* 1. HERO SECTION WITH UNOBSTRUCTED VIDEO LOGO SHOWCASE */}
       <HeroVideoBackground
         onBookTurf={() => onSection("booking")}
         onJoinAcademy={() => onSection("admission")}
       />
+
+      {/* QUICK HIGHLIGHTS TRANSITION BAR */}
+      <section className="mg-home-highlights-bar">
+        <div className="home-section-container">
+          <div className="home-highlights-grid">
+            <div className="home-highlight-card" onClick={() => onSection("booking")}>
+              <span className="hl-icon">🏟️</span>
+              <div className="hl-info">
+                <strong>2 PREMIUM VENUES</strong>
+                <p>Thengaithittu Nets & Royapudupakkam Ground</p>
+              </div>
+            </div>
+            <div className="home-highlight-card" onClick={() => onSection("booking")}>
+              <span className="hl-icon">🏏</span>
+              <div className="hl-info">
+                <strong>TURF & ASTRO NETS</strong>
+                <p>Pro Practice Pitches with Floodlights</p>
+              </div>
+            </div>
+            <div className="home-highlight-card" onClick={() => onSection("coaches")}>
+              <span className="hl-icon">⭐</span>
+              <div className="hl-info">
+                <strong>EXPERT COACHING</strong>
+                <p>State-Certified Mentorship & Technique Analysis</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 2. FACILITIES INTERACTIVE SECTION */}
       <FacilitiesSection onBookTurf={() => onSection("booking")} />

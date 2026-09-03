@@ -90,16 +90,16 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
       </div>
 
       {/* -------------------------------------------------------------
-          2. CINEMATIC BOTTOM-FADE GRADIENT OVERLAY
-          (Leaves the top/center video logo 100% visible & bright)
+          2. CINEMATIC GRADIENT OVERLAY
+          Keeps the top & center video lion logo 100% crystal clear
           ------------------------------------------------------------- */}
-      <div className="hero-video-overlay overlay-bottom-fade" aria-hidden="true" />
+      <div className="hero-video-overlay overlay-cinematic" aria-hidden="true" />
 
       {/* -------------------------------------------------------------
-          3. HERO CONTENT DOCKED ELEGANTLY AT THE LOWER HALF
+          3. HERO BOTTOM ACTION DOCK (UNOBSTRUCTED LOGO SHOWCASE)
           ------------------------------------------------------------- */}
       <div className="hero-content-container">
-        <div className="hero-bottom-dock">
+        <div className="hero-action-dock">
           {/* Main Hero Headline */}
           <h1 className="hero-main-heading">
             <span className="hero-heading-white">WHERE PASSION</span>
@@ -114,11 +114,6 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
             <span className="motto-sep">•</span>
             <span>IMPROVE</span>
           </div>
-
-          {/* Description */}
-          <p className="hero-description">
-            Dedicated cricket training facilities in Puducherry designed to develop skills, confidence, consistency, and match readiness.
-          </p>
 
           {/* Action CTAs */}
           <div className="hero-actions-row">
@@ -137,33 +132,6 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
             >
               JOIN THE ACADEMY →
             </button>
-          </div>
-
-          {/* Quick Highlights Bar */}
-          <div className="hero-highlights-strip">
-            <div className="highlight-item">
-              <span className="highlight-icon">🏟️</span>
-              <div>
-                <span className="highlight-val">2 VENUES</span>
-                <span className="highlight-label">Thengaithittu & Ground</span>
-              </div>
-            </div>
-            <div className="highlight-sep" />
-            <div className="highlight-item">
-              <span className="highlight-icon">🏏</span>
-              <div>
-                <span className="highlight-val">TURF & ASTRO</span>
-                <span className="highlight-label">Practice Nets</span>
-              </div>
-            </div>
-            <div className="highlight-sep" />
-            <div className="highlight-item">
-              <span className="highlight-icon">⭐</span>
-              <div>
-                <span className="highlight-val">EXPERT COACHES</span>
-                <span className="highlight-label">Pro Mentorship</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

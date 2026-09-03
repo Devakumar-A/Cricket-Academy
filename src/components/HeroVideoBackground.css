@@ -1,6 +1,6 @@
 /* ============================================================
    HERO RESPONSIVE VIDEO BACKGROUND & LOGO SHOWCASE THEME
-   Mobile & Desktop Optimized | Upper Logo Fully Visible
+   Mobile & Desktop Optimized | Unobstructed Logo Showcase
    ============================================================ */
 
 .hero-video-wrapper {
@@ -54,7 +54,7 @@
 
 /* -------------------------------------------------------------
    CINEMATIC BOTTOM-FADE GRADIENT
-   Leaves the top/center logo area completely unobstructed
+   Ensures the upper 65% of the screen is clear for the logo
    ------------------------------------------------------------- */
 .hero-video-overlay {
   position: absolute;
@@ -64,27 +64,28 @@
   pointer-events: none;
 }
 
-.overlay-bottom-fade {
+.overlay-cinematic {
   background: linear-gradient(
     180deg,
     rgba(4, 7, 12, 0.2) 0%,
-    rgba(4, 7, 12, 0.05) 30%,
-    rgba(4, 7, 12, 0.72) 62%,
-    rgba(3, 5, 8, 0.98) 100%
+    rgba(4, 7, 12, 0) 35%,
+    rgba(4, 7, 12, 0.45) 60%,
+    rgba(3, 5, 8, 0.96) 92%,
+    rgba(3, 5, 8, 1) 100%
   );
   z-index: 2;
 }
 
 /* -------------------------------------------------------------
-   HERO LOWER-THIRD CONTENT DOCK
+   HERO BOTTOM ACTION DOCK
    ------------------------------------------------------------- */
 .hero-content-container {
   position: relative;
   z-index: 10;
-  max-width: 980px;
+  max-width: 920px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px 50px;
+  padding: 0 20px 48px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -92,7 +93,7 @@
   box-sizing: border-box;
 }
 
-.hero-bottom-dock {
+.hero-action-dock {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -102,11 +103,11 @@
 
 /* Main Heading */
 .hero-main-heading {
-  font-size: clamp(30px, 4.8vw, 58px);
+  font-size: clamp(28px, 4.4vw, 52px);
   font-weight: 900;
   line-height: 1.08;
-  letter-spacing: -0.8px;
-  margin: 0 0 14px;
+  letter-spacing: -0.6px;
+  margin: 0 0 10px;
   text-transform: uppercase;
   display: flex;
   flex-direction: column;
@@ -135,28 +136,18 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-size: clamp(12px, 1.8vw, 15px);
+  font-size: clamp(11.5px, 1.6vw, 14.5px);
   font-weight: 800;
   color: #f1f5f9;
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin: 0 0 14px;
+  margin: 0 0 24px;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
 }
 
 .motto-sep {
   color: #fde047;
-  font-size: 14px;
-}
-
-/* Description */
-.hero-description {
-  font-size: clamp(13.5px, 1.5vw, 15.5px);
-  line-height: 1.7;
-  color: #cbd5e1;
-  max-width: 660px;
-  margin: 0 0 28px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+  font-size: 13px;
 }
 
 /* Action CTAs Row */
@@ -164,9 +155,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
+  gap: 16px;
   width: 100%;
 }
 
@@ -210,53 +199,6 @@
   transform: translateY(-2px);
 }
 
-/* Quick Highlights Strip */
-.hero-highlights-strip {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  width: 100%;
-  padding: 14px 20px;
-  background: rgba(8, 12, 20, 0.75);
-  border: 1px solid rgba(212, 160, 23, 0.2);
-  border-radius: 16px;
-  box-sizing: border-box;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.highlight-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-align: left;
-}
-
-.highlight-icon {
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.highlight-val {
-  display: block;
-  font-size: 12.5px;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: 0.5px;
-}
-
-.highlight-label {
-  display: block;
-  font-size: 10.5px;
-  color: #94a3b8;
-  letter-spacing: 0.2px;
-}
-
-.highlight-sep {
-  display: none;
-}
-
 /* ============================================================
    RESPONSIVE BREAKPOINTS (MOBILE & TABLET)
    ============================================================ */
@@ -272,56 +214,32 @@
   }
 
   .hero-main-heading {
-    font-size: 28px;
-    line-height: 1.1;
-    letter-spacing: -0.4px;
-    margin-bottom: 10px;
+    font-size: 22px;
+    line-height: 1.15;
+    letter-spacing: -0.3px;
+    margin-bottom: 6px;
   }
 
   .hero-motto-row {
-    font-size: 11px;
+    font-size: 10.5px;
     letter-spacing: 2px;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
     gap: 8px;
   }
 
-  .hero-description {
-    font-size: 12.5px;
-    line-height: 1.55;
-    margin-bottom: 20px;
-  }
-
   .hero-actions-row {
-    flex-direction: column;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-bottom: 18px;
+    width: 100%;
   }
 
   .hero-cta-btn {
     width: 100%;
-    padding: 13.5px 18px;
-    font-size: 12.5px;
-  }
-
-  .hero-highlights-strip {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 12px 12px;
-    border-radius: 12px;
-    background: rgba(8, 12, 20, 0.82);
-  }
-
-  .highlight-item {
-    justify-content: flex-start;
-    padding-left: 8px;
-  }
-
-  .highlight-val {
+    padding: 13px 10px;
     font-size: 11.5px;
-  }
-
-  .highlight-label {
-    font-size: 10px;
+    letter-spacing: 0.4px;
+    text-align: center;
+    border-radius: 10px;
   }
 }
