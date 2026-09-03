@@ -1,15 +1,15 @@
 /* ============================================================
-   HERO RESPONSIVE VIDEO BACKGROUND & LUXURY OBSIDIAN GLASS THEME
-   Mobile & Desktop Optimized | High Contrast & Ultra Legible
+   HERO RESPONSIVE VIDEO BACKGROUND & LOGO SHOWCASE THEME
+   Mobile & Desktop Optimized | Upper Logo Fully Visible
    ============================================================ */
 
 .hero-video-wrapper {
   position: relative;
   width: 100%;
-  min-height: 94vh;
-  min-height: 94svh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   overflow: hidden;
   background: #04070c;
@@ -17,7 +17,7 @@
 }
 
 /* -------------------------------------------------------------
-   RESPONSIVE VIDEO BACKGROUND CONTAINER & VIDEO
+   RESPONSIVE VIDEO BACKGROUND (FULL BRIGHTNESS FOR LOGO)
    ------------------------------------------------------------- */
 .hero-video-container {
   position: absolute;
@@ -42,18 +42,19 @@
   object-position: center center;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.78;
+  opacity: 0.95;
   transition: opacity 0.6s ease;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
 .hero-bg-video.is-loaded {
-  opacity: 0.85;
+  opacity: 1;
 }
 
 /* -------------------------------------------------------------
-   LUXURY CINEMATIC CONTRAST OVERLAYS
+   CINEMATIC BOTTOM-FADE GRADIENT
+   Leaves the top/center logo area completely unobstructed
    ------------------------------------------------------------- */
 .hero-video-overlay {
   position: absolute;
@@ -63,36 +64,27 @@
   pointer-events: none;
 }
 
-.overlay-dark-gradient {
+.overlay-bottom-fade {
   background: linear-gradient(
     180deg,
-    rgba(4, 7, 12, 0.75) 0%,
-    rgba(4, 7, 12, 0.45) 40%,
-    rgba(3, 5, 8, 0.94) 100%
+    rgba(4, 7, 12, 0.2) 0%,
+    rgba(4, 7, 12, 0.05) 30%,
+    rgba(4, 7, 12, 0.72) 62%,
+    rgba(3, 5, 8, 0.98) 100%
   );
   z-index: 2;
 }
 
-.overlay-center-shield {
-  background: radial-gradient(
-    ellipse at 50% 48%,
-    rgba(4, 7, 12, 0.6) 0%,
-    rgba(4, 7, 12, 0.25) 50%,
-    transparent 80%
-  );
-  z-index: 3;
-}
-
 /* -------------------------------------------------------------
-   HERO CENTRAL CONTENT CONTAINER
+   HERO LOWER-THIRD CONTENT DOCK
    ------------------------------------------------------------- */
 .hero-content-container {
   position: relative;
   z-index: 10;
-  max-width: 960px;
+  max-width: 980px;
   width: 100%;
   margin: 0 auto;
-  padding: 105px 20px 65px;
+  padding: 0 20px 50px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -100,70 +92,21 @@
   box-sizing: border-box;
 }
 
-/* -------------------------------------------------------------
-   OBSIDIAN GLASS CARD STAGE
-   Provides crisp separation from dynamic gold background video
-   ------------------------------------------------------------- */
-.hero-glass-card {
+.hero-bottom-dock {
   width: 100%;
-  background: rgba(8, 12, 20, 0.72);
-  border: 1px solid rgba(212, 160, 23, 0.28);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 160, 23, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 28px;
-  padding: 44px 36px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  animation: heroCardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes heroCardEntrance {
-  0% { opacity: 0; transform: translateY(18px) scale(0.98); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Badge Pill */
-.hero-badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  background: rgba(212, 160, 23, 0.12);
-  border: 1px solid rgba(212, 160, 23, 0.45);
-  box-shadow: 0 4px 16px rgba(212, 160, 23, 0.15);
-  padding: 7px 20px;
-  border-radius: 30px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2.5px;
-  color: #fde047;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #fde047;
-  box-shadow: 0 0 12px #fde047;
-  animation: badgeGlowPulse 1.8s infinite;
-}
-
-@keyframes badgeGlowPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.6; }
 }
 
 /* Main Heading */
 .hero-main-heading {
-  font-size: clamp(32px, 5.2vw, 64px);
+  font-size: clamp(30px, 4.8vw, 58px);
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: -0.8px;
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   text-transform: uppercase;
   display: flex;
   flex-direction: column;
@@ -174,7 +117,7 @@
 .hero-heading-white {
   color: #ffffff;
   display: block;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.98), 0 2px 10px rgba(0, 0, 0, 0.9);
 }
 
 /* High-Contrast 24K Gold Text */
@@ -184,7 +127,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: block;
-  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.95));
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.98));
 }
 
 /* Motto Row */
@@ -192,13 +135,13 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-size: clamp(12px, 1.8vw, 16px);
+  font-size: clamp(12px, 1.8vw, 15px);
   font-weight: 800;
   color: #f1f5f9;
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin: 0 0 16px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  margin: 0 0 14px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
 }
 
 .motto-sep {
@@ -208,12 +151,12 @@
 
 /* Description */
 .hero-description {
-  font-size: clamp(13.5px, 1.5vw, 16px);
-  line-height: 1.75;
+  font-size: clamp(13.5px, 1.5vw, 15.5px);
+  line-height: 1.7;
   color: #cbd5e1;
-  max-width: 650px;
-  margin: 0 0 32px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  max-width: 660px;
+  margin: 0 0 28px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
 }
 
 /* Action CTAs Row */
@@ -223,7 +166,7 @@
   justify-content: center;
   gap: 18px;
   flex-wrap: wrap;
-  margin-bottom: 36px;
+  margin-bottom: 30px;
   width: 100%;
 }
 
@@ -231,7 +174,7 @@
   font-weight: 900;
   font-size: 13.5px;
   letter-spacing: 1px;
-  padding: 15px 34px;
+  padding: 15px 36px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -252,14 +195,16 @@
 }
 
 .hero-cta-btn.btn-secondary {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(212, 160, 23, 0.5);
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(212, 160, 23, 0.55);
   color: #ffffff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .hero-cta-btn.btn-secondary:hover {
-  background: rgba(212, 160, 23, 0.18);
+  background: rgba(212, 160, 23, 0.2);
   color: #fde047;
   border-color: #fde047;
   transform: translateY(-2px);
@@ -271,11 +216,13 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   width: 100%;
-  padding: 16px 20px;
-  background: rgba(4, 7, 12, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 20px;
+  background: rgba(8, 12, 20, 0.75);
+  border: 1px solid rgba(212, 160, 23, 0.2);
   border-radius: 16px;
   box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .highlight-item {
@@ -315,67 +262,54 @@
    ============================================================ */
 @media (max-width: 768px) {
   .hero-video-wrapper {
-    min-height: 92vh;
-    min-height: 92svh;
-    padding: 16px 0 32px;
+    min-height: 100vh;
+    min-height: 100svh;
+    align-items: flex-end;
   }
 
   .hero-content-container {
-    padding: 85px 14px 30px;
-  }
-
-  .hero-glass-card {
-    padding: 28px 16px 22px;
-    border-radius: 20px;
-    background: rgba(8, 12, 20, 0.82);
-    border-color: rgba(212, 160, 23, 0.35);
-  }
-
-  .hero-badge-pill {
-    padding: 5px 14px;
-    font-size: 9.5px;
-    letter-spacing: 1.8px;
-    margin-bottom: 14px;
+    padding: 0 14px 28px;
   }
 
   .hero-main-heading {
-    font-size: 30px;
+    font-size: 28px;
     line-height: 1.1;
     letter-spacing: -0.4px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .hero-motto-row {
     font-size: 11px;
     letter-spacing: 2px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     gap: 8px;
   }
 
   .hero-description {
     font-size: 12.5px;
-    line-height: 1.6;
-    margin-bottom: 24px;
+    line-height: 1.55;
+    margin-bottom: 20px;
   }
 
   .hero-actions-row {
     flex-direction: column;
     width: 100%;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
 
   .hero-cta-btn {
     width: 100%;
-    padding: 14px 18px;
+    padding: 13.5px 18px;
     font-size: 12.5px;
   }
 
   .hero-highlights-strip {
     grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 14px 12px;
+    gap: 10px;
+    padding: 12px 12px;
     border-radius: 12px;
+    background: rgba(8, 12, 20, 0.82);
   }
 
   .highlight-item {

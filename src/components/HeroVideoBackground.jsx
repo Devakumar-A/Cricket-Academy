@@ -90,22 +90,16 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
       </div>
 
       {/* -------------------------------------------------------------
-          2. LUXURY CINEMATIC CONTRAST OVERLAYS
+          2. CINEMATIC BOTTOM-FADE GRADIENT OVERLAY
+          (Leaves the top/center video logo 100% visible & bright)
           ------------------------------------------------------------- */}
-      <div className="hero-video-overlay overlay-dark-gradient" aria-hidden="true" />
-      <div className="hero-video-overlay overlay-center-shield" aria-hidden="true" />
+      <div className="hero-video-overlay overlay-bottom-fade" aria-hidden="true" />
 
       {/* -------------------------------------------------------------
-          3. HERO CENTRAL CONTENT IN HIGH-CONTRAST OBSIDIAN GLASS CARD
+          3. HERO CONTENT DOCKED ELEGANTLY AT THE LOWER HALF
           ------------------------------------------------------------- */}
       <div className="hero-content-container">
-        <div className="hero-glass-card">
-          {/* Top Brand Pill */}
-          <div className="hero-badge-pill">
-            <span className="badge-dot" />
-            <span>MG CRICKETER'S DEN</span>
-          </div>
-
+        <div className="hero-bottom-dock">
           {/* Main Hero Headline */}
           <h1 className="hero-main-heading">
             <span className="hero-heading-white">WHERE PASSION</span>
@@ -123,8 +117,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
 
           {/* Description */}
           <p className="hero-description">
-            MG Cricketer's Den provides dedicated cricket training facilities designed to help players
-            develop their skills, confidence, consistency, and match readiness.
+            Dedicated cricket training facilities in Puducherry designed to develop skills, confidence, consistency, and match readiness.
           </p>
 
           {/* Action CTAs */}
@@ -160,7 +153,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
               <span className="highlight-icon">🏏</span>
               <div>
                 <span className="highlight-val">TURF & ASTRO</span>
-                <span className="highlight-label">Dedicated Practice Nets</span>
+                <span className="highlight-label">Practice Nets</span>
               </div>
             </div>
             <div className="highlight-sep" />
@@ -168,7 +161,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
               <span className="highlight-icon">⭐</span>
               <div>
                 <span className="highlight-val">EXPERT COACHES</span>
-                <span className="highlight-label">Professional Mentorship</span>
+                <span className="highlight-label">Pro Mentorship</span>
               </div>
             </div>
           </div>
