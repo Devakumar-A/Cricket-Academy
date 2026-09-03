@@ -1,11 +1,11 @@
 /* ============================================================
-   MG CRICKETER'S DEN — MINIMAL REAL SPONSORS / PARTNERS SECTION
-   Cognolynx Official Technology Partner | Clean Minimalist Theme
+   MG CRICKETER'S DEN — OUR PARTNERS SECTION
+   Cognolynx (Technology Partners) & Visuorexvault (Video Editing)
    ============================================================ */
 
-.mg-minimal-partners-section {
+.mg-partners-section {
   width: 100%;
-  padding: 58px 0 52px;
+  padding: 64px 0 58px;
   background: #04070c;
   position: relative;
   overflow: hidden;
@@ -15,7 +15,7 @@
 
 .partners-container {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 24px;
   box-sizing: border-box;
@@ -26,13 +26,13 @@
 }
 
 /* -------------------------------------------------------------
-   MINIMAL SECTION HEADER
+   HEADER (TITLE & MOTTO)
    ------------------------------------------------------------- */
 .partners-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 36px;
 }
 
 .partners-accent-pill {
@@ -43,158 +43,170 @@
 }
 
 .accent-line {
-  width: 24px;
+  width: 28px;
   height: 1px;
   background: linear-gradient(90deg, transparent, #d4a017, transparent);
 }
 
 .accent-icon {
-  font-size: 9px;
+  font-size: 10px;
   color: #fde047;
   text-shadow: 0 0 8px #fde047;
 }
 
 .partners-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 900;
-  letter-spacing: 4px;
+  letter-spacing: 4.5px;
   color: #ffffff;
   text-transform: uppercase;
-  margin: 0 0 5px;
+  margin: 0 0 6px;
   line-height: 1.2;
 }
 
-.partners-subtitle {
+.partners-motto {
   font-size: 12px;
-  font-weight: 500;
-  color: #94a3b8;
-  letter-spacing: 0.5px;
+  font-weight: 800;
+  color: #d4a017;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   margin: 0;
 }
 
 /* -------------------------------------------------------------
-   COGNOLYNX REAL SPONSOR SHOWCASE STAGE
+   PARTNERS GRID SHOWCASE (2 CARDS)
    ------------------------------------------------------------- */
-.partners-showcase-stage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.partners-grid-showcase {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
   width: 100%;
-  max-width: 680px;
+  max-width: 820px;
 }
 
-.sponsor-brand-hero-card {
+.partner-item-card {
+  background: rgba(13, 19, 31, 0.55);
+  border: 1px solid rgba(212, 160, 23, 0.22);
+  border-radius: 20px;
+  padding: 24px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 18px 36px;
-  background: rgba(13, 19, 31, 0.45);
-  border: 1px solid rgba(212, 160, 23, 0.22);
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  gap: 16px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
+  box-sizing: border-box;
 }
 
-.sponsor-brand-hero-card:hover {
-  transform: translateY(-3px) scale(1.02);
-  background: rgba(18, 26, 42, 0.7);
-  border-color: rgba(212, 160, 23, 0.5);
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.6), 0 0 24px rgba(212, 160, 23, 0.12);
+.partner-item-card:hover {
+  transform: translateY(-4px);
+  background: rgba(18, 26, 42, 0.8);
+  border-color: rgba(212, 160, 23, 0.55);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.6), 0 0 24px rgba(212, 160, 23, 0.12);
 }
 
-.sponsor-logo-frame {
+/* Logo Image Container */
+.partner-logo-box {
   width: 100%;
-  max-width: 290px;
-  height: 72px;
+  max-width: 260px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.sponsor-brand-svg-img {
-  width: 100%;
-  height: 100%;
+.partner-logo-img {
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
-  transition: filter 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
 
-.sponsor-brand-hero-card:hover .sponsor-brand-svg-img {
-  filter: drop-shadow(0 0 14px rgba(253, 224, 71, 0.35));
+.partner-item-card:hover .partner-logo-img {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 12px rgba(253, 224, 71, 0.3));
 }
 
-.sponsor-meta-pill {
-  display: inline-flex;
+/* Partner Info & Specification */
+.partner-info-box {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #94a3b8;
-  letter-spacing: 0.8px;
+  gap: 6px;
+}
+
+.partner-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  padding: 4px 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin: 0;
+}
+
+.partner-spec-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 14px;
   border-radius: 20px;
-  transition: all 0.25s ease;
-}
-
-.sponsor-brand-hero-card:hover .sponsor-meta-pill {
-  color: #fde047;
-  border-color: rgba(212, 160, 23, 0.35);
-  background: rgba(212, 160, 23, 0.08);
-}
-
-.sponsor-live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
+  border: 1px solid;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 /* -------------------------------------------------------------
    RESPONSIVE BREAKPOINTS (MOBILE & TABLET)
    ------------------------------------------------------------- */
 @media (max-width: 768px) {
-  .mg-minimal-partners-section {
-    padding: 42px 0 36px;
+  .mg-partners-section {
+    padding: 44px 0 38px;
   }
 
   .partners-header {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .partners-title {
-    font-size: 15.5px;
+    font-size: 17px;
     letter-spacing: 3px;
   }
 
-  .partners-subtitle {
-    font-size: 11px;
+  .partners-motto {
+    font-size: 10.5px;
+    letter-spacing: 2px;
   }
 
-  .sponsor-brand-hero-card {
-    padding: 14px 20px;
+  .partners-grid-showcase {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    max-width: 380px;
+  }
+
+  .partner-item-card {
+    padding: 18px 20px;
     border-radius: 16px;
-    width: 100%;
-    box-sizing: border-box;
+    gap: 12px;
   }
 
-  .sponsor-logo-frame {
-    max-width: 250px;
-    height: 62px;
+  .partner-logo-box {
+    height: 56px;
+    max-width: 220px;
   }
 
-  .sponsor-meta-pill {
-    font-size: 9.5px;
-    letter-spacing: 0.5px;
+  .partner-name {
+    font-size: 15.5px;
+  }
+
+  .partner-spec-badge {
+    font-size: 10px;
+    letter-spacing: 1px;
     padding: 3px 10px;
   }
 }
