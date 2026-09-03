@@ -5,19 +5,19 @@ const coachesList = [
   {
     id: "george-samuel",
     name: "George Samuel",
-    role: "HEAD CRICKET COACH",
+    role: "COACH",
     image: "/coaches/george-samuel.jpg",
   },
   {
     id: "tharun",
     name: "Tharun",
-    role: "CRICKET COACH",
+    role: "COACH",
     image: "/coaches/tharun.png",
   },
   {
     id: "antony",
     name: "Antony",
-    role: "CRICKET COACH",
+    role: "COACH",
     image: "/coaches/antony.png",
   },
 ];

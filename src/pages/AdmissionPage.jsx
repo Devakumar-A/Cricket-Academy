@@ -1,23 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { sendAdmissionToWhatsApp } from "../lib/whatsappConfig";
-import jsPDF from "jspdf";
+import { generateAdmissionPDF, calculateAge, formatDate } from "../lib/admissionPdfGenerator";
 import "./AdmissionPage.css";
 
 const DECLARATION =
   "I hereby confirm that the above details are true and accurate. I agree to follow the rules, discipline, uniform code, and training instructions of MG Cricketer's Den.";
-
-function calculateAge(dob) {
-  if (!dob) return "";
-  const birth = new Date(dob);
-  const today = new Date();
-  let age = today.getFullYear() - birth.getFullYear();
-  const month = today.getMonth() - birth.getMonth();
-  if (month < 0 || (month === 0 && today.getDate() < birth.getDate())) {
-    age--;
-  }
-  return age >= 0 ? age : "";
-}
 
 function AdmissionPage({ user, onBack }) {
   const fileRef = useRef(null);
@@ -222,20 +210,44 @@ function AdmissionPage({ user, onBack }) {
       setLoading(true);
 
       // 1. Upload photo if selected
-      let photoPath = null;
+      let photoUrlToSave = null;
       if (selectedPhoto) {
-        const extension = selectedPhoto.name.split(".").pop().toLowerCase();
-        photoPath = `${user.id}/admission-${Date.now()}.${extension}`;
+        const extension = (selectedPhoto.name.split(".").pop() || "jpg").toLowerCase();
+        const photoPath = `${user.id}/admission-${Date.now()}.${extension}`;
+
+        let uploadSuccess = false;
+        let bucketUsed = "admission-photos";
 
         const { error: uploadError } = await supabase.storage
           .from("admission-photos")
           .upload(photoPath, selectedPhoto, {
-            contentType: selectedPhoto.type,
-            upsert: false,
+            contentType: selectedPhoto.type || "image/jpeg",
+            upsert: true,
           });
 
-        if (uploadError) {
-          console.warn("Photo upload warning:", uploadError);
+        if (!uploadError) {
+          uploadSuccess = true;
+        } else {
+          console.warn("admission-photos upload notice:", uploadError);
+          // Fallback try player-photos bucket
+          const { error: fbErr } = await supabase.storage
+            .from("player-photos")
+            .upload(photoPath, selectedPhoto, {
+              contentType: selectedPhoto.type || "image/jpeg",
+              upsert: true,
+            });
+          if (!fbErr) {
+            uploadSuccess = true;
+            bucketUsed = "player-photos";
+          }
+        }
+
+        if (uploadSuccess) {
+          const { data: pubData } = supabase.storage.from(bucketUsed).getPublicUrl(photoPath);
+          photoUrlToSave = pubData?.publicUrl || `${bucketUsed}/${photoPath}`;
+        } else {
+          // If storage bucket upload is not configured, save base64 directly so photo is never lost!
+          photoUrlToSave = photoPreview || null;
         }
       }
 
@@ -257,7 +269,7 @@ function AdmissionPage({ user, onBack }) {
         gender: form.gender,
         blood_group: form.blood_group,
         aadhaar_number: form.aadhaar_number.trim(),
-        photo_url: photoPath,
+        photo_url: photoUrlToSave,
 
         parent_type: dbParentType,
         father_name: form.parent_type === "Parent" ? form.father_name.trim() : null,
@@ -295,7 +307,7 @@ function AdmissionPage({ user, onBack }) {
         throw new Error(insertError.message);
       }
 
-      // 3. Trigger WhatsApp Notification
+      // 4. Trigger WhatsApp Notification
       try {
         await sendAdmissionToWhatsApp({
           fullName: admission.full_name,
@@ -310,11 +322,11 @@ function AdmissionPage({ user, onBack }) {
         console.warn("WhatsApp notification note:", waError);
       }
 
-      // 4. Generate & Download Official Admission PDF
+      // 5. Generate & Download Official Executive Admission PDF
       try {
-        await generatePDF({
+        await generateAdmissionPDF({
           admission: insertedData || admission,
-          photoData: photoPreview,
+          photoDataOrUrl: photoPreview || photoUrlToSave,
         });
       } catch (pdfError) {
         console.warn("PDF generation note:", pdfError);
@@ -362,310 +374,6 @@ function AdmissionPage({ user, onBack }) {
     } finally {
       setLoading(false);
     }
-  }
-
-  async function generatePDF({ admission, photoData }) {
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
-      format: "a4",
-    });
-
-    const pageWidth = pdf.internal.pageSize.getWidth(); // 210mm
-    const pageHeight = pdf.internal.pageSize.getHeight(); // 297mm
-    const margin = 14;
-    const contentWidth = pageWidth - margin * 2; // 182mm
-    let y = 10;
-
-    // Load official academy logo base64
-    let logoBase64 = null;
-    try {
-      const response = await fetch("/logoo.png");
-      const blob = await response.blob();
-      logoBase64 = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = () => resolve(null);
-        reader.readAsDataURL(blob);
-      });
-    } catch (e) {
-      console.warn("Could not fetch logo for PDF:", e);
-    }
-
-    // -------------------------------------------------------------
-    // 1. EXECUTIVE HEADER BANNER
-    // -------------------------------------------------------------
-    pdf.setFillColor(11, 17, 28); // Luxury Obsidian
-    pdf.roundedRect(margin, y, contentWidth, 26, 3, 3, "F");
-
-    // Gold outline
-    pdf.setDrawColor(212, 160, 23);
-    pdf.setLineWidth(0.6);
-    pdf.roundedRect(margin, y, contentWidth, 26, 3, 3, "D");
-
-    // Embed Academy Logo
-    if (logoBase64) {
-      try {
-        pdf.addImage(logoBase64, "PNG", margin + 3, y + 2.5, 21, 21);
-      } catch (err) {
-        console.warn("Logo render note:", err);
-      }
-    }
-
-    const textX = margin + (logoBase64 ? 27 : 6);
-
-    // Academy Title & Subtitles
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(15);
-    pdf.setTextColor(253, 224, 71); // 24K Gold
-    pdf.text("MG CRICKETER'S DEN", textX, y + 8);
-
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(7.5);
-    pdf.setTextColor(229, 231, 235);
-    pdf.text("OFFICIAL CRICKET ACADEMY ENROLLMENT APPLICATION", textX, y + 14);
-
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(7);
-    pdf.setTextColor(156, 163, 175);
-    pdf.text("Thengaithittu Nets & Royapudupakkam Ground, Puducherry • +91 83008 79748", textX, y + 19.5);
-
-    // Application Ref Badge (Top Right)
-    const refBoxW = 44;
-    const refBoxX = pageWidth - margin - refBoxW - 4;
-    pdf.setFillColor(21, 30, 48);
-    pdf.roundedRect(refBoxX, y + 3.5, refBoxW, 19, 2, 2, "F");
-    pdf.setDrawColor(212, 160, 23);
-    pdf.setLineWidth(0.3);
-    pdf.roundedRect(refBoxX, y + 3.5, refBoxW, 19, 2, 2, "D");
-
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(6.5);
-    pdf.setTextColor(212, 160, 23);
-    pdf.text("APPLICATION NUMBER", refBoxX + refBoxW / 2, y + 8.5, { align: "center" });
-
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(8.5);
-    pdf.setTextColor(255, 255, 255);
-    const appNumber = `MGD-${new Date().getFullYear()}-${Date.now().toString().slice(-5)}`;
-    pdf.text(appNumber, refBoxX + refBoxW / 2, y + 14, { align: "center" });
-
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(6);
-    pdf.setTextColor(148, 163, 184);
-    pdf.text(`DATE: ${new Date().toLocaleDateString("en-GB")}`, refBoxX + refBoxW / 2, y + 19, { align: "center" });
-
-    y += 31;
-
-    // -------------------------------------------------------------
-    // 2. PASSPORT PHOTO FRAME (Top Right of Body)
-    // -------------------------------------------------------------
-    const photoW = 32;
-    const photoH = 38;
-    const photoX = pageWidth - margin - photoW;
-    const photoY = y;
-
-    pdf.setFillColor(248, 250, 252);
-    pdf.roundedRect(photoX, photoY, photoW, photoH, 2, 2, "F");
-    pdf.setDrawColor(212, 160, 23);
-    pdf.setLineWidth(0.5);
-    pdf.roundedRect(photoX, photoY, photoW, photoH, 2, 2, "D");
-
-    if (photoData) {
-      try {
-        pdf.addImage(photoData, "JPEG", photoX + 1, photoY + 1, photoW - 2, photoH - 2);
-      } catch (err) {
-        console.warn("Photo render note:", err);
-      }
-    } else {
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(6.5);
-      pdf.setTextColor(156, 163, 175);
-      pdf.text("PASSPORT PHOTO", photoX + photoW / 2, photoY + 18, { align: "center" });
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(5.5);
-      pdf.text("(Affixed / Digital)", photoX + photoW / 2, photoY + 23, { align: "center" });
-    }
-
-    // Helper functions for structured sections
-    function drawSectionHeader(title, width = contentWidth) {
-      pdf.setFillColor(15, 23, 42); // Navy slate
-      pdf.roundedRect(margin, y, width, 6.5, 1.5, 1.5, "F");
-
-      // Left gold accent tag
-      pdf.setFillColor(212, 160, 23);
-      pdf.rect(margin, y, 2.5, 6.5, "F");
-
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(8.5);
-      pdf.setTextColor(253, 224, 71); // Gold
-      pdf.text(title, margin + 6, y + 4.6);
-      y += 8.5;
-    }
-
-    function drawGridRow(label1, val1, label2, val2, customWidth = contentWidth) {
-      const colW = customWidth / 2;
-      const rowH = 5.2;
-
-      // Col 1
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(7.5);
-      pdf.setTextColor(71, 85, 105);
-      pdf.text(`${label1}:`, margin + 2, y + 3.5);
-
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(8);
-      pdf.setTextColor(15, 23, 42);
-      const text1 = val1 !== null && val1 !== undefined && val1 !== "" ? String(val1) : "—";
-      pdf.text(text1, margin + 34, y + 3.5);
-
-      // Col 2 (if present)
-      if (label2) {
-        pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(7.5);
-        pdf.setTextColor(71, 85, 105);
-        pdf.text(`${label2}:`, margin + colW + 2, y + 3.5);
-
-        pdf.setFont("helvetica", "normal");
-        pdf.setFontSize(8);
-        pdf.setTextColor(15, 23, 42);
-        const text2 = val2 !== null && val2 !== undefined && val2 !== "" ? String(val2) : "—";
-        pdf.text(text2, margin + colW + 34, y + 3.5);
-      }
-
-      // Subtle light divider line
-      pdf.setDrawColor(241, 245, 249);
-      pdf.setLineWidth(0.2);
-      pdf.line(margin + 2, y + rowH, margin + customWidth - 2, y + rowH);
-
-      y += rowH + 0.5;
-    }
-
-    // -------------------------------------------------------------
-    // SECTION 01: ATHLETE IDENTIFICATION (Beside Photo)
-    // -------------------------------------------------------------
-    const sec1Width = contentWidth - photoW - 6; // Leave space for photo
-    drawSectionHeader("1. ATHLETE IDENTIFICATION", sec1Width);
-
-    drawGridRow("Full Name", admission.full_name, null, null, sec1Width);
-    drawGridRow("Date of Birth", admission.dob, "Age", `${calculateAge(admission.dob)} Years`, sec1Width);
-    drawGridRow("Gender", admission.gender, "Blood Group", admission.blood_group, sec1Width);
-    drawGridRow("Aadhaar No.", admission.aadhaar_number, null, null, sec1Width);
-
-    y = Math.max(y + 2, photoY + photoH + 4);
-
-    // -------------------------------------------------------------
-    // SECTION 02: PARENT / GUARDIAN CONTACT DETAILS
-    // -------------------------------------------------------------
-    drawSectionHeader("2. PARENT / GUARDIAN CONTACT DETAILS");
-
-    if (admission.parent_type === "Guardian") {
-      drawGridRow("Guardian Name", admission.guardian_name, "Guardian Type", "Legal Guardian");
-    } else {
-      drawGridRow("Father Name", admission.father_name || "—", "Mother Name", admission.mother_name || "—");
-    }
-
-    drawGridRow("Occupation", admission.parent_guardian_occupation, "Primary Phone", admission.phone);
-    drawGridRow("WhatsApp No.", admission.whatsapp, "Residence", admission.address);
-    y += 2;
-
-    // -------------------------------------------------------------
-    // SECTION 03: PLAYING PROFILE & PROFICIENCY
-    // -------------------------------------------------------------
-    drawSectionHeader("3. PLAYING PROFILE & PROFICIENCY");
-
-    drawGridRow("Playing Role", admission.playing_category, "Batting Style", admission.batting_style);
-    drawGridRow("Bowling Style", admission.bowling_style, "Prev. Club/Academy", admission.previous_academy || "None");
-    drawGridRow("Experience", admission.playing_experience || "Beginner", "Medical Info", admission.medical_injury_info || "None reported");
-    y += 2;
-
-    // -------------------------------------------------------------
-    // SECTION 04: TRAINING BATCH & UNIFORM DETAILS
-    // -------------------------------------------------------------
-    drawSectionHeader("4. TRAINING BATCH & UNIFORM DETAILS");
-
-    drawGridRow("Batch Schedule", admission.batch_name, "Monthly Fee", `INR ${admission.fee_amount}`);
-    drawGridRow("Joining Date", admission.joining_date, "Jersey Size", admission.jersey_size);
-    y += 3;
-
-    // -------------------------------------------------------------
-    // SECTION 05: OFFICIAL DECLARATION & CODE OF CONDUCT
-    // -------------------------------------------------------------
-    pdf.setFillColor(248, 250, 252);
-    pdf.roundedRect(margin, y, contentWidth, 18, 2, 2, "F");
-    pdf.setDrawColor(212, 160, 23);
-    pdf.setLineWidth(0.4);
-    pdf.roundedRect(margin, y, contentWidth, 18, 2, 2, "D");
-
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(7.5);
-    pdf.setTextColor(180, 83, 9); // Dark Amber
-    pdf.text("DECLARATION & DISCIPLINE AGREEMENT:", margin + 4, y + 4.5);
-
-    pdf.setFont("helvetica", "italic");
-    pdf.setFontSize(6.8);
-    pdf.setTextColor(51, 65, 85);
-    const declLines = pdf.splitTextToSize(DECLARATION, contentWidth - 8);
-    pdf.text(declLines, margin + 4, y + 9);
-
-    y += 24;
-
-    // -------------------------------------------------------------
-    // SECTION 06: OFFICIAL SIGNATURES
-    // -------------------------------------------------------------
-    const sigW = 60;
-    const parentLabel = admission.parent_type === "Guardian" ? "Guardian Signature" : "Parent / Guardian Signature";
-
-    // Parent signature line
-    pdf.setDrawColor(148, 163, 184);
-    pdf.setLineWidth(0.5);
-    pdf.line(margin + 5, y + 10, margin + 5 + sigW, y + 10);
-
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(7.5);
-    pdf.setTextColor(30, 41, 59);
-    pdf.text(parentLabel, margin + 5, y + 14.5);
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(6.5);
-    pdf.setTextColor(100, 116, 139);
-    pdf.text(`Date: ${new Date().toLocaleDateString("en-GB")}`, margin + 5, y + 18.5);
-
-    // Academy Coach / Seal line
-    const sealX = pageWidth - margin - sigW - 5;
-    pdf.setDrawColor(148, 163, 184);
-    pdf.setLineWidth(0.5);
-    pdf.line(sealX, y + 10, sealX + sigW, y + 10);
-
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(7.5);
-    pdf.setTextColor(30, 41, 59);
-    pdf.text("Head Coach / Director Seal", sealX, y + 14.5);
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(6.5);
-    pdf.setTextColor(100, 116, 139);
-    pdf.text("MG Cricketer's Den Authority", sealX, y + 18.5);
-
-    // -------------------------------------------------------------
-    // 7. OFFICIAL FOOTER NOTE
-    // -------------------------------------------------------------
-    const footerY = pageHeight - 8;
-    pdf.setDrawColor(212, 160, 23);
-    pdf.setLineWidth(0.4);
-    pdf.line(margin, footerY - 4, pageWidth - margin, footerY - 4);
-
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(6.5);
-    pdf.setTextColor(100, 116, 139);
-    pdf.text(
-      "MG Cricketer's Den • North St, Thengaithittu & Royapudupakkam Ground, Puducherry • Contact: +91 83008 79748 / +91 95973 18892",
-      pageWidth / 2,
-      footerY,
-      { align: "center" }
-    );
-
-    // Save PDF
-    const safeName = (admission.full_name || "Application").replace(/[^a-zA-Z0-9]/g, "_");
-    pdf.save(`MG_Den_Admission_${safeName}.pdf`);
   }
 
   return (
@@ -812,13 +520,18 @@ function AdmissionPage({ user, onBack }) {
                   </div>
 
                   <div className="adm-input-group">
-                    <label>Age (Auto-calculated)</label>
-                    <input
-                      type="text"
-                      value={calculateAge(form.dob) ? `${calculateAge(form.dob)} Years` : "-"}
-                      readOnly
-                      className="adm-readonly-input"
-                    />
+                    <label>Age (Auto-calculated from DOB)</label>
+                    <div className="adm-age-calc-wrapper">
+                      <input
+                        type="text"
+                        value={calculateAge(form.dob) ? `${calculateAge(form.dob)} Years Old` : "Auto-calculated from DOB"}
+                        readOnly
+                        className="adm-readonly-input adm-age-field"
+                      />
+                      {calculateAge(form.dob) ? (
+                        <span className="adm-age-badge-pill">✓ {calculateAge(form.dob)} Yrs</span>
+                      ) : null}
+                    </div>
                   </div>
 
                   <div className="adm-input-group">

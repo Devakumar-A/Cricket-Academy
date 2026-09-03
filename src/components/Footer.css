@@ -218,6 +218,15 @@
   color: #d4a017;
 }
 
+.footer-insta-link {
+  color: #fde047;
+  font-weight: 700;
+}
+
+.footer-insta-link:hover {
+  color: #fb7185;
+}
+
 .footer-contact-link span {
   line-height: 1.4;
 }

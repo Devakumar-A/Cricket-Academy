@@ -113,6 +113,15 @@ function Footer({ onSection, onHome }) {
             <h3 className="footer-col-title">DIRECT CONNECT</h3>
             <div className="footer-contact-items">
               <a
+                href="https://www.instagram.com/mg_cricketers_den?igsi=MW5oODZ1bnd3d3VyZg=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-contact-link footer-insta-link"
+              >
+                <span>📸 Instagram: @mg_cricketers_den</span>
+              </a>
+
+              <a
                 href="https://wa.me/918300879748"
                 target="_blank"
                 rel="noopener noreferrer"

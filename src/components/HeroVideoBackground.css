@@ -1,32 +1,37 @@
 /* ============================================================
-   HERO 3D DYNAMIC ANIMATION & LUXURY BLACK & GOLD THEME
-   Mobile & Desktop Optimized | High Performance 60FPS
+   HERO RESPONSIVE VIDEO BACKGROUND & LOGO SHOWCASE THEME
+   Top Headline | Center Video Crest | Bottom 3-CTA Dock
    ============================================================ */
 
 .hero-video-wrapper {
   position: relative;
   width: 100%;
-  min-height: 94vh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 35%, #0d1522 0%, #06090e 65%, #030508 100%);
+  background: #04070c;
   isolation: isolate;
+  padding: 95px 20px 65px;
+  box-sizing: border-box;
 }
 
-/* 3D Dynamic Cricket Canvas Background */
-.hero-3d-bg-canvas {
+/* -------------------------------------------------------------
+   RESPONSIVE VIDEO BACKGROUND (FULL BRIGHTNESS FOR LOGO)
+   ------------------------------------------------------------- */
+.hero-video-container {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.95;
 }
 
-/* Background Video (fades in if video is provided) */
 .hero-bg-video {
   position: absolute;
   top: 50%;
@@ -37,111 +42,74 @@
   min-height: 100%;
   transform: translate(-50%, -50%);
   object-fit: cover;
-  z-index: 2;
+  object-position: center center;
+  z-index: 1;
   pointer-events: none;
-  filter: brightness(0.45) contrast(1.15) saturate(0.85);
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+  opacity: 0.95;
+  transition: opacity 0.6s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.hero-bg-video.loaded {
-  opacity: 0.35;
+.hero-bg-video.is-loaded {
+  opacity: 1;
 }
 
-/* Atmospheric Overlays */
+/* -------------------------------------------------------------
+   CINEMATIC TOP & BOTTOM GRADIENT OVERLAYS
+   Leaves the middle completely open for the video lion crest
+   ------------------------------------------------------------- */
 .hero-video-overlay {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
-.overlay-gradient {
+.overlay-top-shadow {
   background: linear-gradient(
     180deg,
-    rgba(6, 9, 14, 0.6) 0%,
-    rgba(6, 9, 14, 0.45) 45%,
-    rgba(3, 5, 8, 0.92) 100%
+    rgba(4, 7, 12, 0.8) 0%,
+    rgba(4, 7, 12, 0.4) 18%,
+    transparent 36%
   );
-  z-index: 3;
+  z-index: 2;
 }
 
-.overlay-radial {
-  background: radial-gradient(
-    ellipse at 50% 40%,
-    rgba(212, 160, 23, 0.16) 0%,
-    rgba(16, 185, 129, 0.04) 40%,
-    transparent 75%
+.overlay-bottom-shadow {
+  background: linear-gradient(
+    0deg,
+    rgba(4, 7, 12, 0.94) 0%,
+    rgba(4, 7, 12, 0.6) 24%,
+    transparent 45%
   );
-  z-index: 4;
+  z-index: 2;
 }
 
-.overlay-vignette {
-  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.88);
-  z-index: 5;
-}
-
-/* Hero Content Container */
-.hero-content-container {
+/* -------------------------------------------------------------
+   TOP BRAND HEADLINE & MOTTO STAGE (BELOW HEADER)
+   ------------------------------------------------------------- */
+.hero-top-stage {
   position: relative;
   z-index: 10;
-  max-width: 980px;
   width: 100%;
-  margin: 0 auto;
-  padding: 100px 24px 70px;
+  max-width: 960px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* Badge Pill with Gold Shimmer */
-.hero-badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, rgba(212, 160, 23, 0.18) 0%, rgba(212, 160, 23, 0.06) 100%);
-  border: 1px solid rgba(212, 160, 23, 0.45);
-  box-shadow: 0 4px 20px rgba(212, 160, 23, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 8px 22px;
-  border-radius: 30px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  color: #fde047;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  animation: heroPillFloat 4s ease-in-out infinite alternate;
-}
-
-@keyframes heroPillFloat {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-4px); }
-}
-
-.badge-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #fde047;
-  box-shadow: 0 0 14px #fde047;
-  animation: badgeGlowPulse 1.8s infinite;
-}
-
-@keyframes badgeGlowPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.6; }
+  margin-top: 4px;
+  box-sizing: border-box;
 }
 
 /* Main Heading */
 .hero-main-heading {
-  font-size: clamp(34px, 5.8vw, 72px);
+  font-size: clamp(24px, 4.2vw, 48px);
   font-weight: 900;
   line-height: 1.1;
-  letter-spacing: -1px;
-  margin: 0 0 20px;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 160, 23, 0.15);
+  letter-spacing: -0.6px;
+  margin: 0 0 6px;
   text-transform: uppercase;
   display: flex;
   flex-direction: column;
@@ -152,209 +120,168 @@
 .hero-heading-white {
   color: #ffffff;
   display: block;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.98), 0 2px 10px rgba(0, 0, 0, 0.9);
 }
 
-/* Luxury 24K Gold Gradient Text for MEETS PERFORMANCE */
+/* High-Contrast 24K Gold Text */
 .hero-heading-gold {
-  background: linear-gradient(135deg, #ffffff 0%, #fff089 18%, #facc15 45%, #eab308 70%, #ca8a04 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fff176 25%, #facc15 50%, #eab308 75%, #ca8a04 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: block;
-  filter: drop-shadow(0 2px 20px rgba(234, 179, 8, 0.5));
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.98));
 }
 
-/* Sub-headline */
-.hero-subtext {
-  font-size: clamp(15px, 2.2vw, 22px);
+/* Motto Row */
+.hero-motto-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(11px, 1.5vw, 14px);
   font-weight: 800;
-  color: #fde047;
-  letter-spacing: 3.5px;
+  color: #f1f5f9;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  margin: 0 0 18px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
 }
 
-/* Description */
-.hero-description {
-  font-size: clamp(14px, 1.6vw, 17px);
-  line-height: 1.8;
-  color: #cbd5e1;
-  max-width: 680px;
-  margin: 0 0 42px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+.motto-sep {
+  color: #fde047;
+  font-size: 13px;
 }
 
-/* Action CTAs Row */
+/* -------------------------------------------------------------
+   BOTTOM ACTION DOCK (3 CTA BUTTONS - LIFTED FOR FULL VISIBILITY)
+   ------------------------------------------------------------- */
+.hero-bottom-stage {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 920px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
 .hero-actions-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 54px;
+  gap: 16px;
+  width: 100%;
 }
 
 .hero-cta-btn {
   font-weight: 900;
-  font-size: 14px;
-  letter-spacing: 1.2px;
-  padding: 16px 38px;
-  border-radius: 14px;
+  font-size: 13.5px;
+  letter-spacing: 1px;
+  padding: 15px 34px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-transform: uppercase;
+  box-sizing: border-box;
 }
 
 .hero-cta-btn.btn-primary {
   background: linear-gradient(135deg, #fde047 0%, #d4a017 50%, #b8860b 100%);
   color: #06090e;
-  box-shadow: 0 10px 30px rgba(212, 160, 23, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 24px rgba(212, 160, 23, 0.45);
 }
 
 .hero-cta-btn.btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 42px rgba(212, 160, 23, 0.7);
-  background: linear-gradient(135deg, #ffffff 0%, #fde047 40%, #d4a017 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(212, 160, 23, 0.65);
 }
 
 .hero-cta-btn.btn-secondary {
-  background: rgba(13, 18, 28, 0.7);
+  background: rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(212, 160, 23, 0.55);
   color: #ffffff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .hero-cta-btn.btn-secondary:hover {
-  background: rgba(212, 160, 23, 0.16);
+  background: rgba(212, 160, 23, 0.2);
   color: #fde047;
   border-color: #fde047;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(212, 160, 23, 0.25);
+  transform: translateY(-2px);
 }
 
-/* Quick Highlights Strip */
-.hero-highlights-strip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  padding: 18px 38px;
-  background: linear-gradient(135deg, rgba(17, 24, 38, 0.8) 0%, rgba(9, 13, 20, 0.85) 100%);
-  border: 1px solid rgba(212, 160, 23, 0.25);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 160, 23, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 18px;
-  flex-wrap: wrap;
+.hero-cta-btn.btn-gallery {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-.highlight-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.highlight-val {
-  font-size: 13px;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: 0.8px;
-}
-
-.highlight-label {
-  font-size: 11px;
-  color: #9ca3af;
-  letter-spacing: 0.3px;
-}
-
-.highlight-sep {
-  width: 1px;
-  height: 32px;
-  background: linear-gradient(180deg, transparent, rgba(212, 160, 23, 0.4), transparent);
+.hero-cta-btn.btn-gallery:hover {
+  background: rgba(212, 160, 23, 0.15);
+  border-color: #fde047;
+  color: #fde047;
+  transform: translateY(-2px);
 }
 
 /* ============================================================
-   RESPONSIVE OPTIMIZATIONS (MOBILE & TABLET)
+   RESPONSIVE BREAKPOINTS (MOBILE & TABLET)
    ============================================================ */
 @media (max-width: 768px) {
   .hero-video-wrapper {
-    min-height: 90vh;
-    padding: 20px 0 40px;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 78px 14px 72px;
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   }
 
-  .hero-3d-bg-canvas {
-    opacity: 1;
-  }
-
-  .hero-content-container {
-    padding: 85px 16px 40px;
-  }
-
-  .hero-badge-pill {
-    padding: 6px 16px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+  .hero-top-stage {
+    margin-top: 2px;
   }
 
   .hero-main-heading {
-    font-size: 34px;
-    line-height: 1.1;
-    letter-spacing: -0.5px;
-    margin-bottom: 14px;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
   }
 
-  .hero-subtext {
-    font-size: 13px;
-    letter-spacing: 2px;
-    margin-bottom: 14px;
+  .hero-motto-row {
+    font-size: 9.5px;
+    letter-spacing: 1.8px;
+    gap: 8px;
   }
 
-  .hero-description {
-    font-size: 13.5px;
-    line-height: 1.65;
-    margin-bottom: 30px;
+  .hero-bottom-stage {
+    margin-bottom: 24px;
   }
 
   .hero-actions-row {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     width: 100%;
-    gap: 12px;
-    margin-bottom: 34px;
   }
 
   .hero-cta-btn {
     width: 100%;
-    padding: 15px 20px;
-    font-size: 13px;
+    padding: 12.5px 8px;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    text-align: center;
+    border-radius: 10px;
   }
 
-  .hero-highlights-strip {
-    width: 100%;
-    gap: 14px;
-    padding: 16px 14px;
-    border-radius: 14px;
-    flex-direction: column;
-  }
-
-  .highlight-sep {
-    display: none;
-  }
-
-  .highlight-item {
-    gap: 2px;
-  }
-
-  .highlight-val {
-    font-size: 12px;
-  }
-
-  .highlight-label {
-    font-size: 10.5px;
+  .hero-cta-btn.btn-gallery {
+    grid-column: span 2;
+    padding: 11.5px 14px;
   }
 }

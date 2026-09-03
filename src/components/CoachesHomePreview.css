@@ -1,232 +1,254 @@
-/* =========================================================================
-   MG CRICKETER'S DEN — HOME COACHES 3D ANIMATED PHOTO GRID
-   Luxury Black & Gold Theme | 3D Tilt, Glare Reflection & Floating Depth
-   ========================================================================= */
-
+/* ============================================================
+   COACHES HOME PREVIEW - CONTINUOUS MARQUEE SECTION
+   ============================================================ */
 .coaches-home-section {
-  padding: 85px 6%;
-  background: radial-gradient(circle at 50% 50%, #111724 0%, #0a0e16 70%, #06090e 100%);
   position: relative;
+  background: radial-gradient(circle at 50% 0%, #0d1420 0%, #06090e 65%, #030508 100%);
+  padding: 85px 0 95px;
   overflow: hidden;
+  border-top: 1px solid rgba(212, 160, 23, 0.15);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.15);
 }
 
-.section-heading-center {
-  text-align: center;
-  max-width: 740px;
-  margin: 0 auto 48px;
+.coaches-marquee-block {
+  width: 100%;
+  margin-top: 36px;
+  position: relative;
 }
 
-.section-badge {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: #d4a017;
-  text-transform: uppercase;
-  background: rgba(212, 160, 23, 0.1);
-  border: 1px solid rgba(212, 160, 23, 0.3);
-  padding: 4px 12px;
-  border-radius: 20px;
-  display: inline-block;
-  margin-bottom: 8px;
-}
-
-.section-title {
-  font-size: clamp(26px, 3.8vw, 36px);
-  font-weight: 900;
-  color: #ffffff;
-  margin: 0 0 8px;
-  letter-spacing: -0.5px;
-}
-
-.section-subtitle {
-  font-size: 14.5px;
-  color: #9ca3af;
-  margin: 0;
-  line-height: 1.55;
-}
-
-/* =========================================================================
-   3D PHOTO GRID WITH PERSPECTIVE
-   ========================================================================= */
-.coaches-3d-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 32px;
-  max-width: 1140px;
-  margin: 0 auto 48px;
-  perspective: 1200px;
-}
-
-/* 3D TILT CARD */
-.coach-3d-card {
-  background: linear-gradient(170deg, #131926 0%, #080c13 100%);
-  border: 1px solid rgba(212, 160, 23, 0.25);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
-  cursor: pointer;
+.coaches-row-label {
   display: flex;
-  flex-direction: column;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
-  outline: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  max-width: 1300px;
+  margin: 0 auto 18px;
   box-sizing: border-box;
 }
 
-.coach-3d-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #fde047, #38bdf8, transparent);
-  opacity: 0.8;
-  z-index: 4;
+.coaches-live-pill {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fde047;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.38);
+  padding: 5px 14px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(212, 160, 23, 0.15);
 }
 
-.coach-3d-card:hover,
-.coach-3d-card.active-tilt {
-  border-color: #fde047;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 160, 23, 0.28);
+.coaches-hint-text {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
-.coach-3d-card:focus-visible {
-  border-color: #fde047;
-  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.4);
-}
-
-/* 3D HOLOGRAPHIC LIGHT GLARE */
-.coach-3d-glare {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-  transition: opacity 0.2s ease;
-  border-radius: 24px;
-}
-
-/* PORTRAIT STAGE */
-.coach-image-stage {
+/* Outer Marquee Container with Gradient Edge Masks */
+.coaches-marquee-wrapper {
   width: 100%;
-  aspect-ratio: 4 / 4.8;
-  position: relative;
-  background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 80%, #090d14 100%);
   overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  padding: 12px 0;
+}
+
+/* Continuous Marquee Track */
+.coaches-marquee-track {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transform-style: preserve-3d;
+  gap: 24px;
+  width: max-content;
+  animation: coachesMarqueeScroll 32s linear infinite;
+  will-change: transform;
 }
 
-.coach-portrait-img {
+.coaches-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes coachesMarqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+/* -------------------------------------------------------------
+   COACH MARQUEE CARD (CLEAN: IMAGE + NAME + COACH)
+   ------------------------------------------------------------- */
+.coach-marquee-card {
+  width: 280px;
+  height: 360px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: #0b1018;
+  border: 1px solid rgba(212, 160, 23, 0.22);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.coach-marquee-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: #fde047;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 28px rgba(212, 160, 23, 0.4);
+}
+
+.coach-card-image-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.coach-card-media {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
-  transition: transform 0.4s ease;
+  object-position: center top;
   display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.coach-3d-card:hover .coach-portrait-img {
-  transform: scale(1.06) translateZ(15px);
+.coach-marquee-card:hover .coach-card-media {
+  transform: scale(1.08);
 }
 
-
-
-.coach-stage-overlay {
+.coach-card-glass-overlay {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 65%, rgba(8, 12, 19, 0.95) 100%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* INFO FOOTER */
-.coach-info-footer {
-  padding: 22px 20px 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(3, 6, 10, 0.98) 0%, rgba(3, 6, 10, 0.75) 60%, transparent 100%);
+  padding: 24px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  background: #080c13;
-  position: relative;
-  transform: translateZ(20px);
-  transition: transform 0.3s ease;
+  gap: 4px;
+  pointer-events: none;
 }
 
-.coach-3d-card:hover .coach-info-footer {
-  transform: translateZ(30px);
-}
-
-.coach-display-name {
-  margin: 0 0 6px;
-  font-size: 21px;
+.coach-item-name {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 19px;
   font-weight: 900;
   color: #ffffff;
-  letter-spacing: 0.2px;
-}
-
-.coach-title-sub {
-  font-size: 11px;
-  font-weight: 800;
-  color: #d4a017;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  display: block;
-}
-
-.coach-card-glow-bar {
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #fde047, transparent);
-  margin: 12px auto 0;
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-
-.coach-3d-card:hover .coach-card-glow-bar {
-  width: 80px;
-}
-
-/* CTA */
-.coaches-home-cta-wrap {
+  letter-spacing: 0.3px;
   text-align: center;
+}
+
+.coach-item-role {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #fde047;
+  text-align: center;
+}
+
+/* -------------------------------------------------------------
+   CTA BUTTON
+   ------------------------------------------------------------- */
+.coaches-home-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 42px;
 }
 
 .coaches-view-all-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(212, 160, 23, 0.4);
-  color: #d4a017;
-  font-weight: 800;
+  background: linear-gradient(135deg, #fde047 0%, #d4a017 50%, #b8860b 100%);
+  color: #06090e;
+  font-family: 'Outfit', sans-serif;
   font-size: 13px;
-  letter-spacing: 1px;
-  padding: 13px 30px;
-  border-radius: 10px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 14px 34px;
+  border-radius: 12px;
+  border: none;
   cursor: pointer;
+  box-shadow: 0 8px 25px rgba(212, 160, 23, 0.35);
   transition: all 0.25s ease;
 }
 
 .coaches-view-all-btn:hover {
-  background: #d4a017;
-  color: #0c0f17;
-  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.35);
   transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(212, 160, 23, 0.55);
+  background: linear-gradient(135deg, #ffffff 0%, #fde047 40%, #d4a017 100%);
 }
 
-/* RESPONSIVE */
-@media (max-width: 1080px) {
-  .coaches-3d-grid {
-    gap: 20px;
-  }
-}
-
-@media (max-width: 800px) {
+/* -------------------------------------------------------------
+   RESPONSIVE STYLES
+   ------------------------------------------------------------- */
+@media (max-width: 768px) {
   .coaches-home-section {
-    padding: 60px 16px;
+    padding: 60px 0 70px;
   }
-  .coaches-3d-grid {
-    grid-template-columns: 1fr;
-    max-width: 360px;
-    margin: 0 auto 36px;
+
+  .coaches-marquee-block {
+    margin-top: 26px;
+  }
+
+  .coaches-row-label {
+    padding: 0 16px;
+    margin-bottom: 12px;
+  }
+
+  .coaches-live-pill {
+    font-size: 9.5px;
+    padding: 4px 10px;
+  }
+
+  .coaches-hint-text {
+    font-size: 10px;
+  }
+
+  .coach-marquee-card {
+    width: 220px;
+    height: 290px;
+    border-radius: 16px;
+  }
+
+  .coach-item-name {
+    font-size: 16px;
+  }
+
+  .coach-item-role {
+    font-size: 10px;
+  }
+
+  .coaches-marquee-track {
+    gap: 16px;
+    animation-duration: 26s;
+  }
+
+  .coaches-home-cta-wrap {
+    margin-top: 32px;
+  }
+
+  .coaches-view-all-btn {
+    padding: 12px 24px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coaches-marquee-track {
+    animation: none;
+    overflow-x: auto;
   }
 }

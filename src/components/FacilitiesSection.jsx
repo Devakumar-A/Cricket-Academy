@@ -12,14 +12,7 @@ const FACILITIES_DATA = [
     theme: "astro",
     badge: "High-Speed Nets",
     tagline: "True pace, uniform bounce, all-weather synthetic wicket.",
-    features: [
-      "⚡ High-Grade Synthetic Turf",
-      "🏏 Fast-Paced Batting & Bowling",
-      "🎯 Consistent Bounce & Rhythm",
-      "🔥 Full Net Cage Enclosure",
-      "💡 Well-Lit Practice Sessions",
-      "⏱️ Hourly Slots Available"
-    ],
+    tags: ["⚡ All-Weather Synthetic", "💡 Floodlit Cage", "⏱️ Hourly Slots"],
     pitchType: "astro"
   },
   {
@@ -32,14 +25,7 @@ const FACILITIES_DATA = [
     theme: "natural",
     badge: "Authentic Turf",
     tagline: "Natural clay & grass pitch for authentic seam and spin.",
-    features: [
-      "🌱 Natural Grass Clay Wicket",
-      "🎯 Genuine Seam, Swing & Turn",
-      "🏏 Pro Match Technique Prep",
-      "🛡️ Full Net Cage Protection",
-      "🏆 Tournament Simulation",
-      "⏱️ Hourly Slots Available"
-    ],
+    tags: ["🌱 Clay Turf Pitch", "🎯 Seam & Spin Prep", "⏱️ Hourly Slots"],
     pitchType: "natural"
   },
   {
@@ -52,25 +38,36 @@ const FACILITIES_DATA = [
     theme: "open",
     badge: "Full Ground Arena",
     tagline: "Standard full-size cricket match ground for tournaments and team drills.",
-    features: [
-      "🏟️ Full-Size Open Turf Match Ground",
-      "🏏 20/40 Overs Match Simulations",
-      "🏃 Deep Outfield Fielding Practice",
-      "🏆 Academy & Corporate Matches",
-      "🎯 Standard Pitch Dimensions",
-      "⏱️ Half-Day & Full-Day Booking"
-    ],
+    tags: ["🏟️ Full Match Ground", "🏆 20/40 Overs Drills", "⏱️ Day Booking"],
     pitchType: "open"
   }
 ];
 
 function FacilitiesSection({ onBookTurf }) {
   const [activeIdx, setActiveIdx] = useState(0);
-  const activeFacility = FACILITIES_DATA[activeIdx];
+  const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const activeFacility = FACILITIES_DATA[activeIdx] || FACILITIES_DATA[0];
+  const facilityTags = activeFacility?.tags || activeFacility?.features || [];
   const canvasRef = useRef(null);
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
+  const touchStartY = useRef(null);
+  const touchEndY = useRef(null);
   const mouseRef = useRef({ rotX: 0.35, rotY: 0, targetRotX: 0.35, targetRotY: 0 });
+
+  // -------------------------------------------------------------
+  // AUTO-SWIPE ENGINE (Smooth Auto-Cycle every 8.0 seconds on mobile & desktop)
+  // -------------------------------------------------------------
+  useEffect(() => {
+    if (isPaused || isHovered) return;
+
+    const interval = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, isHovered]);
 
   // -------------------------------------------------------------
   // 3D CANVAS RENDERER FOR NETS & PITCH
@@ -405,23 +402,63 @@ function FacilitiesSection({ onBookTurf }) {
     };
   }, [activeIdx]);
 
-  // Touch Swipe for Mobile Tabs
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.targetTouches[0].clientX;
+  // -------------------------------------------------------------
+  // UNIVERSAL TOUCH & MOUSE SWIPE ENGINE (iOS, Android, Chrome, Safari)
+  // -------------------------------------------------------------
+  const [dragStartX, setDragStartX] = useState(null);
+  const [dragEndX, setDragEndX] = useState(null);
+  const isDragging = useRef(false);
+
+  const handleSwipeStart = (clientX) => {
+    setIsPaused(true);
+    setDragStartX(clientX);
+    setDragEndX(clientX);
+    isDragging.current = true;
   };
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const diff = touchStartX.current - touchEndX.current;
-    if (diff > 45) {
-      setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
-    } else if (diff < -45) {
-      setActiveIdx((prev) => (prev - 1 + FACILITIES_DATA.length) % FACILITIES_DATA.length);
+
+  const handleSwipeMove = (clientX, targetRect) => {
+    if (!isDragging.current) return;
+    setDragEndX(clientX);
+
+    // 3D Parallax tilt on drag
+    if (targetRect) {
+      const nx = ((clientX - targetRect.left) / targetRect.width - 0.5) * 2;
+      mouseRef.current.targetRotY = nx * 0.7;
     }
-    touchStartX.current = null;
-    touchEndX.current = null;
+  };
+
+  const handleSwipeEnd = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+
+    if (dragStartX !== null && dragEndX !== null) {
+      const diff = dragStartX - dragEndX;
+      const minDistance = 24;
+
+      if (diff > minDistance) {
+        // Swiped Left -> Next pitch
+        setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
+      } else if (diff < -minDistance) {
+        // Swiped Right -> Previous pitch
+        setActiveIdx((prev) => (prev - 1 + FACILITIES_DATA.length) % FACILITIES_DATA.length);
+      }
+    }
+
+    setDragStartX(null);
+    setDragEndX(null);
+
+    // Resume auto-swipe after 4s
+    setTimeout(() => {
+      setIsPaused(false);
+    }, 4000);
+  };
+
+  const handleNextFacility = () => {
+    setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
+  };
+
+  const handlePrevFacility = () => {
+    setActiveIdx((prev) => (prev - 1 + FACILITIES_DATA.length) % FACILITIES_DATA.length);
   };
 
   return (
@@ -455,22 +492,57 @@ function FacilitiesSection({ onBookTurf }) {
           ))}
         </div>
 
-        {/* 3D INTERACTIVE SHOWCASE CARD (MOBILE-OPTIMIZED) */}
+        {/* 3D INTERACTIVE SHOWCASE CARD (AUTO-SWIPE, TOUCH-SWIPE & TAP NAVIGATION) */}
         <div
           className="facility-showcase-stage"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            handleSwipeEnd();
+          }}
+          onTouchStart={(e) => {
+            if (e.touches && e.touches[0]) {
+              handleSwipeStart(e.touches[0].clientX);
+            }
+          }}
+          onTouchMove={(e) => {
+            if (e.touches && e.touches[0]) {
+              handleSwipeMove(e.touches[0].clientX, e.currentTarget.getBoundingClientRect());
+            }
+          }}
+          onTouchEnd={handleSwipeEnd}
+          onTouchCancel={handleSwipeEnd}
+          onMouseDown={(e) => handleSwipeStart(e.clientX)}
+          onMouseMove={(e) => handleSwipeMove(e.clientX, e.currentTarget.getBoundingClientRect())}
+          onMouseUp={handleSwipeEnd}
         >
+          {/* Quick Prev / Next Floating Arrows for Fast Switching */}
+          <button
+            type="button"
+            className="facility-nav-arrow fac-prev"
+            onClick={handlePrevFacility}
+            aria-label="Previous Pitch"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className="facility-nav-arrow fac-next"
+            onClick={handleNextFacility}
+            aria-label="Next Pitch"
+          >
+            ›
+          </button>
+
           {/* Top 3D Canvas Pitch & Net Visualizer */}
           <div className="showcase-3d-viewport">
             <canvas ref={canvasRef} className="pitch-3d-canvas" />
             <div className="viewport-overlay-tag">
               <span className="live-dot"></span>
-              <span>3D INTERACTIVE {activeFacility.type.toUpperCase()}</span>
+              <span>3D INTERACTIVE {(activeFacility.type || "").toUpperCase()}</span>
             </div>
             <div className="viewport-drag-hint">
-              <span>👆 Drag or rotate to inspect pitch</span>
+              <span>👆 Swipe or tap arrows to switch pitches</span>
             </div>
           </div>
 
@@ -494,14 +566,16 @@ function FacilitiesSection({ onBookTurf }) {
               </button>
             </div>
 
-            {/* Features 3x2 Grid */}
-            <div className="info-features-grid">
-              {activeFacility.features.map((feat, fIdx) => (
-                <div key={fIdx} className="feature-item-pill">
-                  {feat}
-                </div>
-              ))}
-            </div>
+            {/* Compact Highlights Tags Row (Zero vertical bloat) */}
+            {facilityTags && facilityTags.length > 0 && (
+              <div className="info-compact-tags-row">
+                {facilityTags.map((tag, tIdx) => (
+                  <span key={tIdx} className="facility-compact-chip">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {/* Mobile Touch Indicators */}
             <div className="facility-swipe-dots">

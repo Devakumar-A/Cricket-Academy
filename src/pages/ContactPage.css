@@ -133,7 +133,7 @@
    ============================================================ */
 .channels-cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
   margin-bottom: 36px;
 }
@@ -160,6 +160,11 @@
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 160, 23, 0.12);
 }
 
+.channel-insta:hover {
+  border-color: #f43f5e;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 25px rgba(244, 63, 94, 0.25);
+}
+
 .channel-icon-box {
   width: 48px;
   height: 48px;
@@ -174,6 +179,15 @@
 .wa-icon {
   background: rgba(37, 211, 102, 0.15);
   border: 1px solid rgba(37, 211, 102, 0.4);
+}
+
+.insta-icon {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.2) 0%, rgba(217, 70, 239, 0.2) 100%);
+  border: 1px solid rgba(244, 63, 94, 0.45);
+}
+
+.insta-tag {
+  color: #fb7185 !important;
 }
 
 .phone-icon {
