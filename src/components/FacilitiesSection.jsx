@@ -12,14 +12,7 @@ const FACILITIES_DATA = [
     theme: "astro",
     badge: "High-Speed Nets",
     tagline: "True pace, uniform bounce, all-weather synthetic wicket.",
-    features: [
-      "⚡ High-Grade Synthetic Turf",
-      "🏏 Fast-Paced Batting & Bowling",
-      "🎯 Consistent Bounce & Rhythm",
-      "🔥 Full Net Cage Enclosure",
-      "💡 Well-Lit Practice Sessions",
-      "⏱️ Hourly Slots Available"
-    ],
+    tags: ["⚡ All-Weather Synthetic", "💡 Floodlit Cage", "⏱️ Hourly Slots"],
     pitchType: "astro"
   },
   {
@@ -32,14 +25,7 @@ const FACILITIES_DATA = [
     theme: "natural",
     badge: "Authentic Turf",
     tagline: "Natural clay & grass pitch for authentic seam and spin.",
-    features: [
-      "🌱 Natural Grass Clay Wicket",
-      "🎯 Genuine Seam, Swing & Turn",
-      "🏏 Pro Match Technique Prep",
-      "🛡️ Full Net Cage Protection",
-      "🏆 Tournament Simulation",
-      "⏱️ Hourly Slots Available"
-    ],
+    tags: ["🌱 Clay Turf Pitch", "🎯 Seam & Spin Prep", "⏱️ Hourly Slots"],
     pitchType: "natural"
   },
   {
@@ -52,14 +38,7 @@ const FACILITIES_DATA = [
     theme: "open",
     badge: "Full Ground Arena",
     tagline: "Standard full-size cricket match ground for tournaments and team drills.",
-    features: [
-      "🏟️ Full-Size Open Turf Match Ground",
-      "🏏 20/40 Overs Match Simulations",
-      "🏃 Deep Outfield Fielding Practice",
-      "🏆 Academy & Corporate Matches",
-      "🎯 Standard Pitch Dimensions",
-      "⏱️ Half-Day & Full-Day Booking"
-    ],
+    tags: ["🏟️ Full Match Ground", "🏆 20/40 Overs Drills", "⏱️ Day Booking"],
     pitchType: "open"
   }
 ];
@@ -494,12 +473,12 @@ function FacilitiesSection({ onBookTurf }) {
               </button>
             </div>
 
-            {/* Features 3x2 Grid */}
-            <div className="info-features-grid">
-              {activeFacility.features.map((feat, fIdx) => (
-                <div key={fIdx} className="feature-item-pill">
-                  {feat}
-                </div>
+            {/* Compact Highlights Tags Row (Zero vertical bloat) */}
+            <div className="info-compact-tags-row">
+              {activeFacility.tags.map((tag, tIdx) => (
+                <span key={tIdx} className="facility-compact-chip">
+                  {tag}
+                </span>
               ))}
             </div>
 
