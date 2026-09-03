@@ -22,32 +22,29 @@ function HomePage({ onSection }) {
         }}
       />
 
-      {/* 2. COMPACT LIVE VENUE STATUS & QUICK JUMP MICRO-BAR */}
-      <section className="mg-live-action-strip" aria-label="Live Venue Status & Quick Actions">
+      {/* 2. ELITE TRAINING HUBS & VENUE STATUS STRIP */}
+      <section className="mg-live-action-strip" aria-label="Academy Training Venues & Operating Hours">
         <div className="home-section-container">
           <div className="live-strip-inner">
-            <div className="live-status-badge">
-              <span className="live-pulse-dot" />
-              <span className="live-status-text">
-                <strong>VENUES OPEN:</strong> 6:00 AM – 10:00 PM • Thengaithittu & Royapudupakkam
-              </span>
+            <div className="live-venue-hubs">
+              <div className="venue-hub-item">
+                <span className="hub-tag gold-tag">MAIN ACADEMY</span>
+                <span className="hub-name">MG Training Complex, Thengaithittu</span>
+                <span className="hub-desc">(Daily Coaching, Turf & Astro Nets)</span>
+              </div>
+              
+              <span className="hub-separator" aria-hidden="true">|</span>
+              
+              <div className="venue-hub-item">
+                <span className="hub-tag cyan-tag">MATCH STADIUM</span>
+                <span className="hub-name">MG Open Ground, Royapudupakkam</span>
+                <span className="hub-desc">(11v11 Match Simulations & Tournaments)</span>
+              </div>
             </div>
 
-            <div className="live-quick-actions">
-              <button
-                type="button"
-                className="live-quick-btn turf-btn"
-                onClick={() => onSection("booking")}
-              >
-                🏏 Book Turf Slot
-              </button>
-              <button
-                type="button"
-                className="live-quick-btn admit-btn"
-                onClick={() => onSection("admission")}
-              >
-                📋 Join Academy
-              </button>
+            <div className="live-hours-pill">
+              <span className="live-pulse-dot" />
+              <span className="hours-text">Open Daily: 6:00 AM – 10:00 PM</span>
             </div>
           </div>
         </div>
