@@ -157,6 +157,52 @@
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 160, 23, 0.08);
+  position: relative;
+  touch-action: pan-y;
+}
+
+/* Floating Navigation Arrows */
+.facility-nav-arrow {
+  position: absolute;
+  top: 140px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(6, 10, 18, 0.85);
+  border: 1px solid rgba(212, 160, 23, 0.45);
+  color: #fde047;
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 15;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+.fac-prev {
+  left: 12px;
+}
+
+.fac-next {
+  right: 12px;
+}
+
+.facility-nav-arrow:hover {
+  background: #fde047;
+  color: #06090e;
+  box-shadow: 0 0 16px rgba(212, 160, 23, 0.7);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.facility-nav-arrow:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
 /* Top 3D Viewport */

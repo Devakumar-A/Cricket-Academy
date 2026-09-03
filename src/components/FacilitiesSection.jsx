@@ -385,23 +385,56 @@ function FacilitiesSection({ onBookTurf }) {
     };
   }, [activeIdx]);
 
-  // Touch Swipe for Mobile Tabs
+  // Touch Swipe for Mobile with robust coordinate tracking
+  const touchStartY = useRef(null);
+  const touchEndY = useRef(null);
+
   const handleTouchStart = (e) => {
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const diff = touchStartX.current - touchEndX.current;
-    if (diff > 45) {
-      setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
-    } else if (diff < -45) {
-      setActiveIdx((prev) => (prev - 1 + FACILITIES_DATA.length) % FACILITIES_DATA.length);
+    if (e.touches && e.touches[0]) {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
     }
+  };
+
+  const handleTouchMove = (e) => {
+    if (e.touches && e.touches[0]) {
+      touchEndX.current = e.touches[0].clientX;
+      touchEndY.current = e.touches[0].clientY;
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    const endX = touchEndX.current ?? (e.changedTouches && e.changedTouches[0]?.clientX);
+    const endY = touchEndY.current ?? (e.changedTouches && e.changedTouches[0]?.clientY);
+
+    if (touchStartX.current !== null && endX !== undefined) {
+      const diffX = touchStartX.current - endX;
+      const diffY = (touchStartY.current || 0) - (endY || 0);
+
+      // Trigger if horizontal movement exceeds 30px and is more horizontal than vertical
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+        if (diffX > 0) {
+          // Swiped left -> next
+          setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
+        } else {
+          // Swiped right -> prev
+          setActiveIdx((prev) => (prev - 1 + FACILITIES_DATA.length) % FACILITIES_DATA.length);
+        }
+      }
+    }
+
     touchStartX.current = null;
     touchEndX.current = null;
+    touchStartY.current = null;
+    touchEndY.current = null;
+  };
+
+  const handleNextFacility = () => {
+    setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
+  };
+
+  const handlePrevFacility = () => {
+    setActiveIdx((prev) => (prev - 1 + FACILITIES_DATA.length) % FACILITIES_DATA.length);
   };
 
   return (
@@ -435,22 +468,40 @@ function FacilitiesSection({ onBookTurf }) {
           ))}
         </div>
 
-        {/* 3D INTERACTIVE SHOWCASE CARD (MOBILE-OPTIMIZED) */}
+        {/* 3D INTERACTIVE SHOWCASE CARD (TOUCH-SWIPE & TAP NAVIGATION) */}
         <div
           className="facility-showcase-stage"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
+          {/* Quick Prev / Next Floating Arrows for Fast Switching */}
+          <button
+            type="button"
+            className="facility-nav-arrow fac-prev"
+            onClick={handlePrevFacility}
+            aria-label="Previous Pitch"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className="facility-nav-arrow fac-next"
+            onClick={handleNextFacility}
+            aria-label="Next Pitch"
+          >
+            ›
+          </button>
+
           {/* Top 3D Canvas Pitch & Net Visualizer */}
           <div className="showcase-3d-viewport">
             <canvas ref={canvasRef} className="pitch-3d-canvas" />
             <div className="viewport-overlay-tag">
               <span className="live-dot"></span>
-              <span>3D INTERACTIVE {activeFacility.type.toUpperCase()}</span>
+              <span>3D INTERACTIVE {(activeFacility.type || "").toUpperCase()}</span>
             </div>
             <div className="viewport-drag-hint">
-              <span>👆 Drag or rotate to inspect pitch</span>
+              <span>👆 Swipe or tap arrows to switch pitches</span>
             </div>
           </div>
 
