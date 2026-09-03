@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./HeroVideoBackground.css";
 
-function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
+function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery }) {
   const videoRef = useRef(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(() => {
@@ -39,7 +39,6 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
             setVideoLoaded(true);
           })
           .catch(() => {
-            // In case browser power-saving or policy restricts autoplay, retry on user interaction
             const handleUserInteraction = () => {
               video.play().catch(() => {});
               window.removeEventListener("touchstart", handleUserInteraction);
@@ -96,7 +95,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
       <div className="hero-video-overlay overlay-cinematic" aria-hidden="true" />
 
       {/* -------------------------------------------------------------
-          3. HERO BOTTOM ACTION DOCK (UNOBSTRUCTED LOGO SHOWCASE)
+          3. HERO BOTTOM ACTION DOCK (3 CTA BUTTONS)
           ------------------------------------------------------------- */}
       <div className="hero-content-container">
         <div className="hero-action-dock">
@@ -115,7 +114,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
             <span>IMPROVE</span>
           </div>
 
-          {/* Action CTAs */}
+          {/* Action CTAs (3 Buttons) */}
           <div className="hero-actions-row">
             <button
               type="button"
@@ -131,6 +130,14 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
               onClick={onJoinAcademy}
             >
               JOIN THE ACADEMY →
+            </button>
+
+            <button
+              type="button"
+              className="hero-cta-btn btn-gallery"
+              onClick={onViewGallery}
+            >
+              📸 GALLERY
             </button>
           </div>
         </div>

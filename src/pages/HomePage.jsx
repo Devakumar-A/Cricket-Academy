@@ -10,10 +10,16 @@ import "./HomePage.css";
 function HomePage({ onSection }) {
   return (
     <main className="mg-home-landing">
-      {/* 1. HERO SECTION WITH UNOBSTRUCTED VIDEO LOGO SHOWCASE */}
+      {/* 1. HERO SECTION WITH UNOBSTRUCTED VIDEO LOGO SHOWCASE & 3 CTAS */}
       <HeroVideoBackground
         onBookTurf={() => onSection("booking")}
         onJoinAcademy={() => onSection("admission")}
+        onViewGallery={() => {
+          const el = document.getElementById("facilities") || document.querySelector(".mg-home-highlights-bar");
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
       />
 
       {/* QUICK HIGHLIGHTS TRANSITION BAR */}
