@@ -12,7 +12,7 @@ const PARTNERS_DATA = [
   },
   {
     id: "visuorexvault",
-    name: "VISUOREXVAULT",
+    name: "VISUOREX VAULT",
     spec: "OFFICIAL VIDEO PRODUCTION & MEDIA",
     logoPng: "/sponsors/visuorexvault.png",
     logoSvg: "/sponsors/visuorexvault.svg",
@@ -35,12 +35,12 @@ function SponsorsSection() {
           <p className="pro-partners-motto">TRAIN • COMPETE • IMPROVE</p>
         </div>
 
-        {/* SINGLE ROW ELEGANT BRAND LOCKUP */}
+        {/* SINGLE ROW ELEGANT 2-COLUMN BRAND LOCKUP CARD */}
         <div className="pro-partners-row" role="list">
           {PARTNERS_DATA.map((partner, index) => (
             <React.Fragment key={partner.id}>
               <div className="pro-partner-unit" role="listitem">
-                {/* 1. LOGO IMAGE (PRIMARY VISUAL) */}
+                {/* 1. LARGE LOGO IMAGE (PRIMARY VISUAL ELEMENT) */}
                 <div className="pro-partner-logo-box">
                   <img
                     src={partner.logoPng}
@@ -54,7 +54,7 @@ function SponsorsSection() {
                   />
                 </div>
 
-                {/* 2. NAME (MEDIUM) & 3. SPECIFICATION (SMALL REFINED) */}
+                {/* 2. MEDIUM BOLD NAME & 3. SMALL SUBTLE SPECIFICATION */}
                 <div className="pro-partner-text-block">
                   <span className="pro-partner-name">{partner.name}</span>
                   <span className="pro-partner-spec" style={{ color: partner.accent }}>
@@ -63,7 +63,7 @@ function SponsorsSection() {
                 </div>
               </div>
 
-              {/* Elegant Divider between units on desktop */}
+              {/* Subtle Vertical Divider between the 2 sponsors */}
               {index < PARTNERS_DATA.length - 1 && (
                 <div className="pro-partner-divider" aria-hidden="true" />
               )}
