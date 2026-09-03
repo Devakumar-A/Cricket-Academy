@@ -57,14 +57,14 @@ function FacilitiesSection({ onBookTurf }) {
   const mouseRef = useRef({ rotX: 0.35, rotY: 0, targetRotX: 0.35, targetRotY: 0 });
 
   // -------------------------------------------------------------
-  // AUTO-SWIPE ENGINE (Smooth Auto-Cycle every 4.0 seconds on mobile & desktop)
+  // AUTO-SWIPE ENGINE (Smooth Auto-Cycle every 8.0 seconds on mobile & desktop)
   // -------------------------------------------------------------
   useEffect(() => {
     if (isPaused || isHovered) return;
 
     const interval = setInterval(() => {
       setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
-    }, 4000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [isPaused, isHovered]);
@@ -447,10 +447,10 @@ function FacilitiesSection({ onBookTurf }) {
     setDragStartX(null);
     setDragEndX(null);
 
-    // Resume auto-swipe after 2.5s
+    // Resume auto-swipe after 4s
     setTimeout(() => {
       setIsPaused(false);
-    }, 2500);
+    }, 4000);
   };
 
   const handleNextFacility = () => {
