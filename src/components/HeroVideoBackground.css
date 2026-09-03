@@ -1,32 +1,34 @@
 /* ============================================================
-   HERO 3D DYNAMIC ANIMATION & LUXURY BLACK & GOLD THEME
-   Mobile & Desktop Optimized | High Performance 60FPS
+   HERO RESPONSIVE VIDEO BACKGROUND & LUXURY BLACK & GOLD THEME
+   Mobile & Desktop Optimized | 60FPS Video Rendering
    ============================================================ */
 
 .hero-video-wrapper {
   position: relative;
   width: 100%;
   min-height: 94vh;
+  min-height: 94svh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 35%, #0d1522 0%, #06090e 65%, #030508 100%);
+  background: #06090e;
   isolation: isolate;
 }
 
-/* 3D Dynamic Cricket Canvas Background */
-.hero-3d-bg-canvas {
+/* -------------------------------------------------------------
+   RESPONSIVE VIDEO BACKGROUND CONTAINER & VIDEO
+   ------------------------------------------------------------- */
+.hero-video-container {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.95;
 }
 
-/* Background Video (fades in if video is provided) */
 .hero-bg-video {
   position: absolute;
   top: 50%;
@@ -35,63 +37,72 @@
   height: 100%;
   min-width: 100%;
   min-height: 100%;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   object-fit: cover;
-  z-index: 2;
+  object-position: center center;
+  z-index: 1;
   pointer-events: none;
-  filter: brightness(0.45) contrast(1.15) saturate(0.85);
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+  filter: brightness(0.6) contrast(1.12) saturate(1.05);
+  opacity: 0.85;
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+  will-change: transform;
 }
 
-.hero-bg-video.loaded {
-  opacity: 0.35;
+.hero-bg-video.is-loaded {
+  opacity: 0.92;
 }
 
-/* Atmospheric Overlays */
+/* -------------------------------------------------------------
+   LUXURY CINEMATIC OVERLAYS
+   ------------------------------------------------------------- */
 .hero-video-overlay {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
-.overlay-gradient {
+.overlay-dark-gradient {
   background: linear-gradient(
     180deg,
-    rgba(6, 9, 14, 0.6) 0%,
-    rgba(6, 9, 14, 0.45) 45%,
+    rgba(6, 9, 14, 0.65) 0%,
+    rgba(6, 9, 14, 0.45) 40%,
     rgba(3, 5, 8, 0.92) 100%
+  );
+  z-index: 2;
+}
+
+.overlay-radial-glow {
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(212, 160, 23, 0.15) 0%,
+    rgba(16, 185, 129, 0.03) 45%,
+    transparent 75%
   );
   z-index: 3;
 }
 
-.overlay-radial {
-  background: radial-gradient(
-    ellipse at 50% 40%,
-    rgba(212, 160, 23, 0.16) 0%,
-    rgba(16, 185, 129, 0.04) 40%,
-    transparent 75%
-  );
+.overlay-cinematic-vignette {
+  box-shadow: inset 0 0 160px rgba(0, 0, 0, 0.88);
   z-index: 4;
 }
 
-.overlay-vignette {
-  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.88);
-  z-index: 5;
-}
-
-/* Hero Content Container */
+/* -------------------------------------------------------------
+   HERO CENTRAL CONTENT CONTAINER
+   ------------------------------------------------------------- */
 .hero-content-container {
   position: relative;
   z-index: 10;
   max-width: 980px;
   width: 100%;
   margin: 0 auto;
-  padding: 100px 24px 70px;
+  padding: 110px 24px 75px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
 /* Badge Pill with Gold Shimmer */
@@ -99,19 +110,19 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, rgba(212, 160, 23, 0.18) 0%, rgba(212, 160, 23, 0.06) 100%);
-  border: 1px solid rgba(212, 160, 23, 0.45);
-  box-shadow: 0 4px 20px rgba(212, 160, 23, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 8px 22px;
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.22) 0%, rgba(212, 160, 23, 0.08) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.5);
+  box-shadow: 0 4px 24px rgba(212, 160, 23, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 8px 24px;
   border-radius: 30px;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 3px;
   color: #fde047;
   text-transform: uppercase;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
   animation: heroPillFloat 4s ease-in-out infinite alternate;
 }
 
@@ -141,7 +152,7 @@
   line-height: 1.1;
   letter-spacing: -1px;
   margin: 0 0 20px;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 160, 23, 0.15);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95), 0 0 40px rgba(212, 160, 23, 0.2);
   text-transform: uppercase;
   display: flex;
   flex-direction: column;
@@ -154,7 +165,7 @@
   display: block;
 }
 
-/* Luxury 24K Gold Gradient Text for MEETS PERFORMANCE */
+/* Luxury 24K Gold Gradient Text */
 .hero-heading-gold {
   background: linear-gradient(135deg, #ffffff 0%, #fff089 18%, #facc15 45%, #eab308 70%, #ca8a04 100%);
   -webkit-background-clip: text;
@@ -172,17 +183,17 @@
   letter-spacing: 3.5px;
   text-transform: uppercase;
   margin: 0 0 18px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
 }
 
 /* Description */
 .hero-description {
   font-size: clamp(14px, 1.6vw, 17px);
   line-height: 1.8;
-  color: #cbd5e1;
+  color: #e2e8f0;
   max-width: 680px;
   margin: 0 0 42px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
 }
 
 /* Action CTAs Row */
@@ -205,6 +216,7 @@
   cursor: pointer;
   transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   text-transform: uppercase;
+  box-sizing: border-box;
 }
 
 .hero-cta-btn.btn-primary {
@@ -220,20 +232,20 @@
 }
 
 .hero-cta-btn.btn-secondary {
-  background: rgba(13, 18, 28, 0.7);
-  border: 1px solid rgba(212, 160, 23, 0.55);
+  background: rgba(13, 18, 28, 0.75);
+  border: 1px solid rgba(212, 160, 23, 0.6);
   color: #ffffff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .hero-cta-btn.btn-secondary:hover {
-  background: rgba(212, 160, 23, 0.16);
+  background: rgba(212, 160, 23, 0.2);
   color: #fde047;
   border-color: #fde047;
   transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(212, 160, 23, 0.25);
+  box-shadow: 0 10px 28px rgba(212, 160, 23, 0.3);
 }
 
 /* Quick Highlights Strip */
@@ -243,9 +255,9 @@
   justify-content: center;
   gap: 32px;
   padding: 18px 38px;
-  background: linear-gradient(135deg, rgba(17, 24, 38, 0.8) 0%, rgba(9, 13, 20, 0.85) 100%);
-  border: 1px solid rgba(212, 160, 23, 0.25);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 160, 23, 0.08);
+  background: linear-gradient(135deg, rgba(17, 24, 38, 0.85) 0%, rgba(9, 13, 20, 0.9) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 160, 23, 0.1);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 18px;
@@ -279,16 +291,17 @@
 }
 
 /* ============================================================
-   RESPONSIVE OPTIMIZATIONS (MOBILE & TABLET)
+   RESPONSIVE BREAKPOINTS (MOBILE & TABLET)
    ============================================================ */
 @media (max-width: 768px) {
   .hero-video-wrapper {
     min-height: 90vh;
+    min-height: 90svh;
     padding: 20px 0 40px;
   }
 
-  .hero-3d-bg-canvas {
-    opacity: 1;
+  .hero-bg-video {
+    filter: brightness(0.55) contrast(1.12) saturate(1.05);
   }
 
   .hero-content-container {
@@ -296,10 +309,10 @@
   }
 
   .hero-badge-pill {
-    padding: 6px 16px;
+    padding: 6px 18px;
     font-size: 10px;
     letter-spacing: 2px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .hero-main-heading {
