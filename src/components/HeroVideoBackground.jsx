@@ -6,16 +6,26 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
-    // Ensure video plays smoothly across mobile and desktop
-    if (videoRef.current) {
-      const playPromise = videoRef.current.play();
+    const video = videoRef.current;
+    if (video) {
+      video.playbackRate = 1.0;
+      video.defaultPlaybackRate = 1.0;
+
+      const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
             setVideoLoaded(true);
           })
-          .catch((error) => {
-            console.warn("Video auto-play prevented:", error);
+          .catch(() => {
+            // In case browser power-saving or policy restricts autoplay, retry on user touch/scroll
+            const handleUserInteraction = () => {
+              video.play().catch(() => {});
+              window.removeEventListener("touchstart", handleUserInteraction);
+              window.removeEventListener("click", handleUserInteraction);
+            };
+            window.addEventListener("touchstart", handleUserInteraction, { once: true, passive: true });
+            window.addEventListener("click", handleUserInteraction, { once: true });
           });
       }
     }
@@ -24,7 +34,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
   return (
     <section className="hero-video-wrapper" aria-label="Hero Section">
       {/* -------------------------------------------------------------
-          1. RESPONSIVE HERO BACKGROUND VIDEO (MOBILE & DESKTOP)
+          1. ULTRA-SMOOTH HARDWARE ACCELERATED BACKGROUND VIDEO
           ------------------------------------------------------------- */}
       <div className="hero-video-container">
         <video
@@ -36,8 +46,11 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
           playsInline
           webkit-playsinline="true"
           preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
           onLoadedData={() => setVideoLoaded(true)}
           onCanPlay={() => setVideoLoaded(true)}
+          onPlaying={() => setVideoLoaded(true)}
         >
           <source src="/video/hero-video.mp4" type="video/mp4" />
           <source src="/videos/hero-video.mp4" type="video/mp4" />
@@ -50,7 +63,6 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
           ------------------------------------------------------------- */}
       <div className="hero-video-overlay overlay-dark-gradient" aria-hidden="true" />
       <div className="hero-video-overlay overlay-radial-glow" aria-hidden="true" />
-      <div className="hero-video-overlay overlay-cinematic-vignette" aria-hidden="true" />
 
       {/* -------------------------------------------------------------
           3. HERO CENTRAL CONTENT & CALL TO ACTIONS
