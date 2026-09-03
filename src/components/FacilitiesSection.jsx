@@ -402,51 +402,86 @@ function FacilitiesSection({ onBookTurf }) {
     };
   }, [activeIdx]);
 
-  const handleTouchStart = (e) => {
-    setIsPaused(true);
-    if (e.touches && e.touches[0]) {
-      touchStartX.current = e.touches[0].clientX;
-      touchStartY.current = e.touches[0].clientY;
-    }
-  };
+  const stageRef = useRef(null);
 
-  const handleTouchMove = (e) => {
-    if (e.touches && e.touches[0]) {
-      touchEndX.current = e.touches[0].clientX;
-      touchEndY.current = e.touches[0].clientY;
-    }
-  };
+  // -------------------------------------------------------------
+  // NATIVE TOUCH-SWIPE ENGINE (100% Reliable on all mobile devices)
+  // -------------------------------------------------------------
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
 
-  const handleTouchEnd = (e) => {
-    const endX = touchEndX.current ?? (e.changedTouches && e.changedTouches[0]?.clientX);
-    const endY = touchEndY.current ?? (e.changedTouches && e.changedTouches[0]?.clientY);
+    let startX = 0;
+    let startY = 0;
+    let endX = 0;
+    let endY = 0;
+    let isTracking = false;
 
-    if (touchStartX.current !== null && endX !== undefined) {
-      const diffX = touchStartX.current - endX;
-      const diffY = (touchStartY.current || 0) - (endY || 0);
+    const onTouchStart = (e) => {
+      if (e.touches && e.touches[0]) {
+        setIsPaused(true);
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        endX = startX;
+        endY = startY;
+        isTracking = true;
+      }
+    };
 
-      // Trigger if horizontal movement exceeds 28px
-      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 28) {
+    const onTouchMove = (e) => {
+      if (!isTracking || !e.touches || !e.touches[0]) return;
+      endX = e.touches[0].clientX;
+      endY = e.touches[0].clientY;
+
+      // 3D Parallax tilt on drag
+      const rect = stage.getBoundingClientRect();
+      const nx = ((endX - rect.left) / rect.width - 0.5) * 2;
+      const ny = ((endY - rect.top) / rect.height - 0.5) * 2;
+      mouseRef.current.targetRotY = nx * 0.7;
+      mouseRef.current.targetRotX = 0.35 + ny * 0.25;
+    };
+
+    const onTouchEnd = () => {
+      if (!isTracking) return;
+      isTracking = false;
+
+      const diffX = startX - endX;
+      const diffY = startY - endY;
+
+      // If swipe moved horizontally > 22px
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 22) {
         if (diffX > 0) {
-          // Swiped left -> next
+          // Swiped Left -> Next pitch
           setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
         } else {
-          // Swiped right -> prev
+          // Swiped Right -> Previous pitch
           setActiveIdx((prev) => (prev - 1 + FACILITIES_DATA.length) % FACILITIES_DATA.length);
         }
       }
-    }
 
-    touchStartX.current = null;
-    touchEndX.current = null;
-    touchStartY.current = null;
-    touchEndY.current = null;
+      startX = 0;
+      startY = 0;
+      endX = 0;
+      endY = 0;
 
-    // Resume auto-swipe after user finishes swipe gesture
-    setTimeout(() => {
-      setIsPaused(false);
-    }, 2000);
-  };
+      // Resume auto-swipe 3s after user finishes swipe
+      setTimeout(() => {
+        setIsPaused(false);
+      }, 3000);
+    };
+
+    stage.addEventListener("touchstart", onTouchStart, { passive: true });
+    stage.addEventListener("touchmove", onTouchMove, { passive: true });
+    stage.addEventListener("touchend", onTouchEnd, { passive: true });
+    stage.addEventListener("touchcancel", onTouchEnd, { passive: true });
+
+    return () => {
+      stage.removeEventListener("touchstart", onTouchStart);
+      stage.removeEventListener("touchmove", onTouchMove);
+      stage.removeEventListener("touchend", onTouchEnd);
+      stage.removeEventListener("touchcancel", onTouchEnd);
+    };
+  }, []);
 
   const handleNextFacility = () => {
     setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
@@ -489,12 +524,10 @@ function FacilitiesSection({ onBookTurf }) {
 
         {/* 3D INTERACTIVE SHOWCASE CARD (AUTO-SWIPE & TOUCH-SWIPE) */}
         <div
+          ref={stageRef}
           className="facility-showcase-stage"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
         >
           {/* Quick Prev / Next Floating Arrows for Fast Switching */}
           <button
