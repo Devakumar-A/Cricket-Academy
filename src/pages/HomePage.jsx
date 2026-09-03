@@ -5,6 +5,7 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import CoachesHomePreview from "../components/CoachesHomePreview";
 import PlayerStatsCarousel from "../components/PlayerStatsCarousel";
 import AdmissionPlansSection from "../components/AdmissionPlansSection";
+import GallerySection from "../components/GallerySection";
 import "./HomePage.css";
 
 function HomePage({ onSection }) {
@@ -15,7 +16,7 @@ function HomePage({ onSection }) {
         onBookTurf={() => onSection("booking")}
         onJoinAcademy={() => onSection("admission")}
         onViewGallery={() => {
-          const el = document.getElementById("facilities") || document.querySelector(".mg-home-highlights-bar");
+          const el = document.getElementById("gallery");
           if (el) {
             el.scrollIntoView({ behavior: "smooth" });
           }
@@ -120,7 +121,10 @@ function HomePage({ onSection }) {
       {/* 7. ADMISSION PLANS (WEEKDAY, WEEKEND, COMBO) */}
       <AdmissionPlansSection onSelectPlan={() => onSection("admission")} />
 
-      {/* 8. TURF CTA BANNER */}
+      {/* 8. ACADEMY MOMENTS GALLERY (MARQUEE PHOTOS & VIDEOS ROWS) */}
+      <GallerySection />
+
+      {/* 9. TURF CTA BANNER */}
       <section className="mg-turf-cta-section">
         <div className="home-section-container">
           <div className="turf-cta-box">

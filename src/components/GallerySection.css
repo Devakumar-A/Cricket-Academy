@@ -1,0 +1,492 @@
+/* ============================================================
+   ACADEMY GALLERY & HIGHLIGHTS MARQUEE SECTION
+   ============================================================ */
+.mg-gallery-section {
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, #0d1420 0%, #06090e 65%, #030508 100%);
+  padding: 85px 0 95px;
+  overflow: hidden;
+  border-top: 1px solid rgba(212, 160, 23, 0.15);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.15);
+}
+
+/* Row Labels & Category Badges */
+.gallery-marquee-block {
+  width: 100%;
+  margin-top: 36px;
+  position: relative;
+}
+
+.gallery-videos-block {
+  margin-top: 48px;
+}
+
+.gallery-row-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  max-width: 1300px;
+  margin: 0 auto 16px;
+  box-sizing: border-box;
+}
+
+.gallery-live-pill {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 5px 14px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+}
+
+.gallery-live-pill.gold-pill {
+  color: #fde047;
+  background: rgba(212, 160, 23, 0.12);
+  border-color: rgba(212, 160, 23, 0.38);
+  box-shadow: 0 0 12px rgba(212, 160, 23, 0.15);
+}
+
+.gallery-hint-text {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Marquee Outer Container with Edge Fades */
+.gallery-marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  padding: 8px 0;
+}
+
+/* Marquee Tracks */
+.gallery-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: max-content;
+  will-change: transform;
+}
+
+.gallery-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Row 1: Photos Track (Scrolls Left) */
+.track-photos {
+  animation: galleryPhotosScroll 40s linear infinite;
+}
+
+@keyframes galleryPhotosScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Row 2: Videos Track (Scrolls in Reverse / Rightwards for contrast) */
+.track-videos {
+  animation: galleryVideosScroll 45s linear infinite;
+}
+
+@keyframes galleryVideosScroll {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* -------------------------------------------------------------
+   PHOTO CARDS
+   ------------------------------------------------------------- */
+.gallery-photo-card {
+  width: 320px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #0b1018;
+  border: 1px solid rgba(212, 160, 23, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.gallery-photo-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  border-color: #fde047;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(212, 160, 23, 0.35);
+}
+
+.gallery-card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-photo-card:hover .gallery-card-media {
+  transform: scale(1.1);
+}
+
+.gallery-card-glass-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(3, 6, 10, 0.95) 0%, rgba(3, 6, 10, 0.6) 60%, transparent 100%);
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.gallery-item-tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #38bdf8;
+}
+
+.gallery-item-tag.gold-tag {
+  color: #fde047;
+}
+
+.gallery-item-title {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+  line-height: 1.3;
+}
+
+.gallery-card-zoom-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(6, 10, 18, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #ffffff;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.25s ease;
+}
+
+.gallery-photo-card:hover .gallery-card-zoom-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* -------------------------------------------------------------
+   VIDEO CARDS
+   ------------------------------------------------------------- */
+.gallery-video-card {
+  width: 340px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #080d14;
+  border: 1px solid rgba(212, 160, 23, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.gallery-video-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  border-color: #fde047;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 160, 23, 0.4);
+}
+
+.video-thumb-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-video-card:hover .gallery-card-media {
+  transform: scale(1.08);
+}
+
+.video-play-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(212, 160, 23, 0.9);
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(212, 160, 23, 0.6);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.play-triangle {
+  color: #06090e;
+  font-size: 16px;
+  margin-left: 2px;
+}
+
+.gallery-video-card:hover .video-play-badge {
+  background: #fde047;
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 0 30px rgba(253, 224, 71, 0.8);
+}
+
+.video-duration-pill {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+/* -------------------------------------------------------------
+   LIGHTBOX MODAL
+   ------------------------------------------------------------- */
+.gallery-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 6, 10, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: fadeInModal 0.25s ease forwards;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.gallery-lightbox-content {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  background: #0b111a;
+  border: 1px solid rgba(212, 160, 23, 0.4);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 160, 23, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.gallery-lightbox-close:hover {
+  background: #dc2626;
+  border-color: #ef4444;
+  transform: scale(1.1);
+}
+
+.lightbox-full-image {
+  width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  background: #020408;
+  display: block;
+}
+
+.lightbox-video-frame {
+  width: 100%;
+  background: #000000;
+  max-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-video-player {
+  width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+}
+
+.lightbox-caption-bar {
+  padding: 18px 24px 22px;
+  background: #070c14;
+  border-top: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+.lightbox-tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #fde047;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.lightbox-title {
+  margin: 0 0 6px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.lightbox-desc {
+  margin: 0;
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------
+   RESPONSIVE STYLES
+   ------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .mg-gallery-section {
+    padding: 60px 0 70px;
+  }
+
+  .gallery-marquee-block {
+    margin-top: 28px;
+  }
+
+  .gallery-videos-block {
+    margin-top: 36px;
+  }
+
+  .gallery-row-label {
+    padding: 0 16px;
+    margin-bottom: 12px;
+  }
+
+  .gallery-live-pill {
+    font-size: 9.5px;
+    padding: 4px 10px;
+  }
+
+  .gallery-hint-text {
+    font-size: 10px;
+  }
+
+  .gallery-photo-card {
+    width: 250px;
+    height: 175px;
+    border-radius: 12px;
+  }
+
+  .gallery-video-card {
+    width: 260px;
+    height: 175px;
+    border-radius: 12px;
+  }
+
+  .gallery-item-title {
+    font-size: 12.5px;
+  }
+
+  .video-play-badge {
+    width: 40px;
+    height: 40px;
+  }
+
+  .play-triangle {
+    font-size: 13px;
+  }
+
+  .track-photos {
+    gap: 14px;
+    animation-duration: 30s;
+  }
+
+  .track-videos {
+    gap: 14px;
+    animation-duration: 32s;
+  }
+
+  .lightbox-caption-bar {
+    padding: 14px 16px 18px;
+  }
+
+  .lightbox-title {
+    font-size: 15px;
+  }
+
+  .lightbox-desc {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-marquee-track {
+    animation: none;
+    overflow-x: auto;
+  }
+}
