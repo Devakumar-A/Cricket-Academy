@@ -110,6 +110,23 @@ function ContactPage({ onBack, onSection }) {
               <span className="channel-action-arrow">Chat Now →</span>
             </a>
 
+            {/* Instagram Official Page */}
+            <a
+              href="https://www.instagram.com/mg_cricketers_den?igsi=MW5oODZ1bnd3d3VyZg=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="channel-card channel-insta"
+            >
+              <div className="channel-icon-box insta-icon">📸</div>
+              <div className="channel-info">
+                <span className="channel-tag insta-tag">OFFICIAL INSTAGRAM</span>
+                <h3>@mg_cricketers_den</h3>
+                <p>Follow for live match reels, training clips & announcements.</p>
+                <div className="channel-highlight">@mg_cricketers_den</div>
+              </div>
+              <span className="channel-action-arrow">Follow on Instagram →</span>
+            </a>
+
             {/* Phone Helpline */}
             <a
               href="tel:+919597318892"

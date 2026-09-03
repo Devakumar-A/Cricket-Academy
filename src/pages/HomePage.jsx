@@ -149,14 +149,24 @@ function HomePage({ onSection }) {
         <div className="home-section-container">
           <div className="contact-cta-box">
             <h2>HAVE QUESTIONS ABOUT ADMISSION OR TURF SLOTS?</h2>
-            <p>Connect with our coordinators via WhatsApp, call, or visit our training centers.</p>
-            <button
-              type="button"
-              className="contact-main-btn"
-              onClick={() => onSection("contact")}
-            >
-              📞 CONTACT US →
-            </button>
+            <p>Connect with our coordinators via WhatsApp, Instagram, call, or visit our training centers.</p>
+            <div className="contact-cta-btns-row">
+              <button
+                type="button"
+                className="contact-main-btn"
+                onClick={() => onSection("contact")}
+              >
+                📞 CONTACT HELPDESK →
+              </button>
+              <a
+                href="https://www.instagram.com/mg_cricketers_den?igsi=MW5oODZ1bnd3d3VyZg=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-insta-direct-btn"
+              >
+                📸 VISIT INSTAGRAM →
+              </a>
+            </div>
           </div>
         </div>
       </section>
