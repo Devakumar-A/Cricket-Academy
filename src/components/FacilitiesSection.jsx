@@ -45,12 +45,29 @@ const FACILITIES_DATA = [
 
 function FacilitiesSection({ onBookTurf }) {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const activeFacility = FACILITIES_DATA[activeIdx] || FACILITIES_DATA[0];
   const facilityTags = activeFacility?.tags || activeFacility?.features || [];
   const canvasRef = useRef(null);
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
+  const touchStartY = useRef(null);
+  const touchEndY = useRef(null);
   const mouseRef = useRef({ rotX: 0.35, rotY: 0, targetRotX: 0.35, targetRotY: 0 });
+
+  // -------------------------------------------------------------
+  // AUTO-SWIPE ENGINE (Smooth Auto-Cycle every 4.0 seconds on mobile & desktop)
+  // -------------------------------------------------------------
+  useEffect(() => {
+    if (isPaused || isHovered) return;
+
+    const interval = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, isHovered]);
 
   // -------------------------------------------------------------
   // 3D CANVAS RENDERER FOR NETS & PITCH
@@ -385,11 +402,8 @@ function FacilitiesSection({ onBookTurf }) {
     };
   }, [activeIdx]);
 
-  // Touch Swipe for Mobile with robust coordinate tracking
-  const touchStartY = useRef(null);
-  const touchEndY = useRef(null);
-
   const handleTouchStart = (e) => {
+    setIsPaused(true);
     if (e.touches && e.touches[0]) {
       touchStartX.current = e.touches[0].clientX;
       touchStartY.current = e.touches[0].clientY;
@@ -411,8 +425,8 @@ function FacilitiesSection({ onBookTurf }) {
       const diffX = touchStartX.current - endX;
       const diffY = (touchStartY.current || 0) - (endY || 0);
 
-      // Trigger if horizontal movement exceeds 30px and is more horizontal than vertical
-      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+      // Trigger if horizontal movement exceeds 28px
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 28) {
         if (diffX > 0) {
           // Swiped left -> next
           setActiveIdx((prev) => (prev + 1) % FACILITIES_DATA.length);
@@ -427,6 +441,11 @@ function FacilitiesSection({ onBookTurf }) {
     touchEndX.current = null;
     touchStartY.current = null;
     touchEndY.current = null;
+
+    // Resume auto-swipe after user finishes swipe gesture
+    setTimeout(() => {
+      setIsPaused(false);
+    }, 2000);
   };
 
   const handleNextFacility = () => {
@@ -468,9 +487,11 @@ function FacilitiesSection({ onBookTurf }) {
           ))}
         </div>
 
-        {/* 3D INTERACTIVE SHOWCASE CARD (TOUCH-SWIPE & TAP NAVIGATION) */}
+        {/* 3D INTERACTIVE SHOWCASE CARD (AUTO-SWIPE & TOUCH-SWIPE) */}
         <div
           className="facility-showcase-stage"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
