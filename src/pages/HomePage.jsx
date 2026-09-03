@@ -22,30 +22,32 @@ function HomePage({ onSection }) {
         }}
       />
 
-      {/* QUICK HIGHLIGHTS TRANSITION BAR */}
-      <section className="mg-home-highlights-bar">
+      {/* 2. COMPACT LIVE VENUE STATUS & QUICK JUMP MICRO-BAR */}
+      <section className="mg-live-action-strip" aria-label="Live Venue Status & Quick Actions">
         <div className="home-section-container">
-          <div className="home-highlights-grid">
-            <div className="home-highlight-card" onClick={() => onSection("booking")}>
-              <span className="hl-icon">🏟️</span>
-              <div className="hl-info">
-                <strong>2 PREMIUM VENUES</strong>
-                <p>Thengaithittu Nets & Royapudupakkam Ground</p>
-              </div>
+          <div className="live-strip-inner">
+            <div className="live-status-badge">
+              <span className="live-pulse-dot" />
+              <span className="live-status-text">
+                <strong>VENUES OPEN:</strong> 6:00 AM – 10:00 PM • Thengaithittu & Royapudupakkam
+              </span>
             </div>
-            <div className="home-highlight-card" onClick={() => onSection("booking")}>
-              <span className="hl-icon">🏏</span>
-              <div className="hl-info">
-                <strong>TURF & ASTRO NETS</strong>
-                <p>Pro Practice Pitches with Floodlights</p>
-              </div>
-            </div>
-            <div className="home-highlight-card" onClick={() => onSection("coaches")}>
-              <span className="hl-icon">⭐</span>
-              <div className="hl-info">
-                <strong>EXPERT COACHING</strong>
-                <p>State-Certified Mentorship & Technique Analysis</p>
-              </div>
+
+            <div className="live-quick-actions">
+              <button
+                type="button"
+                className="live-quick-btn turf-btn"
+                onClick={() => onSection("booking")}
+              >
+                🏏 Book Turf Slot
+              </button>
+              <button
+                type="button"
+                className="live-quick-btn admit-btn"
+                onClick={() => onSection("admission")}
+              >
+                📋 Join Academy
+              </button>
             </div>
           </div>
         </div>
