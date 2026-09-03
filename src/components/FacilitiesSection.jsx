@@ -45,7 +45,8 @@ const FACILITIES_DATA = [
 
 function FacilitiesSection({ onBookTurf }) {
   const [activeIdx, setActiveIdx] = useState(0);
-  const activeFacility = FACILITIES_DATA[activeIdx];
+  const activeFacility = FACILITIES_DATA[activeIdx] || FACILITIES_DATA[0];
+  const facilityTags = activeFacility?.tags || activeFacility?.features || [];
   const canvasRef = useRef(null);
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
@@ -474,13 +475,15 @@ function FacilitiesSection({ onBookTurf }) {
             </div>
 
             {/* Compact Highlights Tags Row (Zero vertical bloat) */}
-            <div className="info-compact-tags-row">
-              {activeFacility.tags.map((tag, tIdx) => (
-                <span key={tIdx} className="facility-compact-chip">
-                  {tag}
-                </span>
-              ))}
-            </div>
+            {facilityTags && facilityTags.length > 0 && (
+              <div className="info-compact-tags-row">
+                {facilityTags.map((tag, tIdx) => (
+                  <span key={tIdx} className="facility-compact-chip">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {/* Mobile Touch Indicators */}
             <div className="facility-swipe-dots">
