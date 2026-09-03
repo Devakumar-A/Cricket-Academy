@@ -130,10 +130,13 @@
   left: 0;
   right: 0;
   background: linear-gradient(to top, rgba(3, 6, 10, 0.98) 0%, rgba(3, 6, 10, 0.75) 60%, transparent 100%);
-  padding: 24px 20px 18px;
+  padding: 24px 16px 18px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
   pointer-events: none;
 }
 
@@ -144,6 +147,7 @@
   font-weight: 900;
   color: #ffffff;
   letter-spacing: 0.3px;
+  text-align: center;
 }
 
 .coach-item-role {
@@ -153,6 +157,7 @@
   letter-spacing: 1.8px;
   text-transform: uppercase;
   color: #fde047;
+  text-align: center;
 }
 
 /* -------------------------------------------------------------
