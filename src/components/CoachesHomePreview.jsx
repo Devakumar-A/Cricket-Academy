@@ -5,25 +5,19 @@ const coachesData = [
     id: "george-samuel",
     name: "George Samuel",
     role: "COACH",
-    specialty: "Batting Technique & Strategy",
     image: "/coaches/george-samuel.jpg",
-    badge: "Senior Coach",
   },
   {
     id: "tharun",
     name: "Tharun",
     role: "COACH",
-    specialty: "Fast Bowling & Pace Lab",
     image: "/coaches/tharun.png",
-    badge: "Pace Specialist",
   },
   {
     id: "antony",
     name: "Antony",
     role: "COACH",
-    specialty: "Spin Mastery & Fielding Drills",
     image: "/coaches/antony.png",
-    badge: "Tactics & Spin",
   },
 ];
 
@@ -68,11 +62,9 @@ function CoachesHomePreview({ onMeetCoaches }) {
                     loading="lazy"
                     className="coach-card-media"
                   />
-                  <span className="coach-card-badge">{coach.badge}</span>
                   <div className="coach-card-glass-overlay">
-                    <span className="coach-item-role">{coach.role}</span>
                     <h3 className="coach-item-name">{coach.name}</h3>
-                    <p className="coach-item-spec">{coach.specialty}</p>
+                    <span className="coach-item-role">{coach.role}</span>
                   </div>
                 </div>
               </div>
@@ -95,11 +87,9 @@ function CoachesHomePreview({ onMeetCoaches }) {
                     loading="lazy"
                     className="coach-card-media"
                   />
-                  <span className="coach-card-badge">{coach.badge}</span>
                   <div className="coach-card-glass-overlay">
-                    <span className="coach-item-role">{coach.role}</span>
                     <h3 className="coach-item-name">{coach.name}</h3>
-                    <p className="coach-item-spec">{coach.specialty}</p>
+                    <span className="coach-item-role">{coach.role}</span>
                   </div>
                 </div>
               </div>
@@ -122,11 +112,9 @@ function CoachesHomePreview({ onMeetCoaches }) {
                     loading="lazy"
                     className="coach-card-media"
                   />
-                  <span className="coach-card-badge">{coach.badge}</span>
                   <div className="coach-card-glass-overlay">
-                    <span className="coach-item-role">{coach.role}</span>
                     <h3 className="coach-item-name">{coach.name}</h3>
-                    <p className="coach-item-spec">{coach.specialty}</p>
+                    <span className="coach-item-role">{coach.role}</span>
                   </div>
                 </div>
               </div>
@@ -142,7 +130,7 @@ function CoachesHomePreview({ onMeetCoaches }) {
           className="coaches-view-all-btn"
           onClick={onMeetCoaches}
         >
-          MEET ALL COACHES & MENTORS →
+          MEET OUR COACHES →
         </button>
       </div>
     </section>
