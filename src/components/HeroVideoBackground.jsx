@@ -4,6 +4,26 @@ import "./HeroVideoBackground.css";
 function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
   const videoRef = useRef(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth <= 768;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    const handleMediaChange = (e) => {
+      setIsMobile(e.matches);
+    };
+
+    setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleMediaChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaChange);
+    };
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -11,6 +31,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
       video.playbackRate = 1.0;
       video.defaultPlaybackRate = 1.0;
 
+      video.load();
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise
@@ -18,7 +39,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
             setVideoLoaded(true);
           })
           .catch(() => {
-            // In case browser power-saving or policy restricts autoplay, retry on user touch/scroll
+            // In case browser power-saving or policy restricts autoplay, retry on user interaction
             const handleUserInteraction = () => {
               video.play().catch(() => {});
               window.removeEventListener("touchstart", handleUserInteraction);
@@ -29,16 +50,17 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
           });
       }
     }
-  }, []);
+  }, [isMobile]);
 
   return (
     <section className="hero-video-wrapper" aria-label="Hero Section">
       {/* -------------------------------------------------------------
-          1. ULTRA-SMOOTH HARDWARE ACCELERATED BACKGROUND VIDEO
+          1. ULTRA-SMOOTH HARDWARE ACCELERATED DUAL VIDEO (MOBILE / DESKTOP)
           ------------------------------------------------------------- */}
       <div className="hero-video-container">
         <video
           ref={videoRef}
+          key={isMobile ? "mobile-video" : "desktop-video"}
           className={`hero-bg-video ${videoLoaded ? "is-loaded" : ""}`}
           autoPlay
           loop
@@ -52,8 +74,17 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy }) {
           onCanPlay={() => setVideoLoaded(true)}
           onPlaying={() => setVideoLoaded(true)}
         >
-          <source src="/video/hero-video.mp4" type="video/mp4" />
-          <source src="/videos/hero-video.mp4" type="video/mp4" />
+          {isMobile ? (
+            <>
+              <source src="/video/hero-video-mobile.mp4" type="video/mp4" />
+              <source src="/videos/hero-video-mobile.mp4" type="video/mp4" />
+            </>
+          ) : (
+            <>
+              <source src="/video/hero-video.mp4" type="video/mp4" />
+              <source src="/videos/hero-video.mp4" type="video/mp4" />
+            </>
+          )}
           Your browser does not support the video tag.
         </video>
       </div>

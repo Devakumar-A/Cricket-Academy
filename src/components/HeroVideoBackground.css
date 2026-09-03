@@ -294,10 +294,6 @@
     padding: 20px 0 40px;
   }
 
-  .hero-bg-video {
-    filter: brightness(0.55) contrast(1.12) saturate(1.05);
-  }
-
   .hero-content-container {
     padding: 85px 16px 40px;
   }
