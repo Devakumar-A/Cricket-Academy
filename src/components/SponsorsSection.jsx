@@ -44,7 +44,7 @@ function SponsorsSection() {
                 <div className="pro-partner-logo-box">
                   <img
                     src={partner.logoPng}
-                    alt={`${partner.name} logo`}
+                    alt={`${partner.name} — Official Partner of MG Cricketer's Den Cricket Academy Pondicherry`}
                     className="pro-partner-img"
                     onError={(e) => {
                       if (e.currentTarget.src !== partner.logoSvg) {

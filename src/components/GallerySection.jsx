@@ -129,7 +129,7 @@ function GallerySection() {
               >
                 <img
                   src={item.src}
-                  alt={item.title}
+                  alt={`${item.title} — MG Cricketer's Den Cricket Coaching & Practice Nets Thengaithittu Pondicherry`}
                   loading="lazy"
                   className="gallery-card-media"
                 />
@@ -153,7 +153,7 @@ function GallerySection() {
               >
                 <img
                   src={item.src}
-                  alt={item.title}
+                  alt={`${item.title} — MG Cricketer's Den Cricket Coaching & Practice Nets Thengaithittu Pondicherry`}
                   loading="lazy"
                   className="gallery-card-media"
                 />
@@ -191,7 +191,7 @@ function GallerySection() {
                 <div className="video-thumb-container">
                   <img
                     src={item.poster}
-                    alt={item.title}
+                    alt={`${item.title} Video Reel — MG Cricketer's Den Training & Match Arena Pondicherry`}
                     loading="lazy"
                     className="gallery-card-media"
                   />
@@ -220,7 +220,7 @@ function GallerySection() {
                 <div className="video-thumb-container">
                   <img
                     src={item.poster}
-                    alt={item.title}
+                    alt={`${item.title} Video Reel — MG Cricketer's Den Training & Match Arena Pondicherry`}
                     loading="lazy"
                     className="gallery-card-media"
                   />
@@ -275,7 +275,7 @@ function GallerySection() {
             ) : (
               <img
                 src={selectedMedia.src}
-                alt={selectedMedia.title}
+                alt={`${selectedMedia.title} — MG Cricketer's Den Cricket Academy Puducherry`}
                 className="lightbox-full-image"
               />
             )}
