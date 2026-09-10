@@ -1,25 +1,52 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import { updatePageSEO } from "./utils/seo";
 
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+// — Always-visible shell components: load eagerly —
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/AboutPage";
-import CoachesPage from "./pages/CoachesPage";
-import ContactPage from "./pages/ContactPage";
-import DashboardPage from "./pages/DashboardPage";
-import TurfBookingPage from "./pages/TurfBookingPage";
-import AdmissionPage from "./pages/AdmissionPage";
-import PlayerStatsPage from "./pages/PlayerStatsPage";
 import AuthModal from "./components/AuthModal";
 import SplashScreen from "./components/SplashScreen";
 
+// — Auth pages: small, but still lazy so they don't bloat the main bundle —
+const LoginPage          = lazy(() => import("./pages/LoginPage"));
+const SignupPage         = lazy(() => import("./pages/SignupPage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
+
+// — Main content pages: lazy-loaded on demand —
+const HomePage        = lazy(() => import("./pages/HomePage"));
+const AboutPage       = lazy(() => import("./pages/AboutPage"));
+const CoachesPage     = lazy(() => import("./pages/CoachesPage"));
+const ContactPage     = lazy(() => import("./pages/ContactPage"));
+const DashboardPage   = lazy(() => import("./pages/DashboardPage"));
+const TurfBookingPage = lazy(() => import("./pages/TurfBookingPage"));
+const AdmissionPage   = lazy(() => import("./pages/AdmissionPage"));
+const PlayerStatsPage = lazy(() => import("./pages/PlayerStatsPage"));
+
+// Minimal inline fallback — matches the dark site bg, no flash
+function PageFallback() {
+  return (
+    <div style={{
+      minHeight: "60vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "#04070c",
+      color: "#d4a017",
+      fontSize: "15px",
+      letterSpacing: "1px",
+    }}>
+      🏏 Loading...
+    </div>
+  );
+}
+
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
+  // Show splash only once per browser session — skip on back navigation or refresh
+  const [showSplash, setShowSplash] = useState(() => {
+    if (sessionStorage.getItem("splashShown")) return false;
+    return true;
+  });
   const [authPage, setAuthPage] = useState(null); // null | "login" | "signup" | "forgot"
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -178,28 +205,34 @@ function App() {
   // -------------------------
   if (authPage === "signup") {
     return (
-      <SignupPage
-        onLogin={handleLoginSuccess}
-        onBack={() => setAuthPage("login")}
-      />
+      <Suspense fallback={<PageFallback />}>
+        <SignupPage
+          onLogin={handleLoginSuccess}
+          onBack={() => setAuthPage("login")}
+        />
+      </Suspense>
     );
   }
 
   if (authPage === "forgot") {
     return (
-      <ForgotPasswordPage
-        onBack={() => setAuthPage("login")}
-      />
+      <Suspense fallback={<PageFallback />}>
+        <ForgotPasswordPage
+          onBack={() => setAuthPage("login")}
+        />
+      </Suspense>
     );
   }
 
   if (authPage === "login") {
     return (
-      <LoginPage
-        onSignup={() => setAuthPage("signup")}
-        onForgotPassword={() => setAuthPage("forgot")}
-        onLogin={handleLoginSuccess}
-      />
+      <Suspense fallback={<PageFallback />}>
+        <LoginPage
+          onSignup={() => setAuthPage("signup")}
+          onForgotPassword={() => setAuthPage("forgot")}
+          onLogin={handleLoginSuccess}
+        />
+      </Suspense>
     );
   }
 
@@ -210,7 +243,10 @@ function App() {
     <div className="app-root-layout">
       {/* 3D ANIMATED HIGH-END SPLASH SCREEN */}
       {showSplash && (
-        <SplashScreen onFinish={() => setShowSplash(false)} />
+        <SplashScreen onFinish={() => {
+          sessionStorage.setItem("splashShown", "1");
+          setShowSplash(false);
+        }} />
       )}
 
       {/* GLOBAL HEADER */}
@@ -224,57 +260,59 @@ function App() {
         onOpenAuth={handleOpenAuth}
       />
 
-      {/* PAGE ROUTING */}
-      {currentPage === "home" && (
-        <HomePage onSection={handleSection} />
-      )}
+      {/* PAGE ROUTING — wrapped in Suspense; each page is a separate lazy chunk */}
+      <Suspense fallback={<PageFallback />}>
+        {currentPage === "home" && (
+          <HomePage onSection={handleSection} />
+        )}
 
-      {currentPage === "about" && (
-        <AboutPage
-          onBack={handleHome}
-          onSection={handleSection}
-        />
-      )}
+        {currentPage === "about" && (
+          <AboutPage
+            onBack={handleHome}
+            onSection={handleSection}
+          />
+        )}
 
-      {currentPage === "coaches" && (
-        <CoachesPage
-          onBack={handleHome}
-          onSection={handleSection}
-        />
-      )}
+        {currentPage === "coaches" && (
+          <CoachesPage
+            onBack={handleHome}
+            onSection={handleSection}
+          />
+        )}
 
-      {currentPage === "contact" && (
-        <ContactPage
-          onBack={handleHome}
-          onSection={handleSection}
-        />
-      )}
+        {currentPage === "contact" && (
+          <ContactPage
+            onBack={handleHome}
+            onSection={handleSection}
+          />
+        )}
 
-      {currentPage === "booking" && (
-        <TurfBookingPage
-          user={user}
-          onBack={handleHome}
-        />
-      )}
+        {currentPage === "booking" && (
+          <TurfBookingPage
+            user={user}
+            onBack={handleHome}
+          />
+        )}
 
-      {currentPage === "admission" && (
-        <AdmissionPage
-          user={user}
-          onBack={handleHome}
-        />
-      )}
+        {currentPage === "admission" && (
+          <AdmissionPage
+            user={user}
+            onBack={handleHome}
+          />
+        )}
 
-      {currentPage === "players" && (
-        <PlayerStatsPage onBack={handleHome} />
-      )}
+        {currentPage === "players" && (
+          <PlayerStatsPage onBack={handleHome} />
+        )}
 
-      {currentPage === "dashboard" && user && (
-        <DashboardPage
-          user={user}
-          onBack={handleHome}
-          onNavigate={handleSection}
-        />
-      )}
+        {currentPage === "dashboard" && user && (
+          <DashboardPage
+            user={user}
+            onBack={handleHome}
+            onNavigate={handleSection}
+          />
+        )}
+      </Suspense>
 
       {/* GLOBAL FOOTER */}
       <Footer

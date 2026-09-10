@@ -10,3 +10,44 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# ─── HTTP Caching Headers ───────────────────────────────────────────────────
+# Vite content-hashes all JS/CSS asset filenames → safe to cache 1 year
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Coach and sponsor images — cache 30 days
+[[headers]]
+  for = "/coaches/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/sponsors/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Logo — cache 7 days
+[[headers]]
+  for = "/logoo.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Hero videos — cache 24 hours (they're large, keep them cached)
+[[headers]]
+  for = "/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# HTML pages — always revalidate so updates deploy immediately
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"

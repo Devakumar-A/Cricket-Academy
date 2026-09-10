@@ -1,5 +1,3 @@
-import jsPDF from "jspdf";
-
 export function calculateAge(dob) {
   if (!dob) return "";
   try {
@@ -48,6 +46,9 @@ export function formatDate(date) {
  * Generates and downloads the executive 24K Gold & Obsidian MG Cricketer's Den Admission PDF
  */
 export async function generateAdmissionPDF({ admission, photoDataOrUrl }) {
+  // Dynamic import — jsPDF (~500 KB) only downloads when user clicks Download PDF
+  const { default: jsPDF } = await import("jspdf");
+
   const pdf = new jsPDF({
     orientation: "portrait",
     unit: "mm",

@@ -131,6 +131,7 @@ function GallerySection() {
                   src={item.src}
                   alt={`${item.title} - MG Cricketer's Den Cricket Coaching & Practice Nets Thengaithittu Pondicherry`}
                   loading="lazy"
+                  decoding="async"
                   className="gallery-card-media"
                 />
                 <div className="gallery-card-glass-overlay">
@@ -155,6 +156,7 @@ function GallerySection() {
                   src={item.src}
                   alt={`${item.title} - MG Cricketer's Den Cricket Coaching & Practice Nets Thengaithittu Pondicherry`}
                   loading="lazy"
+                  decoding="async"
                   className="gallery-card-media"
                 />
                 <div className="gallery-card-glass-overlay">
