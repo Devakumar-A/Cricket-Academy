@@ -74,15 +74,9 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery }) {
           onPlaying={() => setVideoLoaded(true)}
         >
           {isMobile ? (
-            <>
-              <source src="/video/hero-video-mobile.mp4" type="video/mp4" />
-              <source src="/videos/hero-video-mobile.mp4" type="video/mp4" />
-            </>
+            <source src="/videos/hero-video-mobile.mp4" type="video/mp4" />
           ) : (
-            <>
-              <source src="/video/hero-video.mp4" type="video/mp4" />
-              <source src="/videos/hero-video.mp4" type="video/mp4" />
-            </>
+            <source src="/videos/hero-video.mp4" type="video/mp4" />
           )}
           Your browser does not support the video tag.
         </video>

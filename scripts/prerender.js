@@ -89,14 +89,6 @@ const ROUTES_METADATA = [
     canonical: "https://mgcricketersden.com/signup",
     robots: "noindex, nofollow",
   },
-  {
-    route: "forgot-password",
-    outputDir: path.join(distDir, "forgot-password"),
-    title: "Reset Password | MG Cricketers Den Pondicherry",
-    description: "Reset your password to regain access to your MG Cricketer's Den account, turf bookings, and player dashboard in Pondicherry. Reset now!",
-    canonical: "https://mgcricketersden.com/forgot-password",
-    robots: "noindex, nofollow",
-  },
 ];
 
 function escapeHtml(str) {

@@ -37,11 +37,6 @@
 
 # Hero videos — cache 24 hours (they're large, keep them cached)
 [[headers]]
-  for = "/video/*"
-  [headers.values]
-    Cache-Control = "public, max-age=86400"
-
-[[headers]]
   for = "/videos/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"

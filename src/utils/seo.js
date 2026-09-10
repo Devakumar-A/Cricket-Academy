@@ -54,12 +54,6 @@ export const SEO_METADATA = {
     canonical: "https://mgcricketersden.com/signup",
     robots: "noindex, nofollow",
   },
-  forgot: {
-    title: "Reset Password | MG Cricketers Den Pondicherry",
-    description: "Reset your password to regain access to your MG Cricketer's Den account, turf bookings, and player dashboard in Pondicherry. Reset now!",
-    canonical: "https://mgcricketersden.com/forgot-password",
-    robots: "noindex, nofollow",
-  },
 };
 
 function setMetaTag(attrName, attrValue, content) {

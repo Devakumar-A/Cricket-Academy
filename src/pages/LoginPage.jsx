@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 
-function LoginPage({ onSignup, onForgotPassword, onLogin }) {
+function LoginPage({ onSignup, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -57,10 +57,6 @@ function LoginPage({ onSignup, onForgotPassword, onLogin }) {
         </form>
 
         {message && <p className="auth-message">{message}</p>}
-
-        <button className="link-button" onClick={onForgotPassword}>
-          Forgot Password?
-        </button>
 
         <p>
           Don't have an account?{" "}

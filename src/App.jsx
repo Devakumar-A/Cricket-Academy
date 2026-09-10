@@ -10,9 +10,8 @@ import SplashScreen from "./components/SplashScreen";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // — Auth pages: small, but still lazy so they don't bloat the main bundle —
-const LoginPage          = lazy(() => import("./pages/LoginPage"));
-const SignupPage         = lazy(() => import("./pages/SignupPage"));
-const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
+const LoginPage  = lazy(() => import("./pages/LoginPage"));
+const SignupPage = lazy(() => import("./pages/SignupPage"));
 
 // — Main content pages: lazy-loaded on demand —
 const HomePage        = lazy(() => import("./pages/HomePage"));
@@ -48,10 +47,16 @@ function App() {
     if (sessionStorage.getItem("splashShown")) return false;
     return true;
   });
-  const [authPage, setAuthPage] = useState(null); // null | "login" | "signup" | "forgot"
+  const [authPage, setAuthPage] = useState(null); // null | "login" | "signup"
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState("home"); // "home" | "about" | "coaches" | "booking" | "admission" | "players" | "contact" | "dashboard"
+
+  // Auth modal state for gated actions (booking/admission/dashboard for guests)
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalView, setAuthModalView] = useState("login");
+  const [authModalTargetAction, setAuthModalTargetAction] = useState("book a turf slot");
+  const [pendingSectionAfterLogin, setPendingSectionAfterLogin] = useState(null);
 
   // 1. Synchronize initial URL on page load & listen for browser back/forward navigation
   useEffect(() => {
@@ -63,23 +68,31 @@ function App() {
     else if (rawPath === "players") setCurrentPage("players");
     else if (rawPath === "contact") setCurrentPage("contact");
     else if (rawPath === "dashboard") setCurrentPage("dashboard");
-    else if (rawPath === "login") setAuthPage("login");
+    else if (rawPath === "login" || rawPath === "forgot-password" || rawPath === "forgot") setAuthPage("login");
     else if (rawPath === "signup") setAuthPage("signup");
-    else if (rawPath === "forgot-password" || rawPath === "forgot") setAuthPage("forgot");
 
     const handlePopState = () => {
       const p = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, "");
-      if (p === "login" || p === "signup" || p === "forgot" || p === "forgot-password") {
-        setAuthPage(p === "forgot-password" ? "forgot" : p);
+      if (p === "login" || p === "forgot" || p === "forgot-password") {
+        setAuthPage("login");
+      } else if (p === "signup") {
+        setAuthPage("signup");
       } else {
         setAuthPage(null);
-        setCurrentPage(p || "home");
+        if (p === "dashboard" && !user) {
+          setCurrentPage("home");
+          setAuthModalTargetAction("access your player dashboard");
+          setPendingSectionAfterLogin("dashboard");
+          setAuthModalOpen(true);
+        } else {
+          setCurrentPage(p || "home");
+        }
       }
     };
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
+  }, [user]);
 
   // 2. Dynamically update canonical link, title, and meta tags per active view
   useEffect(() => {
@@ -89,7 +102,6 @@ function App() {
     let targetPath = "/";
     if (authPage === "login") targetPath = "/login";
     else if (authPage === "signup") targetPath = "/signup";
-    else if (authPage === "forgot") targetPath = "/forgot-password";
     else if (currentPage !== "home") targetPath = `/${currentPage}`;
 
     if (window.location.pathname !== targetPath) {
@@ -97,10 +109,24 @@ function App() {
     }
   }, [authPage, currentPage]);
 
-  // Auth modal state for gated actions (booking/admission/dashboard for guests)
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authModalTargetAction, setAuthModalTargetAction] = useState("book a turf slot");
-  const [pendingSectionAfterLogin, setPendingSectionAfterLogin] = useState(null);
+  async function checkSession() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    const currentUser = session?.user ?? null;
+    setUser(currentUser);
+    setLoading(false);
+
+    // If user navigated directly or refreshed on /dashboard while unauthenticated:
+    const rawPath = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, "");
+    if (!currentUser && rawPath === "dashboard") {
+      setCurrentPage("home");
+      setAuthModalTargetAction("access your player dashboard");
+      setPendingSectionAfterLogin("dashboard");
+      setAuthModalOpen(true);
+    }
+  }
 
   useEffect(() => {
     checkSession();
@@ -108,20 +134,15 @@ function App() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      const updatedUser = session?.user ?? null;
+      setUser(updatedUser);
+      if (!updatedUser && window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, "") === "dashboard") {
+        setCurrentPage("home");
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
-
-  async function checkSession() {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    setUser(session?.user ?? null);
-    setLoading(false);
-  }
 
   function handleLoginSuccess(loggedInUser) {
     setUser(loggedInUser);
@@ -178,6 +199,7 @@ function App() {
   }
 
   function handleOpenAuth(view = "login", targetAction = "access player features") {
+    setAuthModalView(view);
     setAuthModalTargetAction(targetAction);
     setAuthModalOpen(true);
   }
@@ -215,22 +237,11 @@ function App() {
     );
   }
 
-  if (authPage === "forgot") {
-    return (
-      <Suspense fallback={<PageFallback />}>
-        <ForgotPasswordPage
-          onBack={() => setAuthPage("login")}
-        />
-      </Suspense>
-    );
-  }
-
   if (authPage === "login") {
     return (
       <Suspense fallback={<PageFallback />}>
         <LoginPage
           onSignup={() => setAuthPage("signup")}
-          onForgotPassword={() => setAuthPage("forgot")}
           onLogin={handleLoginSuccess}
         />
       </Suspense>
@@ -307,12 +318,52 @@ function App() {
             <PlayerStatsPage onBack={handleHome} />
           )}
 
-          {currentPage === "dashboard" && user && (
-            <DashboardPage
-              user={user}
-              onBack={handleHome}
-              onNavigate={handleSection}
-            />
+          {currentPage === "dashboard" && (
+            user ? (
+              <DashboardPage
+                user={user}
+                onBack={handleHome}
+                onNavigate={handleSection}
+              />
+            ) : (
+              <div style={{
+                minHeight: "60vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "#04070c",
+                color: "#e5e7eb",
+                padding: "40px 20px",
+                textAlign: "center",
+                gap: "16px"
+              }}>
+                <span style={{ fontSize: "40px" }}>🔒</span>
+                <h2 style={{ color: "#d4a017", margin: 0, fontFamily: "Outfit, sans-serif" }}>
+                  Sign In Required
+                </h2>
+                <p style={{ color: "#9ca3af", maxWidth: "420px", margin: 0, fontSize: "15px" }}>
+                  You need to sign in to access your player dashboard, bookings, and admission details.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => handleOpenAuth("login", "access your player dashboard")}
+                  style={{
+                    background: "linear-gradient(135deg, #fde047 0%, #d4a017 100%)",
+                    color: "#0c0f17",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "10px 24px",
+                    fontWeight: "800",
+                    cursor: "pointer",
+                    fontSize: "14px",
+                    marginTop: "8px"
+                  }}
+                >
+                  Sign In to Dashboard →
+                </button>
+              </div>
+            )
           )}
         </Suspense>
       </ErrorBoundary>
@@ -328,6 +379,7 @@ function App() {
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
         onSuccess={handleLoginSuccess}
+        initialView={authModalView}
         targetAction={authModalTargetAction}
       />
     </div>

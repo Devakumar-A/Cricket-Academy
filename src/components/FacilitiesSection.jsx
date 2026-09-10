@@ -398,6 +398,8 @@ function FacilitiesSection({ onBookTurf }) {
 
     return () => {
       window.removeEventListener("resize", resize);
+      canvas.removeEventListener("mousemove", handlePointerMove);
+      canvas.removeEventListener("touchmove", handlePointerMove);
       cancelAnimationFrame(animId);
     };
   }, [activeIdx]);

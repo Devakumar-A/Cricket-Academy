@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabase";
 import "./AuthModal.css";
 
 export default function AuthModal({ isOpen, onClose, onSuccess, initialView = "login", targetAction = "book or apply" }) {
-  const [view, setView] = useState(initialView); // "login", "signup", "forgot"
+  const [view, setView] = useState(initialView); // "login", "signup"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -66,12 +66,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView = "l
     }
   }
 
-  function handleForgot(e) {
-    e.preventDefault();
-    setMessage("Password reset link has been requested. Please contact academy staff if you need immediate assistance.");
-    setMessageType("success");
-  }
-
   return (
     <div className="auth-modal-overlay" onClick={onClose}>
       <div className="auth-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -84,12 +78,10 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView = "l
           <h2>
             {view === "login" && "Member Sign In"}
             {view === "signup" && "Create Player Account"}
-            {view === "forgot" && "Reset Password"}
           </h2>
           <p>
             {view === "login" && `Please sign in to ${targetAction}.`}
             {view === "signup" && `Register to ${targetAction} and access player features.`}
-            {view === "forgot" && "Enter your registered email to continue."}
           </p>
         </div>
 
@@ -121,16 +113,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView = "l
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-            </div>
-
-            <div className="auth-modal-row">
-              <button
-                type="button"
-                className="auth-link-btn"
-                onClick={() => { setView("forgot"); setMessage(""); }}
-              >
-                Forgot Password?
-              </button>
             </div>
 
             <button type="submit" className="auth-submit-btn" disabled={loading}>
@@ -198,35 +180,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView = "l
                 onClick={() => { setView("login"); setMessage(""); }}
               >
                 Sign In
-              </button>
-            </div>
-          </form>
-        )}
-
-        {view === "forgot" && (
-          <form onSubmit={handleForgot} className="auth-modal-form">
-            <div className="auth-input-group">
-              <label>Registered Email</label>
-              <input
-                type="email"
-                placeholder="name@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            <button type="submit" className="auth-submit-btn">
-              Send Reset Request
-            </button>
-
-            <div className="auth-switch-view">
-              <button
-                type="button"
-                className="auth-accent-link"
-                onClick={() => { setView("login"); setMessage(""); }}
-              >
-                ← Back to Sign In
               </button>
             </div>
           </form>
