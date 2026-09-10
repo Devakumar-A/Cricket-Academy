@@ -71,6 +71,7 @@ const ROUTES_METADATA = [
     title: "Player Dashboard | MG Cricketers Den Pondicherry",
     description: "Access your personalized player dashboard, track turf reservations, and view coaching schedules at MG Cricketer's Den.",
     canonical: "https://mgcricketersden.com/dashboard",
+    robots: "noindex, nofollow",
   },
   {
     route: "login",
@@ -78,6 +79,7 @@ const ROUTES_METADATA = [
     title: "Member Login | MG Cricketers Den Pondicherry",
     description: "Login to your MG Cricketer's Den portal to manage turf bookings, training schedules, and performance progress in Pondicherry. Sign in now!",
     canonical: "https://mgcricketersden.com/login",
+    robots: "noindex, nofollow",
   },
   {
     route: "signup",
@@ -85,6 +87,7 @@ const ROUTES_METADATA = [
     title: "Register Account | MG Cricket Academy Pondicherry",
     description: "Create your athlete profile at MG Cricketer's Den Pondicherry for seamless slot reservations and academy updates. Register your account today!",
     canonical: "https://mgcricketersden.com/signup",
+    robots: "noindex, nofollow",
   },
   {
     route: "forgot-password",
@@ -92,6 +95,7 @@ const ROUTES_METADATA = [
     title: "Reset Password | MG Cricketers Den Pondicherry",
     description: "Reset your password to regain access to your MG Cricketer's Den account, turf bookings, and player dashboard in Pondicherry. Reset now!",
     canonical: "https://mgcricketersden.com/forgot-password",
+    robots: "noindex, nofollow",
   },
 ];
 
@@ -106,23 +110,30 @@ function escapeHtml(str) {
 function bakeRouteHtml(template, item) {
   let html = template;
   const image = "https://mgcricketersden.com/logoo.png";
+  const robots = item.robots || "index, follow";
 
   // 1. Replace <title>
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(item.title)}</title>`);
 
-  // 2. Replace <meta name="description">
+  // 2. Replace <meta name="robots">
+  html = html.replace(
+    /<meta\s+name=["']robots["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
+    `<meta name="robots" content="${escapeHtml(robots)}" />`
+  );
+
+  // 3. Replace <meta name="description">
   html = html.replace(
     /<meta\s+name=["']description["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
     `<meta name="description" content="${escapeHtml(item.description)}" />`
   );
 
-  // 3. Replace <link rel="canonical">
+  // 4. Replace <link rel="canonical">
   html = html.replace(
     /<link\s+rel=["']canonical["']\s+href=["'][\s\S]*?["']\s*\/?>/i,
     `<link rel="canonical" href="${escapeHtml(item.canonical)}" />`
   );
 
-  // 4. Replace OpenGraph Tags
+  // 5. Replace OpenGraph Tags
   html = html.replace(
     /<meta\s+property=["']og:title["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
     `<meta property="og:title" content="${escapeHtml(item.title)}" />`

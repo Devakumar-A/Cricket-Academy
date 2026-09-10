@@ -40,21 +40,25 @@ export const SEO_METADATA = {
     title: "Player Dashboard | MG Cricketers Den Pondicherry",
     description: "Access your personalized player dashboard, track turf reservations, and view coaching schedules at MG Cricketer's Den.",
     canonical: "https://mgcricketersden.com/dashboard",
+    robots: "noindex, nofollow",
   },
   login: {
     title: "Member Login | MG Cricketers Den Pondicherry",
     description: "Login to your MG Cricketer's Den portal to manage turf bookings, training schedules, and performance progress in Pondicherry. Sign in now!",
     canonical: "https://mgcricketersden.com/login",
+    robots: "noindex, nofollow",
   },
   signup: {
     title: "Register Account | MG Cricket Academy Pondicherry",
     description: "Create your athlete profile at MG Cricketer's Den Pondicherry for seamless slot reservations and academy updates. Register your account today!",
     canonical: "https://mgcricketersden.com/signup",
+    robots: "noindex, nofollow",
   },
   forgot: {
     title: "Reset Password | MG Cricketers Den Pondicherry",
     description: "Reset your password to regain access to your MG Cricketer's Den account, turf bookings, and player dashboard in Pondicherry. Reset now!",
     canonical: "https://mgcricketersden.com/forgot-password",
+    robots: "noindex, nofollow",
   },
 };
 
@@ -78,7 +82,10 @@ export function updatePageSEO(pageKey) {
     document.title = meta.title;
   }
 
-  // 2. Standard Search Meta Description
+  // 2. Robots Meta Tag (noindex on private/auth, index on public)
+  setMetaTag("name", "robots", meta.robots || "index, follow");
+
+  // 3. Standard Search Meta Description
   if (meta.description) {
     setMetaTag("name", "description", meta.description);
   }
