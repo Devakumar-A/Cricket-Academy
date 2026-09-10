@@ -28,7 +28,7 @@
     <priority>0.95</priority>
   </url>
 
-  <!-- 4. Coaching Faculty & Mentorship -->
+  <!-- 4. Coaching Staff & Mentors -->
   <url>
     <loc>https://mgcricketersden.com/coaches</loc>
     <lastmod>2026-09-10</lastmod>
@@ -36,7 +36,7 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- 5. About The Den -->
+  <!-- 5. About The Den Academy -->
   <url>
     <loc>https://mgcricketersden.com/about</loc>
     <lastmod>2026-09-10</lastmod>
@@ -44,7 +44,7 @@
     <priority>0.85</priority>
   </url>
 
-  <!-- 6. Player Performance Statistics -->
+  <!-- 6. Player Performance Stats -->
   <url>
     <loc>https://mgcricketersden.com/players</loc>
     <lastmod>2026-09-10</lastmod>
@@ -52,50 +52,12 @@
     <priority>0.85</priority>
   </url>
 
-  <!-- 7. Contact Helpdesk & Training Venues -->
+  <!-- 7. Contact Helpdesk & Venues -->
   <url>
     <loc>https://mgcricketersden.com/contact</loc>
     <lastmod>2026-09-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
-  </url>
-
-  <!-- 8. Academy Moments Gallery -->
-  <url>
-    <loc>https://mgcricketersden.com/#gallery</loc>
-    <lastmod>2026-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- 9. Practice Turf Facilities -->
-  <url>
-    <loc>https://mgcricketersden.com/#facilities</loc>
-    <lastmod>2026-09-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- 10. Member Authentication & Portals -->
-  <url>
-    <loc>https://mgcricketersden.com/login</loc>
-    <lastmod>2026-09-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
-  </url>
-
-  <url>
-    <loc>https://mgcricketersden.com/signup</loc>
-    <lastmod>2026-09-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
-  </url>
-
-  <url>
-    <loc>https://mgcricketersden.com/forgot-password</loc>
-    <lastmod>2026-09-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
   </url>
 
 </urlset>
