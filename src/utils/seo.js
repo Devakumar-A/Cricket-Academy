@@ -58,40 +58,54 @@ export const SEO_METADATA = {
   },
 };
 
+function setMetaTag(attrName, attrValue, content) {
+  if (!content) return;
+  let el = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attrName, attrValue);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
 export function updatePageSEO(pageKey) {
   const meta = SEO_METADATA[pageKey] || SEO_METADATA.home;
+  const image = meta.image || "https://mgcricketersden.com/logoo.png";
 
   // 1. Update Document Title
   if (meta.title) {
     document.title = meta.title;
   }
 
-  // 2. Update Meta Description
+  // 2. Standard Search Meta Description
   if (meta.description) {
-    let descEl = document.querySelector('meta[name="description"]');
-    if (!descEl) {
-      descEl = document.createElement("meta");
-      descEl.setAttribute("name", "description");
-      document.head.appendChild(descEl);
-    }
-    descEl.setAttribute("content", meta.description);
-
-    // OpenGraph & Twitter Descriptions
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.setAttribute("content", meta.description);
-    const twDesc = document.querySelector('meta[name="twitter:description"]');
-    if (twDesc) twDesc.setAttribute("content", meta.description);
+    setMetaTag("name", "description", meta.description);
   }
 
-  // 3. Update OpenGraph & Twitter Titles
-  if (meta.title) {
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute("content", meta.title);
-    const twTitle = document.querySelector('meta[name="twitter:title"]');
-    if (twTitle) twTitle.setAttribute("content", meta.title);
-  }
+  // 3. Open Graph Meta Tags (Facebook, WhatsApp, Instagram, LinkedIn)
+  setMetaTag("property", "og:type", "website");
+  setMetaTag("property", "og:site_name", "MG Cricketer's Den");
+  setMetaTag("property", "og:locale", "en_IN");
+  setMetaTag("property", "og:title", meta.title);
+  setMetaTag("property", "og:description", meta.description);
+  setMetaTag("property", "og:url", meta.canonical);
+  setMetaTag("property", "og:image", image);
+  setMetaTag("property", "og:image:secure_url", image);
+  setMetaTag("property", "og:image:type", "image/png");
+  setMetaTag("property", "og:image:width", "1200");
+  setMetaTag("property", "og:image:height", "630");
+  setMetaTag("property", "og:image:alt", meta.title);
 
-  // 4. Update Canonical Link
+  // 4. Twitter Card Meta Tags
+  setMetaTag("name", "twitter:card", "summary_large_image");
+  setMetaTag("name", "twitter:url", meta.canonical);
+  setMetaTag("name", "twitter:title", meta.title);
+  setMetaTag("name", "twitter:description", meta.description);
+  setMetaTag("name", "twitter:image", image);
+  setMetaTag("name", "twitter:image:alt", meta.title);
+
+  // 5. Canonical Link
   if (meta.canonical) {
     let canonEl = document.querySelector('link[rel="canonical"]');
     if (!canonEl) {
