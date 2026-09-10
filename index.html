@@ -28,6 +28,110 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- JSON-LD Structured Data: LocalBusiness & SportsActivityLocation -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["SportsActivityLocation", "SportsClub", "LocalBusiness"],
+      "name": "MG Cricketer's Den",
+      "alternateName": "MG Cricket Academy",
+      "image": "https://mgcricketersden.com/logoo.png",
+      "@id": "https://mgcricketersden.com/#business",
+      "url": "https://mgcricketersden.com",
+      "telephone": "+91-XXXXXXXXXX",
+      "priceRange": "₹₹",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "North Street, Thengaithittu",
+        "addressLocality": "Pondicherry",
+        "addressRegion": "Puducherry",
+        "postalCode": "605004",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 11.9167,
+        "longitude": 79.8167
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Thengaithittu, Pondicherry"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Royapudupakkam, Pondicherry"
+        },
+        {
+          "@type": "City",
+          "name": "Pondicherry"
+        },
+        {
+          "@type": "State",
+          "name": "Puducherry"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/mg_cricketers_den"
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "05:30",
+          "closes": "23:30"
+        }
+      ],
+      "sport": "Cricket",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Cricket Academy & Turf Booking Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Astro Turf Net Booking",
+              "description": "Floodlit astro turf practice nets booking in Thengaithittu, Pondicherry"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Natural Turf Net Booking",
+              "description": "Natural clay turf cricket nets practice in Thengaithittu, Pondicherry"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Cricket Academy Admission & Coaching Batches",
+              "description": "Professional cricket coaching for juniors and seniors in Pondicherry"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Full Match Arena Booking",
+              "description": "Full-size match ground booking at Royapudupakkam, Pondicherry"
+            }
+          }
+        ]
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
