@@ -190,7 +190,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
               <span className="pill-dot"></span>
               <span>DEN MEMBER DASHBOARD</span>
             </div>
-            <h1 className="athlete-name">Welcome, {name}</h1>
+            <h1 className="athlete-name">Player Dashboard <span className="athlete-name-sub">| Welcome, {name}</span></h1>
             <div className="athlete-meta-row">
               <span>✉️ {email}</span>
               <span className="meta-sep">•</span>

@@ -42,9 +42,9 @@ function SignupPage({ onLogin, onBack }) {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1>🏏 Cricket Academy</h1>
-        <h2>Create Account</h2>
-        <p>Register to access the academy services.</p>
+        <h1>Register Account | MG Cricket Academy</h1>
+        <h2>Create Player Account</h2>
+        <p>Register to book turf slots and join academy programs.</p>
 
         <form onSubmit={handleSignup}>
           <input

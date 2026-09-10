@@ -30,9 +30,9 @@ function LoginPage({ onSignup, onForgotPassword, onLogin }) {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1>🏏 Cricket Academy</h1>
-        <h2>Welcome Back</h2>
-        <p>Sign in to continue</p>
+        <h1>Member Login | MG Cricketer&apos;s Den</h1>
+        <h2>Sign In to Your Account</h2>
+        <p>Access your training portal &amp; turf reservations</p>
 
         <form onSubmit={handleLogin}>
           <input

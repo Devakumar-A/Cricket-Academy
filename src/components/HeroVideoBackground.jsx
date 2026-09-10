@@ -100,6 +100,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery }) {
           ------------------------------------------------------------- */}
       <div className="hero-top-stage">
         <h1 className="hero-main-heading">
+          <span className="hero-eyebrow-seo">BEST CRICKET ACADEMY IN PONDICHERRY</span>
           <span className="hero-heading-white">WHERE PASSION</span>
           <span className="hero-heading-gold">MEETS PERFORMANCE</span>
         </h1>

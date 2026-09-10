@@ -78,7 +78,7 @@ function ContactPage({ onBack, onSection }) {
           </div>
 
           <h1 className="contact-hero-title">
-            GET IN TOUCH WITH <span className="gold-text-glow">THE DEN</span>
+            CONTACT MG CRICKET ACADEMY <span className="gold-text-glow">PONDICHERRY</span>
           </h1>
 
           <p className="contact-hero-subtitle">

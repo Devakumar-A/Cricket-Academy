@@ -15,12 +15,12 @@ function ForgotPasswordPage({ onBack }) {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1>🏏 Cricket Academy</h1>
+        <h1>Reset Password | MG Cricketer&apos;s Den</h1>
 
-        <h2>Forgot Password?</h2>
+        <h2>Account Recovery</h2>
 
         <p>
-          Enter your registered email address.
+          Enter your registered email address to receive password reset instructions.
         </p>
 
         <form onSubmit={handleSubmit}>

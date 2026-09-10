@@ -394,12 +394,12 @@ function AdmissionPage({ user, onBack }) {
           </div>
 
           <div className="adm-hero-content">
-            <span className="adm-hero-eyebrow">MG CRICKETER'S DEN ACADEMY</span>
+            <span className="adm-hero-eyebrow">MG CRICKETER&apos;S DEN — PONDICHERRY</span>
             <h1 className="adm-hero-title">
-              OFFICIAL <span className="adm-gold-glow">ADMISSION FORM</span>
+              CRICKET ACADEMY <span className="adm-gold-glow">ADMISSION &amp; ENROLLMENT</span>
             </h1>
             <p className="adm-hero-sub">
-              Take the next step in your cricket career. Complete your enrollment application for structured coaching, modern turf practice, and match preparation.
+              Take the next step in your cricket career. Complete your enrollment application for structured coaching, modern turf practice, and match preparation in Pondicherry.
             </p>
           </div>
 

@@ -513,10 +513,10 @@ export default function TurfBookingPage({ onBack, user }) {
               ← Back
             </button>
 
-            <h1>Book a Turf</h1>
+            <h1>Book Cricket Turf &amp; Practice Nets <span className="booking-title-location">in Thengaithittu, Pondicherry</span></h1>
 
             <p>
-              Choose your turf, date and available starting time.
+              Choose your practice net, date, and 24/7 available starting slot.
             </p>
           </div>
 

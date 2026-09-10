@@ -51,9 +51,9 @@ export default function SplashScreen({ onFinish }) {
         {/* Cinematic Text Reveal */}
         <div className="splash-text-group">
           <span className="splash-sub-eyebrow">WELCOME TO</span>
-          <h1 className="splash-den-title">
-            MG CRICKETER'S DEN
-          </h1>
+          <div className="splash-den-title">
+            MG CRICKETER&apos;S DEN
+          </div>
           <p className="splash-motto">
             DEVELOPING CRICKETERS. BUILDING CHAMPIONS.
           </p>

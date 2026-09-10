@@ -227,11 +227,11 @@ function AboutPage({ onBack, onSection }) {
           </div>
 
           <h1 className="about-hero-title">
-            DEVELOPING CRICKETERS. <span className="about-gold-glow">BUILDING CHAMPIONS.</span>
+            ABOUT MG CRICKETER&apos;S DEN <span className="about-gold-glow">CRICKET ACADEMY</span>
           </h1>
 
           <p className="about-hero-subtitle">
-            MG Cricketer's Den is a serious cricket coaching academy in Puducherry built to bridge the gap between basic net practice and competitive tournament performance.
+            MG Cricketer&apos;s Den is the premier cricket coaching academy in Puducherry built to bridge the gap between basic net practice and competitive tournament performance.
           </p>
         </div>
       </section>

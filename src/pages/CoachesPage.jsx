@@ -340,11 +340,11 @@ export default function CoachesPage({ onBack, onSection }) {
           </div>
 
           <h1 className="coaches-hero-title">
-            OUR <span className="coaches-gold-glow">COACHES</span>
+            EXPERT CRICKET <span className="coaches-gold-glow">COACHES &amp; MENTORS</span>
           </h1>
 
           <p className="coaches-hero-subtitle">
-            Professional domestic cricket coaches dedicated to player development.
+            Professional domestic cricket coaches in Pondicherry dedicated to high-performance player development.
           </p>
 
           {/* 3D Coaching Tactical Pitch Engine */}

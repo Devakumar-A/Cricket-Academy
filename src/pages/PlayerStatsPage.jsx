@@ -63,10 +63,10 @@ function PlayerStatsPage({ onBack }) {
           </button>
 
           <div className="players-header-text">
-            <span className="players-gold-badge">MG CRICKETERS DEN</span>
-            <h1 className="players-main-title">Player Stats & Records</h1>
+            <span className="players-gold-badge">MG CRICKETERS DEN — PONDICHERRY</span>
+            <h1 className="players-main-title">Cricket Player Performance &amp; Match Stats</h1>
             <p className="players-main-subtitle">
-              Meet our academy athletes and explore their official career statistics.
+              Meet our academy athletes and explore their official career statistics across Pondicherry tournaments.
             </p>
           </div>
         </div>

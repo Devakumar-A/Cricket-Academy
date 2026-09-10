@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
+import { updatePageSEO } from "./utils/seo";
 
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -23,6 +24,11 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState("home"); // "home" | "about" | "coaches" | "booking" | "admission" | "players" | "contact" | "dashboard"
+
+  // Dynamically update SEO Title, Description, and OpenGraph per active view
+  useEffect(() => {
+    updatePageSEO(authPage || currentPage);
+  }, [authPage, currentPage]);
 
   // Auth modal state for gated actions (booking/admission/dashboard for guests)
   const [authModalOpen, setAuthModalOpen] = useState(false);
