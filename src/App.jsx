@@ -25,9 +25,48 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState("home"); // "home" | "about" | "coaches" | "booking" | "admission" | "players" | "contact" | "dashboard"
 
-  // Dynamically update SEO Title, Description, and OpenGraph per active view
+  // 1. Synchronize initial URL on page load & listen for browser back/forward navigation
   useEffect(() => {
-    updatePageSEO(authPage || currentPage);
+    const rawPath = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, "");
+    if (rawPath === "booking") setCurrentPage("booking");
+    else if (rawPath === "admission") setCurrentPage("admission");
+    else if (rawPath === "coaches") setCurrentPage("coaches");
+    else if (rawPath === "about") setCurrentPage("about");
+    else if (rawPath === "players") setCurrentPage("players");
+    else if (rawPath === "contact") setCurrentPage("contact");
+    else if (rawPath === "dashboard") setCurrentPage("dashboard");
+    else if (rawPath === "login") setAuthPage("login");
+    else if (rawPath === "signup") setAuthPage("signup");
+    else if (rawPath === "forgot-password" || rawPath === "forgot") setAuthPage("forgot");
+
+    const handlePopState = () => {
+      const p = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, "");
+      if (p === "login" || p === "signup" || p === "forgot" || p === "forgot-password") {
+        setAuthPage(p === "forgot-password" ? "forgot" : p);
+      } else {
+        setAuthPage(null);
+        setCurrentPage(p || "home");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  // 2. Dynamically update canonical link, title, and meta tags per active view
+  useEffect(() => {
+    const activeKey = authPage || currentPage;
+    updatePageSEO(activeKey);
+
+    let targetPath = "/";
+    if (authPage === "login") targetPath = "/login";
+    else if (authPage === "signup") targetPath = "/signup";
+    else if (authPage === "forgot") targetPath = "/forgot-password";
+    else if (currentPage !== "home") targetPath = `/${currentPage}`;
+
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, "", targetPath);
+    }
   }, [authPage, currentPage]);
 
   // Auth modal state for gated actions (booking/admission/dashboard for guests)
