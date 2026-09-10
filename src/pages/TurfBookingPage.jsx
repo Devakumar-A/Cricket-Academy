@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { sendTurfBookingToWhatsApp } from "../lib/whatsappConfig";
 import { getTurfDisplayName, sortTurfs } from "../utils/turfHelper";
@@ -88,7 +88,10 @@ export default function TurfBookingPage({ onBack, user }) {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
 
-  const [channel, setChannel] = useState(null);
+  // Use a ref — not state — so cleanup functions always read the CURRENT channel
+  // synchronously. useState closures in useEffect with [] capture the initial null
+  // and never see subsequent updates, causing the old channel to leak on unmount.
+  const channelRef = useRef(null);
 
   /*
    * Load turfs once.
@@ -106,9 +109,12 @@ export default function TurfBookingPage({ onBack, user }) {
 
     setSelectedDate(localDate);
 
+    // Cleanup on unmount — channelRef.current always holds the live channel
+    // (unlike a useState value captured in this closure, which would be null)
     return () => {
-      if (channel) {
-        supabase.removeChannel(channel);
+      if (channelRef.current) {
+        supabase.removeChannel(channelRef.current);
+        channelRef.current = null;
       }
     };
   }, []);
@@ -191,8 +197,11 @@ export default function TurfBookingPage({ onBack, user }) {
   }
 
   function subscribeRealtime() {
-    if (channel) {
-      supabase.removeChannel(channel);
+    // Always remove the previous channel before creating a new one.
+    // Use channelRef (not state) so we always read the current live value.
+    if (channelRef.current) {
+      supabase.removeChannel(channelRef.current);
+      channelRef.current = null;
     }
 
     const newChannel = supabase
@@ -234,7 +243,7 @@ export default function TurfBookingPage({ onBack, user }) {
         console.log("Realtime:", status);
       });
 
-    setChannel(newChannel);
+    channelRef.current = newChannel;
   }
 
   /*

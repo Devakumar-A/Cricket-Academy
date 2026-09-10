@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AuthModal from "./components/AuthModal";
 import SplashScreen from "./components/SplashScreen";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // — Auth pages: small, but still lazy so they don't bloat the main bundle —
 const LoginPage          = lazy(() => import("./pages/LoginPage"));
@@ -260,59 +261,61 @@ function App() {
         onOpenAuth={handleOpenAuth}
       />
 
-      {/* PAGE ROUTING — wrapped in Suspense; each page is a separate lazy chunk */}
-      <Suspense fallback={<PageFallback />}>
-        {currentPage === "home" && (
-          <HomePage onSection={handleSection} />
-        )}
+      {/* PAGE ROUTING — ErrorBoundary catches uncaught errors; Suspense handles lazy loading */}
+      <ErrorBoundary>
+        <Suspense fallback={<PageFallback />}>
+          {currentPage === "home" && (
+            <HomePage onSection={handleSection} />
+          )}
 
-        {currentPage === "about" && (
-          <AboutPage
-            onBack={handleHome}
-            onSection={handleSection}
-          />
-        )}
+          {currentPage === "about" && (
+            <AboutPage
+              onBack={handleHome}
+              onSection={handleSection}
+            />
+          )}
 
-        {currentPage === "coaches" && (
-          <CoachesPage
-            onBack={handleHome}
-            onSection={handleSection}
-          />
-        )}
+          {currentPage === "coaches" && (
+            <CoachesPage
+              onBack={handleHome}
+              onSection={handleSection}
+            />
+          )}
 
-        {currentPage === "contact" && (
-          <ContactPage
-            onBack={handleHome}
-            onSection={handleSection}
-          />
-        )}
+          {currentPage === "contact" && (
+            <ContactPage
+              onBack={handleHome}
+              onSection={handleSection}
+            />
+          )}
 
-        {currentPage === "booking" && (
-          <TurfBookingPage
-            user={user}
-            onBack={handleHome}
-          />
-        )}
+          {currentPage === "booking" && (
+            <TurfBookingPage
+              user={user}
+              onBack={handleHome}
+            />
+          )}
 
-        {currentPage === "admission" && (
-          <AdmissionPage
-            user={user}
-            onBack={handleHome}
-          />
-        )}
+          {currentPage === "admission" && (
+            <AdmissionPage
+              user={user}
+              onBack={handleHome}
+            />
+          )}
 
-        {currentPage === "players" && (
-          <PlayerStatsPage onBack={handleHome} />
-        )}
+          {currentPage === "players" && (
+            <PlayerStatsPage onBack={handleHome} />
+          )}
 
-        {currentPage === "dashboard" && user && (
-          <DashboardPage
-            user={user}
-            onBack={handleHome}
-            onNavigate={handleSection}
-          />
-        )}
-      </Suspense>
+          {currentPage === "dashboard" && user && (
+            <DashboardPage
+              user={user}
+              onBack={handleHome}
+              onNavigate={handleSection}
+            />
+          )}
+        </Suspense>
+      </ErrorBoundary>
 
       {/* GLOBAL FOOTER */}
       <Footer
