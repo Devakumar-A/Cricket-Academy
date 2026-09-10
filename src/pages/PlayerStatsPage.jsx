@@ -119,7 +119,7 @@ function PlayerStatsPage({ onBack }) {
                     {photoSrc ? (
                       <img
                         src={photoSrc}
-                        alt={`${player.name} — MG Cricketer's Den Academy Cricket Athlete Pondicherry`}
+                        alt={`${player.name} - MG Cricketer's Den Academy Cricket Athlete Pondicherry`}
                         className="pro-player-img"
                       />
                     ) : (

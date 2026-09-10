@@ -215,7 +215,7 @@ function PlayerStatsCarousel({ onViewAllStats }) {
                     {photoSrc ? (
                       <img
                         src={photoSrc}
-                        alt={`${player.name} — MG Cricketer's Den Academy Cricket Player Pondicherry`}
+                        alt={`${player.name} - MG Cricketer's Den Academy Cricket Player Pondicherry`}
                         className="home-player-img"
                       />
                     ) : (

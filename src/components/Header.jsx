@@ -118,7 +118,7 @@ function Header({
             {ACADEMY_LOGO_SRC ? (
               <img
                 src={ACADEMY_LOGO_SRC}
-                alt="MG Cricketer's Den — Best Cricket Academy in Pondicherry"
+                alt="MG Cricketer's Den - Best Cricket Academy in Pondicherry"
                 className="mg-header-custom-logo"
               />
             ) : (

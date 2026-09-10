@@ -58,7 +58,7 @@ function CoachesHomePreview({ onMeetCoaches }) {
                 <div className="coach-card-image-box">
                   <img
                     src={coach.image}
-                    alt={`${coach.name} — Expert Cricket Coach at MG Cricketer's Den Thengaithittu Pondicherry`}
+                    alt={`${coach.name} - Expert Cricket Coach at MG Cricketer's Den Thengaithittu Pondicherry`}
                     loading="lazy"
                     className="coach-card-media"
                   />
@@ -83,7 +83,7 @@ function CoachesHomePreview({ onMeetCoaches }) {
                 <div className="coach-card-image-box">
                   <img
                     src={coach.image}
-                    alt={`${coach.name} — Expert Cricket Coach at MG Cricketer's Den Thengaithittu Pondicherry`}
+                    alt={`${coach.name} - Expert Cricket Coach at MG Cricketer's Den Thengaithittu Pondicherry`}
                     loading="lazy"
                     className="coach-card-media"
                   />
@@ -108,7 +108,7 @@ function CoachesHomePreview({ onMeetCoaches }) {
                 <div className="coach-card-image-box">
                   <img
                     src={coach.image}
-                    alt={`${coach.name} — Expert Cricket Coach at MG Cricketer's Den Thengaithittu Pondicherry`}
+                    alt={`${coach.name} - Expert Cricket Coach at MG Cricketer's Den Thengaithittu Pondicherry`}
                     loading="lazy"
                     className="coach-card-media"
                   />

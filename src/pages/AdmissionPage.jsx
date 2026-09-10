@@ -468,7 +468,7 @@ function AdmissionPage({ user, onBack }) {
                 <div className="adm-photo-col">
                   <div className="adm-photo-frame">
                     {photoPreview ? (
-                      <img src={photoPreview} alt="Applicant Passport Photo Preview — MG Cricketer's Den Cricket Academy Admission Pondicherry" className="adm-uploaded-img" />
+                      <img src={photoPreview} alt="Applicant Passport Photo Preview - MG Cricketer's Den Cricket Academy Admission Pondicherry" className="adm-uploaded-img" />
                     ) : (
                       <div className="adm-photo-empty">
                         <span className="cam-icon">📷</span>

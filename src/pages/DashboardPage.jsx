@@ -433,7 +433,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
                         {admission.signed_photo_url ? (
                           <img
                             src={admission.signed_photo_url}
-                            alt={`${admission.full_name || "Enrolled Athlete"} — MG Cricketer's Den Member Photo`}
+                            alt={`${admission.full_name || "Enrolled Athlete"} - MG Cricketer's Den Member Photo`}
                             className="adm-student-photo"
                             onError={(e) => {
                               e.currentTarget.style.display = "none";

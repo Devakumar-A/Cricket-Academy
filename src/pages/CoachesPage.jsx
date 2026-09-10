@@ -369,7 +369,7 @@ export default function CoachesPage({ onBack, onSection }) {
                 <div className="coach-avatar-box">
                   <img
                     src={coach.image}
-                    alt={`${coach.name} — Professional Cricket Coach at MG Cricketer's Den Pondicherry`}
+                    alt={`${coach.name} - Professional Cricket Coach at MG Cricketer's Den Pondicherry`}
                     className="coach-img-full"
                   />
                   <div className="coach-box-overlay"></div>
