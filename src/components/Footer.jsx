@@ -96,7 +96,7 @@ function Footer({ onSection, onHome }) {
               <p className="location-address">
                 North St, Thengaithittu, Puducherry, 605004
               </p>
-              <span className="location-types">1 Astro Turf Wicket • 1 Natural Turf Wicket</span>
+              <span className="location-types">1 Astro Wicket • 1 Turf Wicket</span>
             </div>
 
             <div className="footer-location-block" style={{ marginTop: "16px" }}>
@@ -104,7 +104,7 @@ function Footer({ onSection, onHome }) {
               <p className="location-address">
                 Main Ground, Royapudupakkam
               </p>
-              <span className="location-types">Full-Size Open Turf Match Arena</span>
+              <span className="location-types">Open Turf Wicket Ground Arena</span>
             </div>
           </div>
 
@@ -122,12 +122,12 @@ function Footer({ onSection, onHome }) {
               </a>
 
               <a
-                href="https://wa.me/918300879748"
+                href="https://wa.me/918122432905"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-contact-link"
               >
-                <span>💬 WhatsApp: +91 83008 79748</span>
+                <span>💬 WhatsApp: +91 81224 32905</span>
               </a>
 
               <a href="tel:+919597318892" className="footer-contact-link">

@@ -16,7 +16,7 @@ const whyChooseCards = [
     icon: "🏟️",
     title: "Multiple Playing Conditions",
     description:
-      "Practice on both Astro Turf and Natural Turf wickets to adapt to pace, bounce, seam, and turn.",
+      "Practice on both Astro Wicket and Turf Wicket to adapt to pace, bounce, seam, and turn.",
     tag: "Surface Adaptability",
     visualType: "turf",
   },

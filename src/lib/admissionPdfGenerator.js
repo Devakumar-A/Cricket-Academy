@@ -140,7 +140,7 @@ export async function generateAdmissionPDF({ admission, photoDataOrUrl }) {
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(7);
   pdf.setTextColor(156, 163, 175);
-  pdf.text("Thengaithittu Nets & Royapudupakkam Ground, Puducherry • +91 83008 79748", textX, y + 19.5);
+  pdf.text("Thengaithittu Nets & Royapudupakkam Ground, Puducherry • +91 81224 32905", textX, y + 19.5);
 
   // Application Ref Badge (Top Right)
   const refBoxW = 44;
@@ -345,7 +345,7 @@ export async function generateAdmissionPDF({ admission, photoDataOrUrl }) {
   pdf.setFontSize(6);
   pdf.setTextColor(156, 163, 175);
   pdf.text(
-    "MG Cricketer's Den • North St, Thengaithittu & Royapudupakkam Ground, Puducherry • Contact: +91 83008 79748 / +91 95973 18892",
+    "MG Cricketer's Den • North St, Thengaithittu & Royapudupakkam Ground, Puducherry • Contact: +91 81224 32905",
     pageWidth / 2,
     pageHeight - 6,
     { align: "center" }

@@ -14,7 +14,7 @@ function ContactPage({ onBack, onSection }) {
   const faqs = [
     {
       q: "How can I book an Astro Turf or Natural Turf net slot?",
-      a: "You can book directly via our online Turf Booking system or message our coordinator on WhatsApp (+91 83008 79748) for real-time slot confirmation.",
+      a: "You can book directly via our online Turf Booking system or message our coordinator on WhatsApp (+91 81224 32905) for real-time slot confirmation.",
     },
     {
       q: "What training batches are currently active at the academy?",
@@ -48,7 +48,7 @@ function ContactPage({ onBack, onSection }) {
 🎯 *Inquiry Type:* ${formData.inquiryType}
 📝 *Message:* ${formData.message || "I would like more information."}`;
 
-    const url = `https://wa.me/918300879748?text=${encodeURIComponent(text)}`;
+    const url = `https://wa.me/918122432905?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
   };
 
@@ -95,7 +95,7 @@ function ContactPage({ onBack, onSection }) {
           <div className="channels-cards-grid">
             {/* WhatsApp */}
             <a
-              href="https://wa.me/918300879748"
+              href="https://wa.me/918122432905"
               target="_blank"
               rel="noopener noreferrer"
               className="channel-card channel-wa"
@@ -105,7 +105,7 @@ function ContactPage({ onBack, onSection }) {
                 <span className="channel-tag">INSTANT RESPONSE</span>
                 <h3>WhatsApp Coordinator</h3>
                 <p>Chat live for batch slots, fee details & turf booking.</p>
-                <div className="channel-highlight">+91 83008 79748</div>
+                <div className="channel-highlight">+91 81224 32905</div>
               </div>
               <span className="channel-action-arrow">Chat Now →</span>
             </a>
@@ -217,9 +217,9 @@ function ContactPage({ onBack, onSection }) {
                     onChange={handleInputChange}
                   >
                     <option value="Academy Admission">🎓 Academy Admission & Batches</option>
-                    <option value="Astro Turf Booking">🏏 Astro Turf Practice Net Slot</option>
-                    <option value="Natural Turf Booking">🌱 Natural Turf Practice Net Slot</option>
-                    <option value="Match Ground Arena">🏟️ Royapudupakkam Match Ground</option>
+                    <option value="Astro Wicket Booking">🏏 Astro Wicket Slot</option>
+                    <option value="Turf Wicket Booking">🌱 Turf Wicket Slot</option>
+                    <option value="Open Turf Wicket Ground Booking">🏟️ Open Turf Wicket Ground Arena</option>
                     <option value="1-on-1 Coaching">🎯 Personal 1-on-1 Coaching Clinic</option>
                     <option value="Other">💬 General Question / Feedback</option>
                   </select>
@@ -314,7 +314,7 @@ function ContactPage({ onBack, onSection }) {
                     🗺️ Open in Google Maps →
                   </a>
                   <a
-                    href="https://wa.me/918300879748?text=I%20am%20interested%20in%20booking%20the%20Royapudupakkam%20Match%20Ground."
+                    href="https://wa.me/918122432905?text=I%20am%20interested%20in%20booking%20the%20Royapudupakkam%20Match%20Ground."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="venue-book-link green-book"

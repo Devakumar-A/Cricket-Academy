@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { generateAdmissionPDF, calculateAge, formatDate } from "../lib/admissionPdfGenerator";
+import { getTurfDisplayName } from "../utils/turfHelper";
 import "./Dashboard.css";
 
 function DashboardPage({ user, onBack, onNavigate }) {
@@ -92,7 +93,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
 
   function getTurfName(turfId) {
     const turf = turfs.find((t) => t.id === turfId);
-    return turf?.name || "Match Ground / Nets";
+    return getTurfDisplayName(turf?.name) || "Astro Wicket";
   }
 
   function formatTime(time) {
@@ -254,12 +255,12 @@ function DashboardPage({ user, onBack, onNavigate }) {
             <span className="kpi-label">DIRECT SUPPORT</span>
             <strong className="kpi-value">WhatsApp</strong>
             <a
-              href="https://wa.me/918300879748"
+              href="https://wa.me/918122432905"
               target="_blank"
               rel="noopener noreferrer"
               className="kpi-link"
             >
-              +91 83008 79748 →
+              +91 81224 32905 →
             </a>
           </div>
         </div>

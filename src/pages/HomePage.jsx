@@ -131,7 +131,7 @@ function HomePage({ onSection }) {
             <div className="turf-cta-text">
               <span className="turf-cta-badge">BOOK A SESSION</span>
               <h2>LOOKING TO PRACTICE OR PLAY A MATCH?</h2>
-              <p>Book practice nets at Thengaithittu or our Open Match Ground at Royapudupakkam.</p>
+              <p>Book practice nets at Thengaithittu or our Open Turf Wicket Ground at Royapudupakkam.</p>
             </div>
             <button
               type="button"

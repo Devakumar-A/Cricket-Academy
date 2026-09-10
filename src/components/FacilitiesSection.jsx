@@ -4,7 +4,7 @@ import "./FacilitiesSection.css";
 const FACILITIES_DATA = [
   {
     id: "astro",
-    name: "Astro Turf Wicket",
+    name: "Astro Wicket",
     type: "Practice Nets",
     location: "North St, Thengaithittu, Puducherry",
     shortLoc: "Thengaithittu",
@@ -17,7 +17,7 @@ const FACILITIES_DATA = [
   },
   {
     id: "natural",
-    name: "Natural Turf Wicket",
+    name: "Turf Wicket",
     type: "Practice Nets",
     location: "North St, Thengaithittu, Puducherry",
     shortLoc: "Thengaithittu",
@@ -30,7 +30,7 @@ const FACILITIES_DATA = [
   },
   {
     id: "open",
-    name: "Open Match Ground",
+    name: "Open Turf Wicket Ground",
     type: "Match Arena",
     location: "Main Ground, Royapudupakkam, Puducherry",
     shortLoc: "Royapudupakkam",

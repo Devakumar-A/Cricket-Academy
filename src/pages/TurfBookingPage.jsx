@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { sendTurfBookingToWhatsApp } from "../lib/whatsappConfig";
+import { getTurfDisplayName, sortTurfs } from "../utils/turfHelper";
 import "./TurfBookingPage.css";
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
@@ -137,10 +138,11 @@ export default function TurfBookingPage({ onBack, user }) {
       return;
     }
 
-    setTurfs(data || []);
+    const sortedTurfs = sortTurfs(data || []);
+    setTurfs(sortedTurfs);
 
-    if (data?.length > 0) {
-      setSelectedTurf(data[0].id);
+    if (sortedTurfs?.length > 0) {
+      setSelectedTurf(sortedTurfs[0].id);
     }
 
     setLoading(false);
@@ -462,14 +464,16 @@ export default function TurfBookingPage({ onBack, user }) {
       return;
     }
 
+    const displayTurfName = getTurfDisplayName(selectedTurfObject?.name);
+
     setMessage(
-      `Booking request sent for ${selectedTurfObject?.name || "turf"} • ${startTimeText} – ${endTimeText}`
+      `Booking request sent for ${displayTurfName} • ${startTimeText} – ${endTimeText}`
     );
     setMessageType("success");
 
     // 📲 Send booking notification to owner's WhatsApp
     sendTurfBookingToWhatsApp({
-      turfName: selectedTurfObject?.name || "Turf Slot",
+      turfName: displayTurfName,
       bookingDate: selectedDate,
       startTime: startTimeText,
       endTime: endTimeText,
@@ -546,7 +550,7 @@ export default function TurfBookingPage({ onBack, user }) {
                     key={turf.id}
                     value={turf.id}
                   >
-                    {turf.name}
+                    {getTurfDisplayName(turf.name)}
                   </option>
                 ))}
               </select>

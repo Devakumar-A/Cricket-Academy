@@ -1,9 +1,9 @@
 // -------------------------------------------------------------------------
 // 📲 OWNER WHATSAPP CONFIGURATION
 // To update the owner's WhatsApp number in the future, change the value below:
-// Example: "916383066764" (Include country code without '+' or spaces)
+// Example: "918122432905" (Include country code without '+' or spaces)
 // -------------------------------------------------------------------------
-export const OWNER_WHATSAPP_NUMBER = "916383066764";
+export const OWNER_WHATSAPP_NUMBER = "918122432905";
 
 /**
  * Sends a pre-filled booking summary message to the owner's WhatsApp.
