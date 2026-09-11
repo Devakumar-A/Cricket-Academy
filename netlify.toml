@@ -17,8 +17,13 @@
   status = 200
 
 [[redirects]]
-  from = "/favicon.svg"
-  to = "/favicon.svg"
+  from = "/favicon.ico"
+  to = "/favicon.ico"
+  status = 200
+
+[[redirects]]
+  from = "/favicon.png"
+  to = "/favicon.png"
   status = 200
 
 [[redirects]]
