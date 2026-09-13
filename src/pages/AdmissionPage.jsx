@@ -7,7 +7,7 @@ import "./AdmissionPage.css";
 const DECLARATION =
   "I hereby confirm that the above details are true and accurate. I agree to follow the rules, discipline, uniform code, and training instructions of MG Cricketer's Den.";
 
-function AdmissionPage({ user, onBack }) {
+function AdmissionPage({ user, onBack, selectedPlan, onOpenAuth }) {
   const fileRef = useRef(null);
 
   const [loading, setLoading] = useState(false);
@@ -59,6 +59,51 @@ function AdmissionPage({ user, onBack }) {
     loadBatches();
   }, []);
 
+  // Synchronize incoming selected plan (e.g. from Home page "EXPLORE PLAN" click)
+  useEffect(() => {
+    if (!selectedPlan) return;
+
+    const planTitle = (selectedPlan.title || "").toLowerCase();
+    const planId = (selectedPlan.id || "").toLowerCase();
+
+    if (batches.length > 0) {
+      const match = batches.find((b) => {
+        const bName = (b.batch_name || "").toLowerCase();
+        return (
+          bName.includes(planId) ||
+          (planId === "combo" && bName.includes("combo")) ||
+          (planId === "weekday" && bName.includes("weekday")) ||
+          (planId === "weekend" && bName.includes("weekend")) ||
+          bName.includes(planTitle)
+        );
+      });
+
+      if (match) {
+        setForm((prev) => ({
+          ...prev,
+          batch_fee_id: match.id,
+          batch_name: match.batch_name,
+          fee_amount: match.fee_amount,
+        }));
+        return;
+      }
+    }
+
+    // Fallback if custom batch list is loading or static
+    const cleanFee = selectedPlan.price ? selectedPlan.price.replace(/[^0-9]/g, "") : "";
+    setForm((prev) => ({
+      ...prev,
+      batch_name: prev.batch_name || selectedPlan.title || "",
+      fee_amount: prev.fee_amount || cleanFee || "",
+    }));
+  }, [selectedPlan, batches]);
+
+const DEFAULT_ACADEMY_BATCHES = [
+  { id: "weekday", batch_name: "WEEKDAY BATCH", fee_amount: "1999" },
+  { id: "weekend", batch_name: "WEEKEND BATCH", fee_amount: "1999" },
+  { id: "combo", batch_name: "COMBO BATCH", fee_amount: "2499" },
+];
+
   async function loadBatches() {
     setBatchesLoading(true);
     try {
@@ -68,14 +113,15 @@ function AdmissionPage({ user, onBack }) {
         .eq("is_active", true)
         .order("batch_name");
 
-      if (error) {
-        console.error("BATCH ERROR:", error);
-        setError("Unable to load batches.");
+      if (error || !data || data.length === 0) {
+        console.warn("Using default academy batches:", error?.message);
+        setBatches(DEFAULT_ACADEMY_BATCHES);
       } else {
-        setBatches(data || []);
+        setBatches(data);
       }
     } catch (e) {
-      console.error(e);
+      console.warn("Batch load error:", e);
+      setBatches(DEFAULT_ACADEMY_BATCHES);
     } finally {
       setBatchesLoading(false);
     }
@@ -203,6 +249,9 @@ function AdmissionPage({ user, onBack }) {
 
     if (!user?.id) {
       setError("Please log in to submit your admission application.");
+      if (typeof onOpenAuth === "function") {
+        onOpenAuth("login", "submit your academy admission application");
+      }
       return;
     }
 
@@ -446,6 +495,23 @@ function AdmissionPage({ user, onBack }) {
               <div>
                 <h4>Application Submitted Successfully!</h4>
                 <p>{success}</p>
+              </div>
+            </div>
+          )}
+
+          {/* SELECTED PLAN HIGHLIGHT BANNER */}
+          {selectedPlan && (
+            <div className="adm-selected-plan-banner">
+              <div className="adm-plan-banner-icon">🏏</div>
+              <div className="adm-plan-banner-info">
+                <span className="adm-plan-banner-eyebrow">SELECTED TRAINING PLAN</span>
+                <h4 className="adm-plan-banner-title">
+                  {selectedPlan.title} — {selectedPlan.price} {selectedPlan.period || "/ MONTH"}
+                </h4>
+                <p className="adm-plan-banner-desc">{selectedPlan.description}</p>
+              </div>
+              <div className="adm-plan-banner-badge">
+                <span>✓ PLAN APPLIED</span>
               </div>
             </div>
           )}

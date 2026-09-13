@@ -138,7 +138,10 @@ function HomePage({ onSection }) {
 
       {/* 7. ADMISSION PLANS (WEEKDAY, WEEKEND, COMBO) */}
       <Suspense fallback={<SectionFallback />}>
-        <AdmissionPlansSection onSelectPlan={() => onSection("admission")} />
+        <AdmissionPlansSection
+          onSelectPlan={(plan) => onSection("admission", plan)}
+          onSelectAdmission={(plan) => onSection("admission", plan)}
+        />
       </Suspense>
 
       {/* 8. ACADEMY MOMENTS GALLERY (MARQUEE PHOTOS & VIDEOS ROWS) */}

@@ -224,6 +224,87 @@
   color: #d1fae5;
 }
 
+/* SELECTED PLAN HIGHLIGHT BANNER */
+.adm-selected-plan-banner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.18) 0%, rgba(26, 32, 45, 0.9) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.6);
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin-bottom: 26px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(212, 160, 23, 0.15);
+  position: relative;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+
+.adm-selected-plan-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #ffd700 0%, #d4a017 100%);
+}
+
+.adm-plan-banner-icon {
+  font-size: 28px;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: rgba(212, 160, 23, 0.15);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.adm-plan-banner-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.adm-plan-banner-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #d4a017;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.adm-plan-banner-title {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.adm-plan-banner-desc {
+  margin: 0;
+  font-size: 13px;
+  color: #9ca3af;
+  line-height: 1.4;
+}
+
+.adm-plan-banner-badge {
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #0c0f17;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3);
+}
+
 /* CARD SECTION */
 .adm-card-section {
   background: linear-gradient(170deg, #111724 0%, #080c13 100%);

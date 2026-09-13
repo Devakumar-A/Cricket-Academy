@@ -42,7 +42,14 @@ const admissionPlans = [
   },
 ];
 
-function AdmissionPlansSection({ onSelectAdmission }) {
+function AdmissionPlansSection({ onSelectAdmission, onSelectPlan }) {
+  const handleSelect = (plan) => {
+    const fn = onSelectPlan || onSelectAdmission;
+    if (typeof fn === "function") {
+      fn(plan);
+    }
+  };
+
   return (
     <section className="admission-plans-section" id="admissions">
       <div className="section-container">
@@ -61,12 +68,12 @@ function AdmissionPlansSection({ onSelectAdmission }) {
             <div
               key={plan.id}
               className={`admission-card ${plan.highlight ? "combo-highlight" : ""}`}
-              onClick={onSelectAdmission}
+              onClick={() => handleSelect(plan)}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
-                  onSelectAdmission();
+                  handleSelect(plan);
                 }
               }}
             >
@@ -104,7 +111,7 @@ function AdmissionPlansSection({ onSelectAdmission }) {
                   className="plan-explore-btn"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onSelectAdmission();
+                    handleSelect(plan);
                   }}
                 >
                   EXPLORE PLAN →
@@ -120,7 +127,11 @@ function AdmissionPlansSection({ onSelectAdmission }) {
             <h3>READY TO START YOUR CRICKET JOURNEY?</h3>
             <p>Explore our admission options and find the training plan that fits your schedule.</p>
           </div>
-          <button className="bottom-cta-btn" onClick={onSelectAdmission}>
+          <button
+            type="button"
+            className="bottom-cta-btn"
+            onClick={() => handleSelect()}
+          >
             VIEW ADMISSION DETAILS →
           </button>
         </div>

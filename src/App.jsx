@@ -49,11 +49,11 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState("home"); // "home" | "about" | "coaches" | "booking" | "admission" | "players" | "contact" | "dashboard"
 
-  // Auth modal state for gated actions (booking/admission/dashboard for guests)
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalView, setAuthModalView] = useState("login");
   const [authModalTargetAction, setAuthModalTargetAction] = useState("book a turf slot");
   const [pendingSectionAfterLogin, setPendingSectionAfterLogin] = useState(null);
+  const [selectedAdmissionPlan, setSelectedAdmissionPlan] = useState(null);
 
   // 1. Synchronize initial URL on page load & listen for browser back/forward navigation
   useEffect(() => {
@@ -153,18 +153,15 @@ function App() {
     }
   }
 
-  function handleSection(section) {
-    // Check if section requires authentication
-    if (!user && (section === "booking" || section === "admission" || section === "dashboard")) {
-      const actionName =
-        section === "booking"
-          ? "book a turf or practice nets slot"
-          : section === "admission"
-          ? "submit an academy admission application"
-          : "access your player dashboard";
+  function handleSection(section, planData) {
+    if (section === "admission") {
+      setSelectedAdmissionPlan(planData || null);
+    }
 
-      setAuthModalTargetAction(actionName);
-      setPendingSectionAfterLogin(section);
+    // Dashboard requires authentication
+    if (!user && section === "dashboard") {
+      setAuthModalTargetAction("access your player dashboard");
+      setPendingSectionAfterLogin("dashboard");
       setAuthModalOpen(true);
       return;
     }
@@ -305,6 +302,8 @@ function App() {
             <AdmissionPage
               user={user}
               onBack={handleHome}
+              selectedPlan={selectedAdmissionPlan}
+              onOpenAuth={handleOpenAuth}
             />
           )}
 
