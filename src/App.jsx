@@ -42,11 +42,8 @@ function PageFallback() {
 }
 
 function App() {
-  // Show splash only once per browser session — skip on back navigation or refresh
-  const [showSplash, setShowSplash] = useState(() => {
-    if (sessionStorage.getItem("splashShown")) return false;
-    return true;
-  });
+  // Show cinematic brand intro splash on page load
+  const [showSplash, setShowSplash] = useState(true);
   const [authPage, setAuthPage] = useState(null); // null | "login" | "signup"
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -253,12 +250,9 @@ function App() {
   // -------------------------
   return (
     <div className="app-root-layout">
-      {/* 3D ANIMATED HIGH-END SPLASH SCREEN */}
+      {/* CINEMATIC BRAND INTRO SPLASH SCREEN */}
       {showSplash && (
-        <SplashScreen onFinish={() => {
-          sessionStorage.setItem("splashShown", "1");
-          setShowSplash(false);
-        }} />
+        <SplashScreen onFinish={() => setShowSplash(false)} />
       )}
 
       {/* GLOBAL HEADER */}
