@@ -25,20 +25,7 @@ const PlayerStatsPage = lazy(() => import("./pages/PlayerStatsPage"));
 
 // Minimal inline fallback — matches the dark site bg, no flash
 function PageFallback() {
-  return (
-    <div style={{
-      minHeight: "60vh",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "#04070c",
-      color: "#d4a017",
-      fontSize: "15px",
-      letterSpacing: "1px",
-    }}>
-      🏏 Loading...
-    </div>
-  );
+  return <div style={{ minHeight: "60vh", background: "#04070c" }} />;
 }
 
 function App() {
@@ -46,7 +33,6 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [authPage, setAuthPage] = useState(null); // null | "login" | "signup"
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState("home"); // "home" | "about" | "coaches" | "booking" | "admission" | "players" | "contact" | "dashboard"
 
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -113,7 +99,6 @@ function App() {
 
     const currentUser = session?.user ?? null;
     setUser(currentUser);
-    setLoading(false);
 
     // If user navigated directly or refreshed on /dashboard while unauthenticated:
     const rawPath = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, "");
@@ -196,25 +181,6 @@ function App() {
     setAuthModalView(view);
     setAuthModalTargetAction(targetAction);
     setAuthModalOpen(true);
-  }
-
-  if (loading) {
-    return (
-      <div className="loading-screen" style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#090d14",
-        color: "#d4a017",
-        fontFamily: "sans-serif",
-        fontSize: "18px",
-        fontWeight: "bold",
-        letterSpacing: "1px"
-      }}>
-        🏏 Loading MG CRICKETER'S DEN...
-      </div>
-    );
   }
 
   // -------------------------
