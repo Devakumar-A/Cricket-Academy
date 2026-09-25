@@ -2,4 +2,15 @@
 /robots.txt     /robots.txt     200
 /favicon.ico    /favicon.ico    200
 /favicon.png    /favicon.png    200
-/*              /index.html     200
+
+/about          /about.html          200
+/booking        /booking.html        200
+/admission      /admission.html      200
+/coaches        /coaches.html        200
+/players        /players.html        200
+/contact        /contact.html        200
+/dashboard      /dashboard.html      200
+/login          /login.html          200
+/signup         /signup.html         200
+
+/*              /index.html          200
