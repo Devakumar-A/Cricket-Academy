@@ -7,18 +7,21 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
   const [hasValidSession, setHasValidSession] = useState(false);
-  const [message, setMessage] = useState("");
-  const [success, setSuccess] = useState(false);
-
-  useEffect(() => {
-    // Check URL parameters for explicit errors (e.g. expired link from Supabase)
+  const [message, setMessage] = useState(() => {
+    if (typeof window === "undefined") return "";
     const hash = window.location.hash || "";
     const search = window.location.search || "";
     const params = new URLSearchParams(search || hash.replace(/^#/, "?"));
-
     const errorDesc = params.get("error_description");
-    if (errorDesc) {
-      setMessage(decodeURIComponent(errorDesc).replace(/\+/g, " "));
+    return errorDesc ? decodeURIComponent(errorDesc).replace(/\+/g, " ") : "";
+  });
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    const hash = window.location.hash || "";
+    const search = window.location.search || "";
+    const params = new URLSearchParams(search || hash.replace(/^#/, "?"));
+    if (params.get("error_description")) {
       setCheckingSession(false);
       setHasValidSession(false);
       return;

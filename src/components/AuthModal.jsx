@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { sendPasswordResetEmail } from "../utils/authResetHelper";
@@ -35,6 +34,7 @@ export default function AuthModal({
 
   // Google sign-in
   async function handleGoogleSignIn() {
+    if (loading) return;
     setMessage("");
     setLoading(true);
 
@@ -80,15 +80,17 @@ export default function AuthModal({
     }
   }
 
-  // Existing email login
+  // Email/Password login
   async function handleLogin(e) {
     e.preventDefault();
+    if (loading) return;
+
     setMessage("");
     setLoading(true);
 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
+        email: email.trim(),
         password,
       });
 
@@ -100,25 +102,27 @@ export default function AuthModal({
 
       onSuccess(data.user);
     } catch {
-      setMessage("Unable to sign in. Please try again.");
+      setMessage("Unable to sign in. Please verify your credentials and try again.");
       setMessageType("error");
     } finally {
       setLoading(false);
     }
   }
 
-  // Existing email signup
+  // Email/Password registration
   async function handleSignup(e) {
     e.preventDefault();
+    if (loading) return;
+
     setMessage("");
     setLoading(true);
 
     try {
       const { data, error } = await supabase.auth.signUp({
-        email,
+        email: email.trim(),
         password,
         options: {
-          data: { name },
+          data: { name: name.trim() },
         },
       });
 
@@ -164,31 +168,44 @@ export default function AuthModal({
         className="auth-modal-content"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Subtle decorative gold top accent bar */}
+        <div className="auth-modal-accent-bar" aria-hidden="true" />
+
         <button
           className="auth-modal-close"
           onClick={onClose}
           aria-label="Close dialog"
           type="button"
         >
-          ✕
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
 
         <div className="auth-modal-header">
-          <div className="auth-modal-badge">MG CRICKETER'S DEN</div>
+          <div className="auth-modal-badge">MG CRICKETER&apos;S DEN</div>
 
           <h2 id="auth-modal-title">
-            {view === "login" && "Member Sign In"}
-            {view === "signup" && "Create Player Account"}
-            {view === "forgot" && "Forgot Password?"}
+            {view === "login" && "Welcome Back"}
+            {view === "signup" && "Create Account"}
+            {view === "forgot" && "Reset Password"}
           </h2>
 
-          <p>
-            {view === "login" &&
-              `Please sign in to ${targetAction}.`}
-            {view === "signup" &&
-              `Register to ${targetAction} and access player features.`}
-            {view === "forgot" &&
-              "Enter your email to receive a secure password reset link."}
+          <p className="auth-modal-subtitle">
+            {view === "login" && "Sign in to access your member account."}
+            {view === "signup" && `Register to ${targetAction} and access player features.`}
+            {view === "forgot" && "Enter your registered email to receive a password reset link."}
           </p>
         </div>
 
@@ -202,7 +219,7 @@ export default function AuthModal({
           </div>
         )}
 
-        {/* LOGIN */}
+        {/* ================= LOGIN VIEW ================= */}
         {view === "login" && (
           <form onSubmit={handleLogin} className="auth-modal-form">
             <div className="auth-input-group">
@@ -215,11 +232,12 @@ export default function AuthModal({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
             <div className="auth-input-group">
-              <div className="auth-password-heading">
+              <div className="auth-password-header">
                 <label htmlFor="auth-modal-password">Password</label>
                 <button
                   type="button"
@@ -234,10 +252,11 @@ export default function AuthModal({
                 id="auth-modal-password"
                 type="password"
                 autoComplete="current-password"
-                placeholder="Enter password"
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -246,11 +265,11 @@ export default function AuthModal({
               className="auth-submit-btn"
               disabled={loading}
             >
-              {loading ? "Signing in..." : "Sign In to Continue →"}
+              {loading ? "Signing in..." : "Sign In"}
             </button>
 
             <div className="auth-divider">
-              <span>OR</span>
+              <span>OR CONTINUE WITH</span>
             </div>
 
             <button
@@ -260,33 +279,34 @@ export default function AuthModal({
               disabled={loading}
             >
               <svg
+                className="auth-google-icon"
                 aria-hidden="true"
-                viewBox="0 0 48 48"
-                width="20"
-                height="20"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
               >
                 <path
                   fill="#4285F4"
-                  d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2v5h6.6c3.9-3.6 6.1-8.8 6.1-14.9Z"
+                  d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"
                 />
                 <path
                   fill="#34A853"
-                  d="M24 44c5.5 0 10.1-1.8 13.5-4.7l-6.6-5c-1.8 1.2-4.1 2-6.9 2-5.3 0-9.8-3.6-11.4-8.4H5.8v5.2A20 20 0 0 0 24 44Z"
+                  d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.33 24 12 24Z"
                 />
                 <path
                   fill="#FBBC05"
-                  d="M12.6 27.9a12 12 0 0 1 0-7.8v-5.2H5.8a20 20 0 0 0 0 18.2l6.8-5.2Z"
+                  d="M5.28 14.27a7.18 7.18 0 0 1 0-4.54V6.58H1.24a11.97 11.97 0 0 0 0 10.84l4.04-3.15Z"
                 />
                 <path
                   fill="#EA4335"
-                  d="M24 11.7c3 0 5.7 1 7.8 3.1l5.8-5.8A19.5 19.5 0 0 0 24 4 20 20 0 0 0 5.8 14.9l6.8 5.2c1.6-4.8 6.1-8.4 11.4-8.4Z"
+                  d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98Z"
                 />
               </svg>
               <span>Continue with Google</span>
             </button>
 
             <div className="auth-switch-view">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <button
                 type="button"
                 className="auth-accent-link"
@@ -298,7 +318,7 @@ export default function AuthModal({
           </form>
         )}
 
-        {/* SIGNUP */}
+        {/* ================= SIGNUP VIEW ================= */}
         {view === "signup" && (
           <form onSubmit={handleSignup} className="auth-modal-form">
             <div className="auth-input-group">
@@ -307,17 +327,16 @@ export default function AuthModal({
                 id="auth-modal-signup-name"
                 type="text"
                 autoComplete="name"
-                placeholder="Player / Parent Name"
+                placeholder="Player / Guardian Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
             <div className="auth-input-group">
-              <label htmlFor="auth-modal-signup-email">
-                Email Address
-              </label>
+              <label htmlFor="auth-modal-signup-email">Email Address</label>
               <input
                 id="auth-modal-signup-email"
                 type="email"
@@ -326,6 +345,7 @@ export default function AuthModal({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -335,11 +355,12 @@ export default function AuthModal({
                 id="auth-modal-signup-password"
                 type="password"
                 autoComplete="new-password"
-                placeholder="Minimum 6 characters"
+                placeholder="Create a password (min. 6 characters)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 minLength={6}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -348,13 +369,11 @@ export default function AuthModal({
               className="auth-submit-btn"
               disabled={loading}
             >
-              {loading
-                ? "Creating Account..."
-                : "Create Account & Continue →"}
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
 
             <div className="auth-divider">
-              <span>OR</span>
+              <span>OR CONTINUE WITH</span>
             </div>
 
             <button
@@ -364,26 +383,27 @@ export default function AuthModal({
               disabled={loading}
             >
               <svg
+                className="auth-google-icon"
                 aria-hidden="true"
-                viewBox="0 0 48 48"
-                width="20"
-                height="20"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
               >
                 <path
                   fill="#4285F4"
-                  d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2v5h6.6c3.9-3.6 6.1-8.8 6.1-14.9Z"
+                  d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"
                 />
                 <path
                   fill="#34A853"
-                  d="M24 44c5.5 0 10.1-1.8 13.5-4.7l-6.6-5c-1.8 1.2-4.1 2-6.9 2-5.3 0-9.8-3.6-11.4-8.4H5.8v5.2A20 20 0 0 0 24 44Z"
+                  d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.36 7.33 24 12 24Z"
                 />
                 <path
                   fill="#FBBC05"
-                  d="M12.6 27.9a12 12 0 0 1 0-7.8v-5.2H5.8a20 20 0 0 0 0 18.2l6.8-5.2Z"
+                  d="M5.28 14.27a7.18 7.18 0 0 1 0-4.54V6.58H1.24a11.97 11.97 0 0 0 0 10.84l4.04-3.15Z"
                 />
                 <path
                   fill="#EA4335"
-                  d="M24 11.7c3 0 5.7 1 7.8 3.1l5.8-5.8A19.5 19.5 0 0 0 24 4 20 20 0 0 0 5.8 14.9l6.8 5.2c1.6-4.8 6.1-8.4 11.4-8.4Z"
+                  d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.98 6.72-4.98Z"
                 />
               </svg>
               <span>Continue with Google</span>
@@ -402,12 +422,9 @@ export default function AuthModal({
           </form>
         )}
 
-        {/* FORGOT PASSWORD */}
+        {/* ================= FORGOT PASSWORD VIEW ================= */}
         {view === "forgot" && (
-          <form
-            onSubmit={handleForgotPassword}
-            className="auth-modal-form"
-          >
+          <form onSubmit={handleForgotPassword} className="auth-modal-form">
             <div className="auth-input-group">
               <label htmlFor="auth-reset-email">Email Address</label>
               <input
@@ -421,6 +438,7 @@ export default function AuthModal({
                   setResetEmailSent(false);
                 }}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -430,9 +448,9 @@ export default function AuthModal({
               disabled={loading || resetEmailSent}
             >
               {loading
-                ? "Sending reset link..."
+                ? "Sending Reset Link..."
                 : resetEmailSent
-                  ? "Reset Link Requested"
+                  ? "Reset Link Sent"
                   : "Send Password Reset Link"}
             </button>
 
