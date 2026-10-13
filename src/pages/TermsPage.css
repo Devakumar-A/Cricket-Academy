@@ -1,0 +1,136 @@
+.terms-page-wrapper {
+  min-height: 100vh;
+  background: #04070c;
+  color: #f3f4f6;
+  padding: 100px 20px 80px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.terms-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.terms-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.terms-back-btn {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #fde047;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.terms-back-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+  transform: translateX(-3px);
+}
+
+.terms-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #9ca3af;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.terms-header {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding-bottom: 24px;
+  margin-bottom: 36px;
+}
+
+.terms-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #d4af37;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.terms-title {
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.terms-meta {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.terms-content {
+  line-height: 1.75;
+  color: #d1d5db;
+}
+
+.terms-section {
+  margin-bottom: 40px;
+}
+
+.terms-section h2 {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fde047;
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+}
+
+.terms-section p {
+  margin: 0 0 16px;
+  font-size: 1rem;
+}
+
+.terms-section ul {
+  margin: 0 0 16px;
+  padding-left: 20px;
+}
+
+.terms-section li {
+  margin-bottom: 10px;
+}
+
+.terms-section a {
+  color: #fde047;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.terms-section a:hover {
+  color: #ffffff;
+}
+
+.terms-contact-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-top: 16px;
+}
+
+.terms-contact-card p {
+  margin: 0 0 8px;
+}
+
+.terms-contact-card p:last-child {
+  margin-bottom: 0;
+}

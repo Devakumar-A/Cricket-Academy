@@ -126,42 +126,45 @@ function GallerySection() {
                 onClick={() => setSelectedMedia({ ...item, type: "image" })}
                 role="button"
                 tabIndex={0}
+                aria-label={`View photo: ${item.title}`}
               >
                 <img
                   src={item.src}
                   alt={`${item.title} - MG Cricketer's Den Cricket Coaching & Practice Nets Thengaithittu Pondicherry`}
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="260"
                   className="gallery-card-media"
                 />
                 <div className="gallery-card-glass-overlay">
                   <span className="gallery-item-tag">{item.tag}</span>
-                  <h4 className="gallery-item-title">{item.title}</h4>
+                  <h3 className="gallery-item-title">{item.title}</h3>
                 </div>
                 <div className="gallery-card-zoom-icon">🔍</div>
               </div>
             ))}
 
-            {/* Set 2 (Duplicate for Seamless Infinite Loop) */}
+            {/* Set 2 (Decorative Duplicate for Seamless Infinite Loop - Non-Focusable) */}
             {GALLERY_IMAGES.map((item, idx) => (
               <div
                 key={`img-2-${idx}`}
                 className="gallery-photo-card"
-                onClick={() => setSelectedMedia({ ...item, type: "image" })}
-                role="button"
-                tabIndex={0}
                 aria-hidden="true"
+                tabIndex={-1}
               >
                 <img
                   src={item.src}
-                  alt={`${item.title} - MG Cricketer's Den Cricket Coaching & Practice Nets Thengaithittu Pondicherry`}
+                  alt=""
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="260"
                   className="gallery-card-media"
                 />
                 <div className="gallery-card-glass-overlay">
                   <span className="gallery-item-tag">{item.tag}</span>
-                  <h4 className="gallery-item-title">{item.title}</h4>
+                  <span className="gallery-item-title">{item.title}</span>
                 </div>
                 <div className="gallery-card-zoom-icon">🔍</div>
               </div>
@@ -189,12 +192,16 @@ function GallerySection() {
                 onClick={() => setSelectedMedia({ ...item, type: "video" })}
                 role="button"
                 tabIndex={0}
+                aria-label={`Play video: ${item.title}`}
               >
                 <div className="video-thumb-container">
                   <img
                     src={item.poster}
                     alt={`${item.title} Video Reel - MG Cricketer's Den Training & Match Arena Pondicherry`}
                     loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="260"
                     className="gallery-card-media"
                   />
                   <div className="video-play-badge">
@@ -204,26 +211,27 @@ function GallerySection() {
                 </div>
                 <div className="gallery-card-glass-overlay">
                   <span className="gallery-item-tag gold-tag">{item.tag}</span>
-                  <h4 className="gallery-item-title">{item.title}</h4>
+                  <h3 className="gallery-item-title">{item.title}</h3>
                 </div>
               </div>
             ))}
 
-            {/* Set 2 (Duplicate for Seamless Infinite Loop) */}
+            {/* Set 2 (Decorative Duplicate for Seamless Infinite Loop - Non-Focusable) */}
             {GALLERY_VIDEOS.map((item, idx) => (
               <div
                 key={`vid-2-${idx}`}
                 className="gallery-video-card"
-                onClick={() => setSelectedMedia({ ...item, type: "video" })}
-                role="button"
-                tabIndex={0}
                 aria-hidden="true"
+                tabIndex={-1}
               >
                 <div className="video-thumb-container">
                   <img
                     src={item.poster}
-                    alt={`${item.title} Video Reel - MG Cricketer's Den Training & Match Arena Pondicherry`}
+                    alt=""
                     loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="260"
                     className="gallery-card-media"
                   />
                   <div className="video-play-badge">
@@ -233,7 +241,7 @@ function GallerySection() {
                 </div>
                 <div className="gallery-card-glass-overlay">
                   <span className="gallery-item-tag gold-tag">{item.tag}</span>
-                  <h4 className="gallery-item-title">{item.title}</h4>
+                  <span className="gallery-item-title">{item.title}</span>
                 </div>
               </div>
             ))}

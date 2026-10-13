@@ -6,16 +6,16 @@ const PARTNERS_DATA = [
     id: "cognolynx",
     name: "COGNOLYNX",
     spec: "OFFICIAL TECHNOLOGY PARTNER",
+    logoWebp: "/sponsors/cognolynx.webp",
     logoPng: "/sponsors/cognolynx.png",
-    logoSvg: "/sponsors/cognolynx.svg",
     accent: "#fde047"
   },
   {
     id: "visuorexvault",
     name: "VISUOREX VAULT",
     spec: "OFFICIAL VIDEO PRODUCTION & MEDIA",
+    logoWebp: "/sponsors/visuorexvault.webp",
     logoPng: "/sponsors/visuorexvault.png",
-    logoSvg: "/sponsors/visuorexvault.svg",
     accent: "#c084fc"
   }
 ];
@@ -43,12 +43,16 @@ function SponsorsSection() {
                 {/* 1. LARGE LOGO IMAGE (PRIMARY VISUAL ELEMENT) */}
                 <div className="pro-partner-logo-box">
                   <img
-                    src={partner.logoPng}
+                    src={partner.logoWebp}
                     alt={`${partner.name} - Official Partner of MG Cricketer's Den Cricket Academy Pondicherry`}
+                    width="240"
+                    height="80"
+                    loading="lazy"
+                    decoding="async"
                     className="pro-partner-img"
                     onError={(e) => {
-                      if (e.currentTarget.src !== partner.logoSvg) {
-                        e.currentTarget.src = partner.logoSvg;
+                      if (e.currentTarget.src !== partner.logoPng) {
+                        e.currentTarget.src = partner.logoPng;
                       }
                     }}
                   />

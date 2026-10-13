@@ -1,0 +1,32 @@
+# MG Cricketer's Den
+
+> Premier cricket academy and premier floodlit cricket practice net facility located in Pondicherry (Puducherry), India. Featuring professional indoor and outdoor astro and natural clay wickets at Thengaithittu, plus a full-size match arena at Royapudupakkam.
+
+## Overview
+MG Cricketer's Den provides international-standard training infrastructure and practice nets for cricketers of all skill levels, from grassroots juniors to state and professional league athletes.
+
+- **Location 1 (Practice Nets Hub)**: North Street, Thengaithittu, Pondicherry 605004, India
+- **Location 2 (Full Match Arena)**: Royapudupakkam, Pondicherry, India
+- **Operating Hours**: Monday - Sunday, 05:30 AM to 11:30 PM (24/7 Floodlit Practice Available)
+- **Direct Phone / WhatsApp**: +91-8122432905 / +91-9443243290
+- **Primary Sport**: Cricket (Coaching, Nets Practice, Match Play)
+
+## Core Public Services & Navigation
+- [Home Page](https://mgcricketersden.com/): Complete academy overview, facility details, training philosophy, and partner information.
+- [Turf Booking](https://mgcricketersden.com/booking): 24/7 online slot reservations for floodlit astro turf nets and natural clay turf wickets at Thengaithittu.
+- [Academy Admission](https://mgcricketersden.com/admission): Year-round admission plans for junior and senior cricketers, including Weekday, Weekend, High Performance, and 1-on-1 Personalized Coaching.
+- [Coaches](https://mgcricketersden.com/coaches): Coaching faculty profiles led by seasoned domestic cricket coaches specializing in batting dynamics, pace biomechanics, and spin bowling.
+- [About Us](https://mgcricketersden.com/about): Academy vision, dual-facility infrastructure, equipment specifications, and safety standards.
+- [Player Statistics](https://mgcricketersden.com/players): Verified match records, batting strike rates, bowling averages, and tournament scorecards for academy athletes.
+- [Contact](https://mgcricketersden.com/contact): Location maps, operational contacts, inquiry forms, and WhatsApp connectivity.
+
+## Facilities Available
+1. **Floodlit Astro Turf Nets (Thengaithittu)**: High-speed synthetic practice turf with stadium-grade LED lighting for daytime and night-time batting/bowling practice.
+2. **Natural Clay Turf Nets (Thengaithittu)**: Authentic first-class match simulation clay wickets for seam, swing, and spin practice.
+3. **Automated Bowling Machines**: Programmable speed, length, and swing delivery for repetitive batting technique drills.
+4. **Royapudupakkam Full Match Arena**: Full boundary cricket ground for 20-over and 50-over practice matches and tournament fixtures.
+
+## Machine-Actionable WebMCP Tools
+- `browse_turf_slots`: Check live slot availability for astro and clay cricket nets at Thengaithittu.
+- `apply_admission`: Submit admission applications for junior, youth, and senior cricket batches.
+- `contact_academy`: Send inquiries regarding coaching batches, turf rentals, or private coaching.

@@ -27,6 +27,21 @@
   status = 200
 
 [[redirects]]
+  from = "/llms.txt"
+  to = "/llms.txt"
+  status = 200
+
+[[redirects]]
+  from = "/llms-full.txt"
+  to = "/llms-full.txt"
+  status = 200
+
+[[redirects]]
+  from = "/.well-known/webmcp.json"
+  to = "/.well-known/webmcp.json"
+  status = 200
+
+[[redirects]]
   from = "/about"
   to = "/about.html"
   status = 200
@@ -87,6 +102,24 @@
   for = "/robots.txt"
   [headers.values]
     Content-Type = "text/plain; charset=UTF-8"
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/markdown; charset=UTF-8"
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/llms-full.txt"
+  [headers.values]
+    Content-Type = "text/markdown; charset=UTF-8"
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/.well-known/webmcp.json"
+  [headers.values]
+    Content-Type = "application/json; charset=UTF-8"
     Cache-Control = "public, max-age=86400, must-revalidate"
 
 # ─── HTTP Caching Headers ───────────────────────────────────────────────────

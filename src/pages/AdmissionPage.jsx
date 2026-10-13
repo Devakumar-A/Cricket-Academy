@@ -516,7 +516,7 @@ const DEFAULT_ACADEMY_BATCHES = [
             </div>
           )}
 
-          <form onSubmit={submitAdmission} className="adm-main-form">
+          <form onSubmit={submitAdmission} className="adm-main-form" data-tool-name="apply_admission" aria-label="Academy Admission Form">
             {/* --------------------------------------------------------
                 SECTION 01: PERSONAL DETAILS & PHOTO
                 -------------------------------------------------------- */}

@@ -54,6 +54,24 @@ export const SEO_METADATA = {
     canonical: "https://mgcricketersden.com/signup",
     robots: "noindex, nofollow",
   },
+  privacy: {
+    title: "Privacy Policy | MG Cricketer's Den Pondicherry",
+    description: "Official Privacy Policy of MG Cricketer's Den. Learn how we handle your personal data, Google OAuth authentication, and turf reservations.",
+    canonical: "https://mgcricketersden.com/privacy",
+    robots: "index, follow",
+  },
+  terms: {
+    title: "Terms of Service | MG Cricketer's Den Pondicherry",
+    description: "Terms and conditions for turf booking reservations, academy admissions, and cricket training facility rules at MG Cricketer's Den Pondicherry.",
+    canonical: "https://mgcricketersden.com/terms",
+    robots: "index, follow",
+  },
+  forgot: {
+    title: "Account Recovery | MG Cricketer's Den Pondicherry",
+    description: "Reset your MG Cricketer's Den player account password securely.",
+    canonical: "https://mgcricketersden.com/forgot-password",
+    robots: "noindex, nofollow",
+  },
 };
 
 function setMetaTag(attrName, attrValue, content) {

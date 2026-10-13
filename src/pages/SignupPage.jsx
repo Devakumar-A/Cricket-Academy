@@ -47,30 +47,45 @@ function SignupPage({ onLogin, onBack }) {
         <p>Register to book turf slots and join academy programs.</p>
 
         <form onSubmit={handleSignup}>
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+          <div className="auth-input-group">
+            <label htmlFor="signup-name">Full Name</label>
+            <input
+              id="signup-name"
+              type="text"
+              autoComplete="name"
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <div className="auth-input-group">
+            <label htmlFor="signup-email">Email Address</label>
+            <input
+              id="signup-email"
+              type="email"
+              autoComplete="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            minLength={6}
-            required
-          />
+          <div className="auth-input-group">
+            <label htmlFor="signup-password">Password</label>
+            <input
+              id="signup-password"
+              type="password"
+              autoComplete="new-password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              minLength={6}
+              required
+            />
+          </div>
 
           <button type="submit" disabled={loading}>
             {loading ? "Creating Account..." : "Sign Up"}

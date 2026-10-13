@@ -2,7 +2,22 @@ import { useState, useEffect } from "react";
 import "./Footer.css";
 
 function Footer({ onSection, onHome }) {
-  const [currentTime, setCurrentTime] = useState("");
+  const [currentTime, setCurrentTime] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        return new Date().toLocaleTimeString("en-GB", {
+          timeZone: "Asia/Kolkata",
+          hour12: false,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+      } catch {
+        return "12:00:00";
+      }
+    }
+    return "12:00:00";
+  });
 
   useEffect(() => {
     const updateTime = () => {
@@ -17,8 +32,7 @@ function Footer({ onSection, onHome }) {
       setCurrentTime(now.toLocaleTimeString("en-GB", options));
     };
 
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
+    const interval = setInterval(updateTime, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -83,6 +97,16 @@ function Footer({ onSection, onHome }) {
               <li>
                 <button type="button" onClick={() => onSection("players")} className="footer-nav-btn">
                   PLAYER PERFORMANCE STATS
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => onSection("privacy")} className="footer-nav-btn">
+                  PRIVACY POLICY
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => onSection("terms")} className="footer-nav-btn">
+                  TERMS OF SERVICE
                 </button>
               </li>
             </ul>
@@ -162,6 +186,14 @@ function Footer({ onSection, onHome }) {
             © {new Date().getFullYear()} MG CRICKETER'S DEN. ALL RIGHTS RESERVED. PUDUCHERRY.
           </p>
           <div className="footer-legal-tags">
+            <button type="button" onClick={() => onSection("privacy")} className="footer-legal-btn">
+              Privacy Policy
+            </button>
+            <span className="sep">•</span>
+            <button type="button" onClick={() => onSection("terms")} className="footer-legal-btn">
+              Terms of Service
+            </button>
+            <span className="sep">•</span>
             <span>EXCELLENCE IN CRICKET TRAINING</span>
             <span className="sep">•</span>
             <span>STRUCTURED ATHLETE DEVELOPMENT</span>

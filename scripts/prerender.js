@@ -79,6 +79,32 @@ const ROUTES_METADATA = [
     canonical: "https://mgcricketersden.com/signup",
     robots: "noindex, nofollow",
   },
+  {
+    route: "privacy",
+    title: "Privacy Policy | MG Cricketer's Den Pondicherry",
+    description: "Official Privacy Policy of MG Cricketer's Den. Learn how we handle your personal data, Google OAuth authentication, and turf reservations.",
+    canonical: "https://mgcricketersden.com/privacy",
+  },
+  {
+    route: "terms",
+    title: "Terms of Service | MG Cricketer's Den Pondicherry",
+    description: "Terms and conditions for turf booking reservations, academy admissions, and cricket training facility rules at MG Cricketer's Den Pondicherry.",
+    canonical: "https://mgcricketersden.com/terms",
+  },
+  {
+    route: "forgot-password",
+    title: "Account Recovery | MG Cricketer's Den Pondicherry",
+    description: "Reset your MG Cricketer's Den player account password securely.",
+    canonical: "https://mgcricketersden.com/forgot-password",
+    robots: "noindex, nofollow",
+  },
+  {
+    route: "reset-password",
+    title: "Choose New Password | MG Cricketer's Den Pondicherry",
+    description: "Choose a new secure password for your MG Cricketer's Den player account.",
+    canonical: "https://mgcricketersden.com/reset-password",
+    robots: "noindex, nofollow",
+  },
 ];
 
 function escapeHtml(str) {
@@ -138,10 +164,17 @@ function bakeRouteHtml(template, item) {
     /<meta\s+name=["']twitter:description["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
     `<meta name="twitter:description" content="${escapeHtml(item.description)}" />`
   );
-  html = html.replace(
-    /<meta\s+name=["']twitter:url["']\s+content=["'][\s\S]*?["']\s*\/?>/i,
-    `<meta name="twitter:url" content="${escapeHtml(item.canonical)}" />`
-  );
+  // 6. Replace static fallback <h1> and description for route
+  if (item.route) {
+    html = html.replace(
+      /<h1[\s\S]*?<\/h1>/i,
+      `<h1 style="color:#fde047;font-size:2rem;margin-bottom:12px;">${escapeHtml(item.title)}</h1>`
+    );
+    html = html.replace(
+      /<p style="font-size:1.1rem;color:#d1d5db;line-height:1.6;">[\s\S]*?<\/p>/i,
+      `<p style="font-size:1.1rem;color:#d1d5db;line-height:1.6;">${escapeHtml(item.description)}</p>`
+    );
+  }
 
   return html;
 }

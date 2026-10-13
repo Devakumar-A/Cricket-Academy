@@ -1,26 +1,19 @@
-import { lazy, Suspense } from "react";
-import HeroVideoBackground from "../components/HeroVideoBackground"; // above-fold, stays eager
+import HeroVideoBackground from "../components/HeroVideoBackground";
+import FacilitiesSection from "../components/FacilitiesSection";
+import SponsorsSection from "../components/SponsorsSection";
+import WhyChooseUs from "../components/WhyChooseUs";
+import CoachesHomePreview from "../components/CoachesHomePreview";
+import PlayerStatsCarousel from "../components/PlayerStatsCarousel";
+import AdmissionPlansSection from "../components/AdmissionPlansSection";
+import GallerySection from "../components/GallerySection";
 import "./HomePage.css";
 
-// Below-fold sections — lazy loaded so they don't block the hero from painting
-const FacilitiesSection    = lazy(() => import("../components/FacilitiesSection"));
-const SponsorsSection      = lazy(() => import("../components/SponsorsSection"));
-const WhyChooseUs          = lazy(() => import("../components/WhyChooseUs"));
-const CoachesHomePreview   = lazy(() => import("../components/CoachesHomePreview"));
-const PlayerStatsCarousel  = lazy(() => import("../components/PlayerStatsCarousel"));
-const AdmissionPlansSection = lazy(() => import("../components/AdmissionPlansSection"));
-const GallerySection       = lazy(() => import("../components/GallerySection"));
-
-// Lightweight section placeholder — no layout shift
-function SectionFallback() {
-  return <div style={{ minHeight: "200px", background: "#04070c" }} />;
-}
-
-function HomePage({ onSection }) {
+function HomePage({ onSection, splashActive = false }) {
   return (
     <main className="mg-home-landing">
       {/* 1. HERO SECTION WITH UNOBSTRUCTED VIDEO LOGO SHOWCASE & 3 CTAS */}
       <HeroVideoBackground
+        splashActive={splashActive}
         onBookTurf={() => onSection("booking")}
         onJoinAcademy={() => onSection("admission")}
         onViewGallery={() => {
@@ -87,7 +80,7 @@ function HomePage({ onSection }) {
               <span className="flash-item-icon">🤝</span>
               <span className="flash-item-text">
                 <strong>SPONSORSHIP & PARTNERSHIPS:</strong> For Tournament Sponsorship & Brand Partnerships, Contact{" "}
-                <a href="tel:+918122432905" className="flash-link">+91 81224 32905</a>
+                <a href="tel:+918122432905" className="flash-link" tabIndex={-1}>+91 81224 32905</a>
               </span>
             </div>
             <span className="flash-item-sep" aria-hidden="true">✦</span>
@@ -112,42 +105,28 @@ function HomePage({ onSection }) {
       </section>
 
       {/* 2. FACILITIES INTERACTIVE SECTION */}
-      <Suspense fallback={<SectionFallback />}>
-        <FacilitiesSection onBookTurf={() => onSection("booking")} />
-      </Suspense>
+      <FacilitiesSection onBookTurf={() => onSection("booking")} />
 
       {/* 3. OFFICIAL SPONSORS & PARTNERS SECTION */}
-      <Suspense fallback={<SectionFallback />}>
-        <SponsorsSection onPartnerWithUs={() => onSection("contact")} />
-      </Suspense>
+      <SponsorsSection onPartnerWithUs={() => onSection("contact")} />
 
       {/* 4. WHY CHOOSE US (4-PILLARS / MOBILE TOUCH-SWIPEABLE DECK) */}
-      <Suspense fallback={<SectionFallback />}>
-        <WhyChooseUs onExploreFacilities={() => onSection("booking")} />
-      </Suspense>
+      <WhyChooseUs onExploreFacilities={() => onSection("booking")} />
 
       {/* 5. COACHES SECTION (CLEAN PORTRAIT CARDS) */}
-      <Suspense fallback={<SectionFallback />}>
-        <CoachesHomePreview onMeetCoaches={() => onSection("coaches")} />
-      </Suspense>
+      <CoachesHomePreview onMeetCoaches={() => onSection("coaches")} />
 
       {/* 6. DYNAMIC PLAYER STATS CAROUSEL */}
-      <Suspense fallback={<SectionFallback />}>
-        <PlayerStatsCarousel onViewAllStats={() => onSection("players")} />
-      </Suspense>
+      <PlayerStatsCarousel onViewAllStats={() => onSection("players")} />
 
       {/* 7. ADMISSION PLANS (WEEKDAY, WEEKEND, COMBO) */}
-      <Suspense fallback={<SectionFallback />}>
-        <AdmissionPlansSection
-          onSelectPlan={(plan) => onSection("admission", plan)}
-          onSelectAdmission={(plan) => onSection("admission", plan)}
-        />
-      </Suspense>
+      <AdmissionPlansSection
+        onSelectPlan={(plan) => onSection("admission", plan)}
+        onSelectAdmission={(plan) => onSection("admission", plan)}
+      />
 
       {/* 8. ACADEMY MOMENTS GALLERY (MARQUEE PHOTOS & VIDEOS ROWS) */}
-      <Suspense fallback={<SectionFallback />}>
-        <GallerySection />
-      </Suspense>
+      <GallerySection />
 
       {/* 9. TURF CTA BANNER */}
       <section className="mg-turf-cta-section">

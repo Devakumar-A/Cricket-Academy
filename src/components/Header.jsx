@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Header.css";
 
-const ACADEMY_LOGO_SRC = "/logoo.png";
+const ACADEMY_LOGO_SRC = "/logoo.webp";
 
 const NAV_LINKS = [
   {
@@ -119,6 +119,9 @@ function Header({
               <img
                 src={ACADEMY_LOGO_SRC}
                 alt="MG Cricketer's Den - Best Cricket Academy in Pondicherry"
+                width="44"
+                height="44"
+                decoding="async"
                 className="mg-header-custom-logo"
               />
             ) : (

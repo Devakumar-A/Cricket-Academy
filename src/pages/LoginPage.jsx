@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 
-function LoginPage({ onSignup, onLogin }) {
+function LoginPage({ onSignup, onLogin, onForgotPassword }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -35,21 +35,43 @@ function LoginPage({ onSignup, onLogin }) {
         <p>Access your training portal &amp; turf reservations</p>
 
         <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <div className="auth-input-group">
+            <label htmlFor="login-email">Email Address</label>
+            <input
+              id="login-email"
+              type="email"
+              autoComplete="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="auth-input-group">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <label htmlFor="login-password">Password</label>
+              {onForgotPassword && (
+                <button
+                  type="button"
+                  className="link-button"
+                  onClick={onForgotPassword}
+                  style={{ fontSize: "0.85rem", color: "#fde047", padding: 0 }}
+                >
+                  Forgot Password?
+                </button>
+              )}
+            </div>
+            <input
+              id="login-password"
+              type="password"
+              autoComplete="current-password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
           <button type="submit" disabled={loading}>
             {loading ? "Signing in..." : "Sign In"}

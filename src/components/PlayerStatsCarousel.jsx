@@ -144,6 +144,7 @@ function PlayerStatsCarousel({ onViewAllStats }) {
               type="button"
               className={`carousel-pause-resume-btn ${isPaused ? "is-paused" : "is-playing"}`}
               onClick={() => setIsPaused((prev) => !prev)}
+              aria-label={isPaused ? "Resume Auto-Swipe" : "Pause Auto-Swipe"}
               title={isPaused ? "Resume Auto-Swipe" : "Pause Auto-Swipe"}
             >
               <span className="btn-action-icon">{isPaused ? "▶" : "⏸"}</span>
@@ -176,7 +177,7 @@ function PlayerStatsCarousel({ onViewAllStats }) {
         ) : players.length === 0 ? (
           <div className="carousel-empty-state">
             <span className="empty-icon">📊</span>
-            <h4>Player Records Active</h4>
+            <h3 className="empty-state-title">Player Records Active</h3>
             <p>Player statistics will appear here dynamically as academy matches conclude.</p>
             <button
               type="button"
@@ -216,6 +217,10 @@ function PlayerStatsCarousel({ onViewAllStats }) {
                       <img
                         src={photoSrc}
                         alt={`${player.name} - MG Cricketer's Den Academy Cricket Player Pondicherry`}
+                        width="320"
+                        height="368"
+                        loading="lazy"
+                        decoding="async"
                         className="home-player-img"
                       />
                     ) : (

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import "./CinematicLogoReveal.css";
 
-const MASTER_LOGO_SRC = "/logoo.png";
+const MASTER_LOGO_SRC = "/logoo.webp";
 
 /**
  * CinematicLogoReveal — "The Awakening"
@@ -578,6 +578,8 @@ export default function CinematicLogoReveal({
             <img
               src={MASTER_LOGO_SRC}
               alt=""
+              width="512"
+              height="512"
               className="master-logo-img"
               draggable={false}
             />
@@ -587,6 +589,8 @@ export default function CinematicLogoReveal({
             <img
               src={MASTER_LOGO_SRC}
               alt=""
+              width="512"
+              height="512"
               className="master-logo-img"
               draggable={false}
             />
@@ -604,6 +608,8 @@ export default function CinematicLogoReveal({
             <img
               src={MASTER_LOGO_SRC}
               alt=""
+              width="512"
+              height="512"
               className="master-logo-img"
               draggable={false}
             />
@@ -622,6 +628,8 @@ export default function CinematicLogoReveal({
             <img
               src={MASTER_LOGO_SRC}
               alt=""
+              width="512"
+              height="512"
               className="master-logo-img"
               draggable={false}
             />
@@ -636,6 +644,8 @@ export default function CinematicLogoReveal({
             <img
               src={MASTER_LOGO_SRC}
               alt=""
+              width="512"
+              height="512"
               className="master-logo-img"
               draggable={false}
             />
@@ -651,6 +661,8 @@ export default function CinematicLogoReveal({
             <img
               src={MASTER_LOGO_SRC}
               alt="MG Cricketer's Den"
+              width="512"
+              height="512"
               className="master-logo-img"
               draggable={false}
             />

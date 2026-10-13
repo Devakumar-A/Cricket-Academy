@@ -1,25 +1,44 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6FRKCJXW4"></script>
+    <!-- Google tag (gtag.js) - Defer to prevent blocking critical render path -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-K6FRKCJXW4');
+
+      function loadGtag() {
+        if (window._gtagLoaded) return;
+        window._gtagLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-K6FRKCJXW4';
+        document.head.appendChild(s);
+      }
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadGtag, { timeout: 3500 });
+      } else {
+        window.addEventListener('load', loadGtag, { once: true });
+      }
     </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/logoo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Best Cricket Academy in Pondicherry | MG Den</title>
     <meta name="description" content="Join the best cricket academy in Pondicherry! Floodlit astro turf nets at Thengaithittu &amp; match ground at Royapudupakkam. Enroll today!" />
     <meta name="keywords" content="Best cricket academy in pondicherry, cricket academy pondicherry, turf booking thengaithittu, cricket nets pondicherry, royapudupakkam match ground, cricket coaching pondicherry, MG cricketers den" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://mgcricketersden.com/" />
+    <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM Context" />
+    <link rel="webmcp-manifest" href="/.well-known/webmcp.json" />
+
+    <!-- Performance Preloads: LCP Poster Images & Brand Emblem -->
+    <link rel="preload" as="image" href="/logoo.webp" type="image/webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/videos/hero-poster.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/videos/hero-poster-mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high" />
     
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website" />
@@ -34,10 +53,13 @@
     <meta name="twitter:description" content="Join the best cricket academy in Pondicherry! Floodlit astro turf nets at Thengaithittu &amp; match ground at Royapudupakkam. Enroll today!" />
     <meta name="twitter:image" content="https://mgcricketersden.com/logoo.png" />
 
-    <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit (Optimized Non-Blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap">
+    </noscript>
 
     <!-- JSON-LD Structured Data: LocalBusiness & SportsActivityLocation -->
     <script type="application/ld+json">
@@ -143,8 +165,43 @@
     }
     </script>
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="background:#000000;margin:0;color:#ffffff;">
+    <div id="root" style="background:#000000;min-height:100vh;"></div>
+    <noscript>
+      <header class="mg-fallback-header" style="background:#06090e;padding:16px 24px;border-bottom:1px solid rgba(212,160,23,0.2);">
+        <nav aria-label="Main Navigation">
+          <a href="/" style="color:#fde047;font-weight:800;font-size:18px;text-decoration:none;margin-right:20px;">MG CRICKETER'S DEN</a>
+          <a href="/booking" style="color:#e5e7eb;margin:0 10px;text-decoration:none;">Turf Booking</a>
+          <a href="/admission" style="color:#e5e7eb;margin:0 10px;text-decoration:none;">Admission</a>
+          <a href="/coaches" style="color:#e5e7eb;margin:0 10px;text-decoration:none;">Coaches</a>
+          <a href="/about" style="color:#e5e7eb;margin:0 10px;text-decoration:none;">About</a>
+          <a href="/players" style="color:#e5e7eb;margin:0 10px;text-decoration:none;">Player Stats</a>
+          <a href="/contact" style="color:#e5e7eb;margin:0 10px;text-decoration:none;">Contact</a>
+          <a href="/privacy" style="color:#e5e7eb;margin:0 10px;text-decoration:none;">Privacy Policy</a>
+          <a href="/terms" style="color:#e5e7eb;margin:0 10px;text-decoration:none;">Terms of Service</a>
+        </nav>
+      </header>
+      <main style="padding:40px 20px;max-width:1200px;margin:0 auto;color:#f3f4f6;font-family:sans-serif;">
+        <h1 style="color:#fde047;font-size:2rem;margin-bottom:12px;">Best Cricket Academy in Pondicherry — Where Passion Meets Performance</h1>
+        <p style="font-size:1.1rem;color:#d1d5db;line-height:1.6;">MG Cricketer's Den provides international-standard training infrastructure and practice nets for cricketers of all skill levels, from grassroots juniors to state and professional league athletes in Pondicherry, India.</p>
+        <section style="margin-top:32px;">
+          <h2 style="color:#ffffff;">Floodlit Astro & Natural Clay Turf Net Booking</h2>
+          <p style="color:#9ca3af;line-height:1.6;">24/7 online slot reservations for floodlit astro turf nets, natural clay turf wickets, and automated bowling machine sessions at North Street, Thengaithittu, Pondicherry.</p>
+          <a href="/booking" style="display:inline-block;padding:12px 24px;background:#d4a017;color:#04070c;font-weight:bold;text-decoration:none;border-radius:8px;margin-top:8px;">Book a Turf Slot Now →</a>
+        </section>
+        <section style="margin-top:32px;">
+          <h2 style="color:#ffffff;">Academy Admissions & Professional Coaching Programs</h2>
+          <p style="color:#9ca3af;line-height:1.6;">Year-round admission plans for junior, youth, and senior cricketers: Weekday Batches, Weekend Batches, High Performance Summer Camps, and 1-on-1 Personalized Coaching.</p>
+          <a href="/admission" style="display:inline-block;padding:12px 24px;background:#22c55e;color:#04070c;font-weight:bold;text-decoration:none;border-radius:8px;margin-top:8px;">Apply for Academy Admission →</a>
+        </section>
+        <section style="margin-top:32px;">
+          <h2 style="color:#ffffff;">Facilities, Location & Contact Details</h2>
+          <p style="color:#9ca3af;line-height:1.6;"><strong>Practice Nets Hub:</strong> North Street, Thengaithittu, Pondicherry 605004 | Open Mon-Sun: 05:30 AM – 11:30 PM (24/7 Floodlit Practice Available)</p>
+          <p style="color:#9ca3af;line-height:1.6;"><strong>Full Match Arena:</strong> Main Ground, Royapudupakkam, Pondicherry (20-Over & 50-Over Turf Pitch Ground Arena)</p>
+          <p style="color:#9ca3af;line-height:1.6;"><strong>Direct Phone / WhatsApp:</strong> <a href="tel:+918122432905" style="color:#fde047;">+91 81224 32905</a> / <a href="tel:+919443243290" style="color:#fde047;">+91 94432 43290</a></p>
+        </section>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
