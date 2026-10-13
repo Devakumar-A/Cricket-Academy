@@ -1,0 +1,101 @@
+{
+  "$schema": "https://webmcp.org/schemas/v1/manifest.json",
+  "name": "MG Cricketer's Den WebMCP Manifest",
+  "description": "Standard Web Model Context Protocol (WebMCP) manifest exposing structured tools for MG Cricketer's Den cricket academy and turf facilities in Pondicherry.",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "browse_turf_slots",
+      "description": "Check available cricket practice net slots (Astro Turf, Natural Turf, Bowling Machine) at Thengaithittu, Pondicherry.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "turfType": {
+            "type": "string",
+            "enum": ["astro", "natural", "machine"],
+            "description": "Type of cricket practice net pitch"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Reservation date in YYYY-MM-DD format"
+          }
+        }
+      },
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "turfType": {
+            "type": "string",
+            "enum": ["astro", "natural", "machine"],
+            "description": "Type of cricket practice net pitch"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Reservation date in YYYY-MM-DD format"
+          }
+        }
+      },
+      "targetUrl": "https://mgcricketersden.com/booking"
+    },
+    {
+      "name": "apply_admission",
+      "description": "Submit admission inquiry for junior, youth, or senior cricket coaching programs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "playerName": {
+            "type": "string",
+            "description": "Full name of the aspiring player"
+          },
+          "plan": {
+            "type": "string",
+            "enum": ["weekday", "weekend", "pro-camp", "personal"],
+            "description": "Coaching batch preference"
+          }
+        },
+        "required": ["playerName"]
+      },
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "playerName": {
+            "type": "string",
+            "description": "Full name of the aspiring player"
+          },
+          "plan": {
+            "type": "string",
+            "enum": ["weekday", "weekend", "pro-camp", "personal"],
+            "description": "Coaching batch preference"
+          }
+        },
+        "required": ["playerName"]
+      },
+      "targetUrl": "https://mgcricketersden.com/admission"
+    },
+    {
+      "name": "contact_academy",
+      "description": "Send a general inquiry to the MG Cricketer's Den administration.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Full name of the inquirer" },
+          "phone": { "type": "string", "description": "Phone or WhatsApp contact number" },
+          "message": { "type": "string", "description": "Message or question for academy administration" }
+        },
+        "required": ["name", "phone"]
+      },
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Full name of the inquirer" },
+          "phone": { "type": "string", "description": "Phone or WhatsApp contact number" },
+          "message": { "type": "string", "description": "Message or question for academy administration" }
+        },
+        "required": ["name", "phone"]
+      },
+      "targetUrl": "https://mgcricketersden.com/contact"
+    }
+  ]
+}

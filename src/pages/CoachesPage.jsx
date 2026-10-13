@@ -6,19 +6,19 @@ const coachesList = [
     id: "george-samuel",
     name: "George Samuel",
     role: "COACH",
-    image: "/coaches/george-samuel.jpg",
+    image: "/coaches/george-samuel.webp",
   },
   {
     id: "tharun",
     name: "Tharun",
     role: "COACH",
-    image: "/coaches/tharun.png",
+    image: "/coaches/tharun.webp",
   },
   {
     id: "antony",
     name: "Antony",
     role: "COACH",
-    image: "/coaches/antony.png",
+    image: "/coaches/antony.webp",
   },
 ];
 
@@ -372,6 +372,10 @@ export default function CoachesPage({ onBack, onSection }) {
                   <img
                     src={coach.image}
                     alt={`${coach.name} - Professional Cricket Coach at MG Cricketer's Den Pondicherry`}
+                    width="400"
+                    height="500"
+                    loading="lazy"
+                    decoding="async"
                     className="coach-img-full"
                   />
                   <div className="coach-box-overlay"></div>

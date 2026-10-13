@@ -8,20 +8,24 @@ import Footer from "./components/Footer";
 import AuthModal from "./components/AuthModal";
 import SplashScreen from "./components/SplashScreen";
 import ErrorBoundary from "./components/ErrorBoundary";
+import HomePage from "./pages/HomePage";
 
 // — Auth pages: small, but still lazy so they don't bloat the main bundle —
-const LoginPage  = lazy(() => import("./pages/LoginPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 
-// — Main content pages: lazy-loaded on demand —
-const HomePage        = lazy(() => import("./pages/HomePage"));
-const AboutPage       = lazy(() => import("./pages/AboutPage"));
-const CoachesPage     = lazy(() => import("./pages/CoachesPage"));
-const ContactPage     = lazy(() => import("./pages/ContactPage"));
-const DashboardPage   = lazy(() => import("./pages/DashboardPage"));
+// — Secondary content pages: lazy-loaded on demand —
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const CoachesPage = lazy(() => import("./pages/CoachesPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const TurfBookingPage = lazy(() => import("./pages/TurfBookingPage"));
-const AdmissionPage   = lazy(() => import("./pages/AdmissionPage"));
+const AdmissionPage = lazy(() => import("./pages/AdmissionPage"));
 const PlayerStatsPage = lazy(() => import("./pages/PlayerStatsPage"));
+const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
+const TermsPage = lazy(() => import("./pages/TermsPage"));
 
 // Minimal inline fallback — matches the dark site bg, no flash
 function PageFallback() {
@@ -51,18 +55,27 @@ function App() {
     else if (rawPath === "players") setCurrentPage("players");
     else if (rawPath === "contact") setCurrentPage("contact");
     else if (rawPath === "dashboard") setCurrentPage("dashboard");
-    else if (rawPath === "login" || rawPath === "forgot-password" || rawPath === "forgot") setAuthPage("login");
+    else if (rawPath === "privacy" || rawPath === "privacy-policy") setCurrentPage("privacy");
+    else if (rawPath === "terms" || rawPath === "terms-of-service") setCurrentPage("terms");
+    else if (rawPath === "login") setAuthPage("login");
+    else if (rawPath === "forgot-password" || rawPath === "forgot") setAuthPage("forgot");
     else if (rawPath === "signup") setAuthPage("signup");
 
     const handlePopState = () => {
       const p = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, "");
-      if (p === "login" || p === "forgot" || p === "forgot-password") {
+      if (p === "login") {
         setAuthPage("login");
+      } else if (p === "forgot" || p === "forgot-password") {
+        setAuthPage("forgot");
       } else if (p === "signup") {
         setAuthPage("signup");
       } else {
         setAuthPage(null);
-        if (p === "dashboard" && !user) {
+        if (p === "privacy" || p === "privacy-policy") {
+          setCurrentPage("privacy");
+        } else if (p === "terms" || p === "terms-of-service") {
+          setCurrentPage("terms");
+        } else if (p === "dashboard" && !user) {
           setCurrentPage("home");
           setAuthModalTargetAction("access your player dashboard");
           setPendingSectionAfterLogin("dashboard");
@@ -84,6 +97,7 @@ function App() {
 
     let targetPath = "/";
     if (authPage === "login") targetPath = "/login";
+    else if (authPage === "forgot") targetPath = "/forgot-password";
     else if (authPage === "signup") targetPath = "/signup";
     else if (currentPage !== "home") targetPath = `/${currentPage}`;
 
@@ -186,6 +200,31 @@ function App() {
   // -------------------------
   // FULL PAGE AUTH OVERRIDES (if explicitly opened full screen)
   // -------------------------
+  // Reset password page
+  if (
+    window.location.pathname.toLowerCase().replace(/\/+$/, "") ===
+    "/reset-password"
+  ) {
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <ResetPasswordPage />
+      </Suspense>
+    );
+  }
+
+  // Forgot password page
+  if (authPage === "forgot") {
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <ForgotPasswordPage
+          onBack={() => setAuthPage("login")}
+          onLogin={() => setAuthPage("login")}
+        />
+      </Suspense>
+    );
+  }
+
+  // Signup page
   if (authPage === "signup") {
     return (
       <Suspense fallback={<PageFallback />}>
@@ -203,6 +242,7 @@ function App() {
         <LoginPage
           onSignup={() => setAuthPage("signup")}
           onLogin={handleLoginSuccess}
+          onForgotPassword={() => setAuthPage("forgot")}
         />
       </Suspense>
     );
@@ -233,7 +273,7 @@ function App() {
       <ErrorBoundary>
         <Suspense fallback={<PageFallback />}>
           {currentPage === "home" && (
-            <HomePage onSection={handleSection} />
+            <HomePage onSection={handleSection} splashActive={showSplash} />
           )}
 
           {currentPage === "about" && (
@@ -275,6 +315,14 @@ function App() {
 
           {currentPage === "players" && (
             <PlayerStatsPage onBack={handleHome} />
+          )}
+
+          {currentPage === "privacy" && (
+            <PrivacyPolicyPage onHome={handleHome} />
+          )}
+
+          {currentPage === "terms" && (
+            <TermsPage onHome={handleHome} />
           )}
 
           {currentPage === "dashboard" && (

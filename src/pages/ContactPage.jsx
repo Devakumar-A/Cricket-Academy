@@ -182,13 +182,15 @@ function ContactPage({ onBack, onSection }) {
                 <p>Fill out the form below to send an instant structured inquiry straight to our academy coordinators via WhatsApp.</p>
               </div>
 
-              <form onSubmit={handleSendWhatsApp} className="contact-inquiry-form">
+              <form onSubmit={handleSendWhatsApp} className="contact-inquiry-form" data-tool-name="contact_academy" aria-label="Contact Academy Inquiry Form">
                 <div className="form-group-row">
                   <div className="form-field">
-                    <label>Full Name *</label>
+                    <label htmlFor="contact-name">Full Name *</label>
                     <input
+                      id="contact-name"
                       type="text"
                       name="name"
+                      autoComplete="name"
                       placeholder="e.g. Rahul Sharma"
                       value={formData.name}
                       onChange={handleInputChange}
@@ -197,10 +199,12 @@ function ContactPage({ onBack, onSection }) {
                   </div>
 
                   <div className="form-field">
-                    <label>Phone / WhatsApp *</label>
+                    <label htmlFor="contact-phone">Phone / WhatsApp *</label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       name="phone"
+                      autoComplete="tel"
                       placeholder="e.g. 9876543210"
                       value={formData.phone}
                       onChange={handleInputChange}
@@ -210,8 +214,9 @@ function ContactPage({ onBack, onSection }) {
                 </div>
 
                 <div className="form-field">
-                  <label>Inquiry Category</label>
+                  <label htmlFor="contact-category">Inquiry Category</label>
                   <select
+                    id="contact-category"
                     name="inquiryType"
                     value={formData.inquiryType}
                     onChange={handleInputChange}
@@ -226,8 +231,9 @@ function ContactPage({ onBack, onSection }) {
                 </div>
 
                 <div className="form-field">
-                  <label>Message / Requirements (Optional)</label>
+                  <label htmlFor="contact-msg">Message / Requirements (Optional)</label>
                   <textarea
+                    id="contact-msg"
                     name="message"
                     rows="3"
                     placeholder="Describe your preferred timing, experience level, or specific requirements..."

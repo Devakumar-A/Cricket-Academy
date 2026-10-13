@@ -7,6 +7,12 @@ export default defineConfig({
   build: {
     // Split CSS per chunk for better caching
     cssCodeSplit: true,
+    // Do not preload heavy jsPDF chunk on initial HTML load
+    modulePreload: {
+      resolveDependencies(filename, deps) {
+        return deps.filter((dep) => !dep.includes('vendor-pdf'));
+      }
+    },
     // Raise the warning threshold (we're splitting anyway)
     chunkSizeWarningLimit: 600,
     rollupOptions: {

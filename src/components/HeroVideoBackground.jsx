@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./HeroVideoBackground.css";
 
-function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery }) {
+function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery, splashActive = false }) {
   const videoRef = useRef(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(() => {
@@ -25,13 +25,20 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery }) {
     };
   }, []);
 
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
+    if (!video || prefersReducedMotion) return;
+
+    let timer;
+    const startPlayback = () => {
+      if (!video) return;
       video.playbackRate = 1.0;
       video.defaultPlaybackRate = 1.0;
 
-      video.load();
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise
@@ -40,7 +47,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery }) {
           })
           .catch(() => {
             const handleUserInteraction = () => {
-              video.play().catch(() => {});
+              if (video) video.play().catch(() => {});
               window.removeEventListener("touchstart", handleUserInteraction);
               window.removeEventListener("click", handleUserInteraction);
             };
@@ -48,8 +55,25 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery }) {
             window.addEventListener("click", handleUserInteraction, { once: true });
           });
       }
+    };
+
+    if (splashActive) {
+      // Buffer & play as splash screen wraps up (~2.2s into 3s splash)
+      timer = setTimeout(startPlayback, 2200);
+    } else {
+      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+        window.requestIdleCallback(startPlayback, { timeout: 1200 });
+      } else {
+        timer = setTimeout(startPlayback, 100);
+      }
     }
-  }, [isMobile]);
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [isMobile, prefersReducedMotion, splashActive]);
+
+  const posterSrc = isMobile ? "/videos/hero-poster-mobile.webp" : "/videos/hero-poster.webp";
 
   return (
     <section className="hero-video-wrapper" aria-label="Hero Section">
@@ -61,12 +85,14 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery }) {
           ref={videoRef}
           key={isMobile ? "mobile-video" : "desktop-video"}
           className={`hero-bg-video ${videoLoaded ? "is-loaded" : ""}`}
-          autoPlay
+          poster={posterSrc}
           loop
           muted
           playsInline
           webkit-playsinline="true"
-          preload="auto"
+          preload={splashActive ? "none" : "metadata"}
+          width={isMobile ? 720 : 1920}
+          height={isMobile ? 1280 : 1080}
           disablePictureInPicture
           disableRemotePlayback
           onLoadedData={() => setVideoLoaded(true)}

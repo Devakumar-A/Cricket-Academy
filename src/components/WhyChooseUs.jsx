@@ -465,7 +465,7 @@ function WhyChooseUs({ onExploreFacilities }) {
               type="button"
               className="why-nav-btn prev-btn"
               onClick={handlePrev}
-              aria-label="Previous Pillar"
+              aria-label="Prev - Previous Pillar"
               title="Previous"
             >
               ◀ Prev
@@ -497,7 +497,7 @@ function WhyChooseUs({ onExploreFacilities }) {
               type="button"
               className="why-nav-btn next-btn"
               onClick={handleNext}
-              aria-label="Next Pillar"
+              aria-label="Next - Next Pillar"
               title="Next"
             >
               Next ▶

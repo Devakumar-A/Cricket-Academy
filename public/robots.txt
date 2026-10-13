@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/webmcp.json
 
 Sitemap: https://mgcricketersden.com/sitemap.xml

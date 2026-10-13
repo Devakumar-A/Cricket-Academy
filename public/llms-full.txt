@@ -1,0 +1,38 @@
+# MG Cricketer's Den — Comprehensive Academy & Facility Documentation
+
+> Full reference documentation for autonomous browsing agents and language models representing MG Cricketer's Den in Pondicherry, India.
+
+## Organization Details
+- Legal Name: MG Cricketer's Den
+- Alternate Brand: MG Cricket Academy Pondicherry
+- Founded: 2025
+- Motto: Train • Compete • Improve
+- Website: https://mgcricketersden.com/
+- Telephone: +91-8122432905 / +91-9443243290
+- Address: North Street, Thengaithittu, Pondicherry 605004, Puducherry, India
+- Match Ground: Royapudupakkam, Pondicherry, India
+
+## Coaching Programs & Admission Structure
+1. **Weekend Warriors**: Saturday & Sunday sessions focusing on technique fundamentals, match awareness, and physical conditioning. Suitable for school students.
+2. **Weekday Elite**: Tuesday through Friday intensive practice. Specialized batting, fast bowling, spin craft, and video analysis.
+3. **High Performance Camp**: 6 days a week intensive regimen for tournament players preparing for district, state, and club selections.
+4. **1-on-1 Personalized Coaching**: Dedicated private sessions with senior coaches using video biomechanical analysis and bowling machines.
+
+## Turf Practice Nets Booking
+- Operating Hours: 05:30 AM – 11:30 PM (Daily, floodlit)
+- Astro Turf Nets: Shock-absorbent synthetic turf with uniform bounce and high durability.
+- Natural Turf Nets: Prepared clay pitches replicating regional domestic tournament conditions.
+- Booking System: Instant online slot booking with live date and hour selection at https://mgcricketersden.com/booking.
+
+## Technology & Sponsors
+- Technology Partner: Cognolynx
+- Video Production & Media: Visuorex Vault
+
+## Public URL Endpoints
+- Home: https://mgcricketersden.com/
+- Turf Booking: https://mgcricketersden.com/booking
+- Academy Admission: https://mgcricketersden.com/admission
+- Coaches Directory: https://mgcricketersden.com/coaches
+- About Facility: https://mgcricketersden.com/about
+- Player Stats: https://mgcricketersden.com/players
+- Contact & Directions: https://mgcricketersden.com/contact

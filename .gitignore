@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .env
+*-mobile.json
+*-desktop.json
