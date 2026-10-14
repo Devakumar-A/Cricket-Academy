@@ -1,4 +1,18 @@
 import { useEffect, useState } from "react";
+import {
+  User,
+  Mail,
+  Phone,
+  Calendar,
+  Clock,
+  CreditCard,
+  GraduationCap,
+  Shield,
+  MessageCircle,
+  FileText,
+  Trophy,
+  Download,
+} from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { generateAdmissionPDF, calculateAge, formatDate } from "../lib/admissionPdfGenerator";
 import { getTurfDisplayName } from "../utils/turfHelper";
@@ -182,7 +196,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
       <div className="pro-dashboard-header">
         <div className="header-left-col">
           <div className="athlete-avatar-box">
-            <span className="athlete-avatar-icon">🏏</span>
+            <User size={22} className="athlete-avatar-icon" />
             <span className="athlete-online-dot"></span>
           </div>
 
@@ -193,9 +207,15 @@ function DashboardPage({ user, onBack, onNavigate }) {
             </div>
             <h1 className="athlete-name">Player Dashboard <span className="athlete-name-sub">| Welcome, {name}</span></h1>
             <div className="athlete-meta-row">
-              <span>✉️ {email}</span>
+              <span>
+                <Mail size={13} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                {email}
+              </span>
               <span className="meta-sep">•</span>
-              <span>📞 {phone}</span>
+              <span>
+                <Phone size={13} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                {phone}
+              </span>
             </div>
           </div>
         </div>
@@ -206,7 +226,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
             className="dash-action-btn gold-primary-btn"
             onClick={() => (onNavigate ? onNavigate("booking") : onBack())}
           >
-            🏏 Book Turf
+            Book Turf →
           </button>
           <button
             type="button"
@@ -223,7 +243,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
           ------------------------------------------------------------- */}
       <div className="dashboard-kpi-grid">
         <div className="kpi-card" onClick={() => setActiveTab("bookings")}>
-          <div className="kpi-icon-box gold-icon">🏟️</div>
+          <div className="kpi-icon-box gold-icon"><Calendar size={20} /></div>
           <div className="kpi-info">
             <span className="kpi-label">TOTAL BOOKINGS</span>
             <strong className="kpi-value">{bookings.length}</strong>
@@ -232,7 +252,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
         </div>
 
         <div className="kpi-card" onClick={() => setActiveTab("admissions")}>
-          <div className="kpi-icon-box blue-icon">🎓</div>
+          <div className="kpi-icon-box blue-icon"><GraduationCap size={20} /></div>
           <div className="kpi-info">
             <span className="kpi-label">ADMISSIONS</span>
             <strong className="kpi-value">{admissions.length}</strong>
@@ -241,7 +261,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
         </div>
 
         <div className="kpi-card">
-          <div className="kpi-icon-box green-icon">⚡</div>
+          <div className="kpi-icon-box green-icon"><Shield size={20} /></div>
           <div className="kpi-info">
             <span className="kpi-label">FACILITY ACCESS</span>
             <strong className="kpi-value">Active</strong>
@@ -250,7 +270,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
         </div>
 
         <div className="kpi-card support-kpi">
-          <div className="kpi-icon-box emerald-icon">💬</div>
+          <div className="kpi-icon-box emerald-icon"><MessageCircle size={20} /></div>
           <div className="kpi-info">
             <span className="kpi-label">DIRECT SUPPORT</span>
             <strong className="kpi-value">WhatsApp</strong>
@@ -284,7 +304,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
           className={`dash-tab ${activeTab === "bookings" ? "active" : ""}`}
           onClick={() => setActiveTab("bookings")}
         >
-          <span>🏟️ Turf Bookings</span>
+          <span>Turf Bookings</span>
           <span className="tab-count">{bookings.length}</span>
         </button>
 
@@ -293,7 +313,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
           className={`dash-tab ${activeTab === "admissions" ? "active" : ""}`}
           onClick={() => setActiveTab("admissions")}
         >
-          <span>🎓 Admissions</span>
+          <span>Admissions</span>
           <span className="tab-count">{admissions.length}</span>
         </button>
 
@@ -302,7 +322,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
           className={`dash-tab ${activeTab === "profile" ? "active" : ""}`}
           onClick={() => setActiveTab("profile")}
         >
-          <span>👤 Profile Info</span>
+          <span>Profile Info</span>
         </button>
       </div>
 
@@ -320,7 +340,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
           {activeTab === "profile" && (
             <div className="dashboard-card profile-full-card">
               <div className="dash-card-header">
-                <h3>👤 Athlete Account Information</h3>
+                <h3>Athlete Account Information</h3>
                 <span className="profile-active-tag">Active Account</span>
               </div>
               <div className="profile-fields-grid">
@@ -350,14 +370,16 @@ function DashboardPage({ user, onBack, onNavigate }) {
               <div className="dash-card-header">
                 <div>
                   <span className="eyebrow">PRACTICE NETS & MATCH GROUND</span>
-                  <h3>🏟️ My Turf & Net Bookings</h3>
+                  <h3>My Turf & Net Bookings</h3>
                 </div>
                 <span className="count-pill">{bookings.length} Bookings</span>
               </div>
 
               {bookings.length === 0 ? (
                 <div className="dash-empty-state">
-                  <span className="empty-emoji">🏟️</span>
+                  <span className="empty-icon-wrap" style={{ display: "flex", justifyContent: "center", marginBottom: 12, color: "#d4af37" }}>
+                    <Calendar size={36} />
+                  </span>
                   <h4>No Turf Bookings Found</h4>
                   <p>You haven't reserved any practice nets or ground slots yet.</p>
                   <button
@@ -365,7 +387,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
                     className="empty-cta-btn"
                     onClick={() => (onNavigate ? onNavigate("booking") : onBack())}
                   >
-                    🏏 Book a Turf Slot Now
+                    Book a Turf Slot Now →
                   </button>
                 </div>
               ) : (
@@ -373,15 +395,17 @@ function DashboardPage({ user, onBack, onNavigate }) {
                   {bookings.map((booking) => (
                     <div key={booking.id} className="record-item">
                       <div className="record-left">
-                        <div className="record-icon-badge">🏟️</div>
+                        <div className="record-icon-badge"><Calendar size={18} /></div>
                         <div className="record-details">
                           <h4>{getTurfName(booking.turf_id)}</h4>
                           <div className="record-meta-pills">
                             <span className="meta-pill date-pill">
-                              📅 {formatDate(booking.booking_date)}
+                              <Calendar size={12} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                              {formatDate(booking.booking_date)}
                             </span>
                             <span className="meta-pill time-pill">
-                              ⏰ {formatTime(booking.start_time)} – {formatTime(booking.end_time)}
+                              <Clock size={12} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                              {formatTime(booking.start_time)} – {formatTime(booking.end_time)}
                             </span>
                           </div>
                         </div>
@@ -392,7 +416,8 @@ function DashboardPage({ user, onBack, onNavigate }) {
                           {booking.status || "Requested"}
                         </span>
                         <span className="payment-pill">
-                          💳 {booking.payment_status || "Payment Pending"}
+                          <CreditCard size={12} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                          {booking.payment_status || "Payment Pending"}
                         </span>
                       </div>
                     </div>
@@ -408,14 +433,16 @@ function DashboardPage({ user, onBack, onNavigate }) {
               <div className="dash-card-header">
                 <div>
                   <span className="eyebrow">ACADEMY ENROLLMENT</span>
-                  <h3>🎓 My Admission Applications</h3>
+                  <h3>My Admission Applications</h3>
                 </div>
                 <span className="count-pill">{admissions.length} Applications</span>
               </div>
 
               {admissions.length === 0 ? (
                 <div className="dash-empty-state">
-                  <span className="empty-emoji">📝</span>
+                  <span className="empty-icon-wrap" style={{ display: "flex", justifyContent: "center", marginBottom: 12, color: "#d4af37" }}>
+                    <FileText size={36} />
+                  </span>
                   <h4>No Admission Applications</h4>
                   <p>Apply to join MG Cricketer's Den training batches and professional programs.</p>
                   <button
@@ -423,7 +450,7 @@ function DashboardPage({ user, onBack, onNavigate }) {
                     className="empty-cta-btn"
                     onClick={() => (onNavigate ? onNavigate("admission") : onBack())}
                   >
-                    📝 Apply for Admission
+                    Apply for Admission →
                   </button>
                 </div>
               ) : (
@@ -435,6 +462,10 @@ function DashboardPage({ user, onBack, onNavigate }) {
                           <img
                             src={admission.signed_photo_url}
                             alt={`${admission.full_name || "Enrolled Athlete"} - MG Cricketer's Den Member Photo`}
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                            decoding="async"
                             className="adm-student-photo"
                             onError={(e) => {
                               e.currentTarget.style.display = "none";
@@ -456,15 +487,16 @@ function DashboardPage({ user, onBack, onNavigate }) {
                         <div className="adm-info">
                           <h4>{admission.full_name}</h4>
                           <span className="adm-batch-tag">
-                            🏆 {admission.batch_name || "Batch Training"}
+                            <Trophy size={13} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                            {admission.batch_name || "Batch Training"}
                           </span>
                           <div className="adm-sub-details">
-                            <span>🏏 {admission.playing_category || "Cricket Trainee"}</span>
-                            <span>🗓️ Joining: {formatDate(admission.joining_date)}</span>
+                            <span>Category: {admission.playing_category || "Cricket Trainee"}</span>
+                            <span>Joining: {formatDate(admission.joining_date)}</span>
                             {calculateAge(admission.dob) ? (
-                              <span>🎂 Age: {calculateAge(admission.dob)} Yrs</span>
+                              <span>Age: {calculateAge(admission.dob)} Yrs</span>
                             ) : null}
-                            <span>💰 Fee: ₹{admission.fee_amount || "Standard"}</span>
+                            <span>Fee: ₹{admission.fee_amount || "Standard"}</span>
                           </div>
                         </div>
                       </div>
@@ -481,9 +513,12 @@ function DashboardPage({ user, onBack, onNavigate }) {
                           disabled={pdfLoading === admission.id}
                         >
                           {pdfLoading === admission.id ? (
-                            "⏳ Generating PDF..."
+                            "Generating PDF..."
                           ) : (
-                            "📄 Download Official PDF"
+                            <>
+                              <Download size={14} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 6 }} />
+                              Download Official PDF
+                            </>
                           )}
                         </button>
                       </div>

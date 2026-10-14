@@ -63,3 +63,32 @@ img, video {
   outline: 2px solid #d4a017;
   outline-offset: 2px;
 }
+
+/* Seamless Instant Page Transitions */
+.mg-page-view-container {
+  width: 100%;
+  animation: mgPageSmoothIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes mgPageSmoothIn {
+  from {
+    opacity: 0.92;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility & Performance: Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

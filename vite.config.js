@@ -7,10 +7,10 @@ export default defineConfig({
   build: {
     // Split CSS per chunk for better caching
     cssCodeSplit: true,
-    // Do not preload heavy jsPDF chunk on initial HTML load
+    // Do not preload heavy jsPDF or GSAP chunks on initial HTML load
     modulePreload: {
       resolveDependencies(filename, deps) {
-        return deps.filter((dep) => !dep.includes('vendor-pdf'));
+        return deps.filter((dep) => !dep.includes('vendor-pdf') && !dep.includes('vendor-gsap'));
       }
     },
     // Raise the warning threshold (we're splitting anyway)
@@ -25,6 +25,10 @@ export default defineConfig({
           // jsPDF — heavy PDF generation lib (~200 KB), only needed on Admission page
           if (id.includes('jspdf') || id.includes('html2canvas')) {
             return 'vendor-pdf';
+          }
+          // GSAP animation engine (~70 KB gzip), only needed for cinematic splash
+          if (id.includes('gsap')) {
+            return 'vendor-gsap';
           }
           // React core runtime — cache independently from app code
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {

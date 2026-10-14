@@ -25,7 +25,7 @@
 - Booking System: Instant online slot booking with live date and hour selection at https://mgcricketersden.com/booking.
 
 ## Technology & Sponsors
-- Technology Partner: Cognolynx
+- Technology Partner & Web Development: [COGNOLYNX](https://cognolynx.com/) (Founder: Devakumar A — [GitHub](https://github.com/Devakumar-A) | [ORCID](https://orcid.org/0009-0003-8934-6744) | [LinkedIn](https://www.linkedin.com/in/devakumar-a-129561305/))
 - Video Production & Media: Visuorex Vault
 
 ## Public URL Endpoints

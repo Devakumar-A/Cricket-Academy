@@ -700,16 +700,15 @@
     max-width: 100%;
   }
   .mg-logo-text {
-    min-width: 0;
-    overflow: hidden;
+    min-width: max-content;
   }
   .mg-logo-title {
-    font-size: 13.5px;
+    font-size: clamp(12.5px, 3.6vw, 14.5px);
     letter-spacing: 0.3px;
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 160px;
+    overflow: visible;
+    text-overflow: clip;
+    max-width: none;
   }
   .mg-logo-sub {
     font-size: 8px;
@@ -751,8 +750,11 @@
     gap: 6px;
   }
   .mg-logo-title {
-    max-width: 120px;
+    max-width: none;
     font-size: 12px;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: visible;
   }
   .mg-user-btn {
     max-width: 40px;

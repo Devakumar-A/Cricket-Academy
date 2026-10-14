@@ -396,12 +396,6 @@ export default function TurfBookingPage({ onBack, user }) {
       return;
     }
 
-    if (!user) {
-      setMessage("Please login first.");
-      setMessageType("error");
-      return;
-    }
-
     if (!phone.trim()) {
       setMessage("Please enter your phone number.");
       setMessageType("error");
@@ -427,17 +421,17 @@ export default function TurfBookingPage({ onBack, user }) {
       )}:00:00`;
 
     const name =
-      user.user_metadata?.full_name ||
-      user.user_metadata?.name ||
-      user.email?.split("@")[0] ||
-      "User";
+      user?.user_metadata?.full_name ||
+      user?.user_metadata?.name ||
+      user?.email?.split("@")[0] ||
+      "Guest";
 
     const { error } = await supabase.from("bookings").insert({
-      user_id: user.id,
+      user_id: user?.id || null,
       turf_id: selectedTurf,
       name,
       phone: phone.trim(),
-      email: user.email,
+      email: user?.email || null,
       booking_date: selectedDate,
       start_time: startTime,
       end_time: endTime,
@@ -489,7 +483,7 @@ export default function TurfBookingPage({ onBack, user }) {
       duration,
       userName: name,
       userPhone: phone.trim(),
-      userEmail: user.email,
+      userEmail: user?.email || "Not provided",
     });
 
     setSelectedHour(null);

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { prefetchPage } from "../utils/pagePrefetch";
 import "./Header.css";
 
 const ACADEMY_LOGO_SRC = "/logoo.webp";
@@ -144,6 +145,8 @@ function Header({
                 type="button"
                 className={`mg-nav-link ${isActive ? "active" : ""}`}
                 onClick={() => handleNav(item.id)}
+                onMouseEnter={() => prefetchPage(item.id)}
+                onTouchStart={() => prefetchPage(item.id)}
               >
                 <span>{item.label}</span>
                 {isActive && <span className="mg-nav-active-bar" />}
@@ -159,6 +162,8 @@ function Header({
             type="button"
             className="mg-cta-turf-btn"
             onClick={() => handleNav("booking")}
+            onMouseEnter={() => prefetchPage("booking")}
+            onTouchStart={() => prefetchPage("booking")}
           >
             <svg viewBox="0 0 24 24" className="mg-cta-icon-svg" fill="none" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -292,6 +297,8 @@ function Header({
                   type="button"
                   className={`mg-mob-link ${isActive ? "active" : ""}`}
                   onClick={() => handleNav(item.id)}
+                  onMouseEnter={() => prefetchPage(item.id)}
+                  onTouchStart={() => prefetchPage(item.id)}
                 >
                   <div className="mg-mob-link-left">
                     <span className="mg-mob-icon-wrap">{item.icon}</span>
@@ -316,6 +323,8 @@ function Header({
               type="button"
               className="mg-mob-quick-turf-btn"
               onClick={() => handleNav("booking")}
+              onMouseEnter={() => prefetchPage("booking")}
+              onTouchStart={() => prefetchPage("booking")}
             >
               <svg viewBox="0 0 24 24" className="mg-mob-btn-svg" fill="none" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -332,6 +341,8 @@ function Header({
                     setMobileMenuOpen(false);
                     onDashboard();
                   }}
+                  onMouseEnter={() => prefetchPage("dashboard")}
+                  onTouchStart={() => prefetchPage("dashboard")}
                 >
                   <svg viewBox="0 0 24 24" className="mg-mob-btn-svg" fill="none" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />

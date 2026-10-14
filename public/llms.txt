@@ -30,3 +30,11 @@ MG Cricketer's Den provides international-standard training infrastructure and p
 - `browse_turf_slots`: Check live slot availability for astro and clay cricket nets at Thengaithittu.
 - `apply_admission`: Submit admission applications for junior, youth, and senior cricket batches.
 - `contact_academy`: Send inquiries regarding coaching batches, turf rentals, or private coaching.
+
+## Website Development & Technical Attribution
+- **Developer Organization**: [COGNOLYNX](https://cognolynx.com/)
+- **Founder**: Devakumar A
+- **Professional Profiles**:
+  - GitHub: https://github.com/Devakumar-A
+  - ORCID: https://orcid.org/0009-0003-8934-6744
+  - LinkedIn: https://www.linkedin.com/in/devakumar-a-129561305/

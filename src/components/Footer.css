@@ -1,25 +1,53 @@
 /* ============================================
-   FOOTER — BLACK & GOLD THEME
+   MG CRICKETER'S DEN — PREMIUM SPORTS FOOTER
    ============================================ */
 
 .mg-footer {
-  background: linear-gradient(180deg, #080c12 0%, #040608 100%);
+  position: relative;
+  background: #040608;
   border-top: 1px solid rgba(212, 160, 23, 0.22);
   color: #e5e7eb;
-  font-family: inherit;
+  overflow: hidden;
+  width: 100%;
 }
 
-/* ---- TOP BANNER ---- */
-.footer-top-banner {
-  background: linear-gradient(135deg, #0c1219 0%, #0a0f17 50%, #080c12 100%);
-  border-bottom: 1px solid rgba(212, 160, 23, 0.14);
-  padding: 44px 0 36px;
+/* Subtle Architectural Sports Grid */
+.footer-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
 }
 
+/* Container */
 .footer-container {
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 6%;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   TOP BANNER
+   ============================================ */
+.footer-top-banner {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, rgba(12, 18, 25, 0.85) 0%, rgba(8, 12, 18, 0.95) 100%);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.14);
+  padding: 40px 0 32px;
+}
+
+.footer-banner-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  flex-wrap: wrap;
 }
 
 .footer-brand-statement {
@@ -28,16 +56,16 @@
   gap: 12px;
   align-items: flex-start;
   max-width: 680px;
-  margin-bottom: 28px;
 }
 
 .footer-badge {
   display: inline-block;
+  font-family: 'Outfit', sans-serif;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   color: #d4a017;
-  background: rgba(212, 160, 23, 0.1);
+  background: rgba(212, 160, 23, 0.08);
   border: 1px solid rgba(212, 160, 23, 0.28);
   padding: 5px 14px;
   border-radius: 20px;
@@ -46,56 +74,57 @@
 
 .footer-tagline {
   margin: 0;
-  font-size: clamp(22px, 3vw, 36px);
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(20px, 2.6vw, 32px);
   font-weight: 900;
   color: #ffffff;
-  letter-spacing: -0.5px;
-  line-height: 1.1;
+  letter-spacing: -0.3px;
+  line-height: 1.15;
   text-transform: uppercase;
 }
 
 .footer-subtext {
   margin: 0;
   font-size: 13px;
-  color: #9ca3af;
-  line-height: 1.65;
+  color: #94a3b8;
+  line-height: 1.6;
 }
 
-/* Live Clock Box */
+/* DEN Live Clock Box */
 .footer-clock-box {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 8px;
+  gap: 8px;
+  background: rgba(6, 10, 16, 0.7);
+  border: 1px solid rgba(212, 160, 23, 0.18);
+  padding: 12px 18px;
+  border-radius: 10px;
+  flex-shrink: 0;
 }
 
 .live-pulse-indicator {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.22);
-  padding: 6px 14px;
-  border-radius: 20px;
-  width: fit-content;
 }
 
 .pulse-dot {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #10b981;
-  box-shadow: 0 0 10px #10b981;
-  animation: footerPulse 1.5s infinite;
+  box-shadow: 0 0 8px #10b981;
+  animation: footerPulse 1.8s infinite ease-in-out;
 }
 
 @keyframes footerPulse {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.35); opacity: 0.65; }
+  50% { transform: scale(1.3); opacity: 0.6; }
 }
 
 .pulse-text {
+  font-family: 'Outfit', sans-serif;
   font-size: 11px;
   font-weight: 700;
   color: #34d399;
@@ -104,38 +133,52 @@
 }
 
 .clock-digits {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: #d4a017;
   letter-spacing: 0.5px;
   font-variant-numeric: tabular-nums;
 }
 
-/* ---- MAIN LINKS SECTION ---- */
+/* ============================================
+   MAIN 3-COLUMN SECTION
+   ============================================ */
 .footer-main-content {
-  padding: 48px 0 36px;
+  position: relative;
+  z-index: 2;
+  padding: 48px 0 44px;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 48px;
+  align-items: start;
 }
 
-.footer-col {}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 
+/* Shared Column Heading on identical baseline */
 .footer-col-title {
-  margin: 0 0 18px;
-  font-size: 12px;
+  margin: 0 0 20px;
+  padding: 0 0 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12.5px;
   font-weight: 800;
   color: #d4a017;
   letter-spacing: 2px;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(212, 160, 23, 0.15);
-  padding-bottom: 10px;
+  line-height: 1.2;
+  border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Nav Links */
+/* ---- Column 1: Academy Directory ---- */
 .footer-links-list {
   list-style: none;
   padding: 0;
@@ -148,120 +191,269 @@
 .footer-nav-btn {
   background: none;
   border: none;
-  color: #9ca3af;
+  color: #94a3b8;
   font-size: 13px;
   font-weight: 600;
-  padding: 0;
+  padding: 2px 0;
   text-align: left;
   cursor: pointer;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  transition: color 0.2s, transform 0.2s;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
 }
 
 .footer-nav-btn:hover {
-  color: #d4a017;
-  transform: translateX(5px);
+  color: #fde047;
+  transform: translateX(4px);
 }
 
-/* Facility Locations */
+/* ---- Column 2: Our Facilities ---- */
+.footer-facilities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
 .footer-location-block {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+}
+
+.location-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location-pin-icon {
+  color: #d4a017;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .location-name {
-  display: block;
-  font-size: 13px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
   font-weight: 700;
   color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.location-details {
+  padding-left: 23px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
 }
 
 .location-address {
-  margin: 2px 0 4px;
+  margin: 0;
   font-size: 13px;
-  color: #9ca3af;
+  color: #94a3b8;
   line-height: 1.45;
 }
 
 .location-types {
   display: inline-block;
   font-size: 11px;
-  color: #d4a017;
-  background: rgba(212, 160, 23, 0.07);
+  color: #e2c069;
+  background: rgba(212, 160, 23, 0.08);
   padding: 3px 9px;
   border-radius: 6px;
-  border: 1px solid rgba(212, 160, 23, 0.18);
+  border: 1px solid rgba(212, 160, 23, 0.22);
   font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
-/* Contact Items */
+/* ---- Column 3: Direct Connect ---- */
 .footer-contact-items {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .footer-contact-link {
   display: flex;
   align-items: center;
+  gap: 10px;
   text-decoration: none;
   color: #cbd5e1;
   font-size: 13px;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
-.footer-contact-link:hover {
+.footer-contact-icon-wrap {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(212, 160, 23, 0.08);
+  border: 1px solid rgba(212, 160, 23, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #d4a017;
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.footer-insta-link {
-  color: #fde047;
-  font-weight: 700;
-}
-
-.footer-insta-link:hover {
-  color: #fb7185;
-}
-
-.footer-contact-link span {
+.footer-contact-text {
+  color: #cbd5e1;
   line-height: 1.4;
+  word-break: break-word;
+  transition: color 0.2s ease;
 }
 
-/* CTA Button */
+.footer-contact-link:hover .footer-contact-text {
+  color: #fde047;
+}
+
+.footer-contact-link:hover .footer-contact-icon-wrap {
+  background: rgba(212, 160, 23, 0.18);
+  border-color: #d4a017;
+  color: #fde047;
+  transform: scale(1.05);
+}
+
 .footer-quick-action {
-  margin-top: 4px;
-}
-
-.footer-cta-turf-btn {
-  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
-  color: #06090e;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  padding: 12px 22px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: all 0.25s ease;
-  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.35);
   width: 100%;
 }
 
-.footer-cta-turf-btn:hover {
-  background: linear-gradient(135deg, #ffe066 0%, #d4a017 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(212, 160, 23, 0.5);
+.footer-cta-turf-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: #06090e;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12.5px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  padding: 13px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 235, 150, 0.3);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 16px rgba(212, 160, 23, 0.25);
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* ---- BOTTOM BAR ---- */
+.footer-cta-turf-btn:hover {
+  background: linear-gradient(135deg, #fde047 0%, #d4a017 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 160, 23, 0.45);
+}
+
+/* ========================================================
+   DEDICATED WORDMARK SECTION (STARLIGHT STYLE LUXURY METALLIC)
+   ======================================================== */
+.footer-wordmark-section {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  border-top: 1px solid rgba(212, 160, 23, 0.14);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.14);
+  background: #020406;
+  padding: 44px 0 38px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.footer-wordmark-display {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  user-select: none;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Primary Title: MG CRICKETER'S DEN */
+.footer-wordmark-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 950;
+  font-size: clamp(24px, 5.8vw, 86px);
+  line-height: 1.05;
+  letter-spacing: clamp(1px, 0.3vw, 5px);
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* Rich metallic gold gradient matching the Starlight luxury reference */
+  background: linear-gradient(
+    108deg,
+    #cf9e42 0%,
+    #dfb85e 20%,
+    #fbe396 38%,
+    #fff7d1 48%,
+    #f5d57c 58%,
+    #dcae4f 75%,
+    #b88226 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Subtitle: CRICKET ACADEMY & MATCH GROUND • PUDUCHERRY */
+.footer-wordmark-subtitle {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: clamp(9px, 1.15vw, 16px);
+  line-height: 1.2;
+  letter-spacing: clamp(3px, 0.7vw, 11px);
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* Matching metallic gold gradient */
+  background: linear-gradient(
+    108deg,
+    #cf9e42 0%,
+    #dfb85e 20%,
+    #fbe396 38%,
+    #fff7d1 48%,
+    #f5d57c 58%,
+    #dcae4f 75%,
+    #b88226 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ============================================
+   BOTTOM BAR (COPYRIGHT & COMPANY CREDIT)
+   ============================================ */
 .footer-bottom-bar {
-  border-top: 1px solid rgba(212, 160, 23, 0.12);
+  position: relative;
+  z-index: 2;
   padding: 20px 0;
+  background: #020406;
 }
 
 .footer-bottom-flex {
@@ -269,24 +461,59 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 16px;
+}
+
+.footer-bottom-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.bottom-bar-sep {
+  color: rgba(212, 160, 23, 0.35);
+  font-size: 11px;
 }
 
 .copyright-text {
   margin: 0;
-  font-size: 12px;
-  color: #6b7280;
+  font-size: 11.5px;
+  color: #94a3b8;
+  letter-spacing: 0.4px;
+  font-weight: 500;
+}
+
+/* Subtle Company Credit (normal weight, muted grey, non-dominant) */
+.developer-credit {
+  margin: 0;
+  font-size: 11.5px;
+  color: #808a9d;
   letter-spacing: 0.3px;
+  font-weight: 400;
+  font-family: inherit;
+}
+
+.developer-credit-link {
+  color: #94a3b8;
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.developer-credit-link:hover {
+  color: #d1d5db;
 }
 
 .footer-legal-tags {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-size: 11px;
-  color: #6b7280;
+  color: #64748b;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 
@@ -294,18 +521,69 @@
   color: rgba(212, 160, 23, 0.4);
 }
 
-/* ============ TABLET ============ */
-@media (max-width: 900px) {
+.footer-legal-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-btn:hover {
+  color: #fde047;
+}
+
+/* ============================================
+   RESPONSIVE: TABLET (<= 960px)
+   ============================================ */
+@media (max-width: 960px) {
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
     gap: 32px;
+  }
+
+  .footer-banner-container {
+    gap: 24px;
+  }
+
+  .footer-wordmark-section {
+    padding: 34px 0 28px;
+  }
+
+  .footer-wordmark-title {
+    font-size: clamp(22px, 5.5vw, 64px);
+  }
+
+  .footer-wordmark-subtitle {
+    font-size: clamp(8.5px, 1.1vw, 13px);
+    letter-spacing: clamp(2.5px, 0.6vw, 8px);
   }
 }
 
-/* ============ MOBILE ============ */
-@media (max-width: 600px) {
+/* ============================================
+   RESPONSIVE: MOBILE (<= 680px)
+   ============================================ */
+@media (max-width: 680px) {
   .footer-top-banner {
-    padding: 36px 0 28px;
+    padding: 32px 0 24px;
+  }
+
+  .footer-banner-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer-clock-box {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .footer-main-content {
@@ -314,39 +592,52 @@
 
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 36px;
+  }
+
+  .footer-col-title {
+    margin-bottom: 16px;
+  }
+
+  .footer-wordmark-section {
+    padding: 26px 0 22px;
+  }
+
+  .footer-wordmark-display {
+    gap: 6px;
+  }
+
+  /* Full-width display without clipping on mobile */
+  .footer-wordmark-title {
+    font-size: clamp(17px, 5.1vw, 28px);
+    letter-spacing: 1px;
+  }
+
+  .footer-wordmark-subtitle {
+    font-size: clamp(7.5px, 1.8vw, 9.5px);
+    letter-spacing: 2px;
   }
 
   .footer-bottom-flex {
     flex-direction: column;
-    text-align: center;
-    gap: 10px;
+    align-items: flex-start;
+    text-align: left;
+    gap: 12px;
+  }
+
+  .footer-bottom-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .bottom-bar-sep {
+    display: none;
   }
 
   .footer-legal-tags {
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 8px 12px;
   }
-
-  .footer-cta-turf-btn {
-    width: 100%;
-  }
-}
-
-.footer-legal-btn {
-  background: none;
-  border: none;
-  color: #9ca3af;
-  font-size: 0.85rem;
-  font-family: inherit;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.2s ease;
-}
-
-.footer-legal-btn:hover {
-  color: #fde047;
 }

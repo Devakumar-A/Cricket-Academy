@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { AlertCircle, CheckCircle2, Camera, Users, Shield, Lock, Award } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { sendAdmissionToWhatsApp } from "../lib/whatsappConfig";
-import { generateAdmissionPDF, calculateAge, formatDate } from "../lib/admissionPdfGenerator";
+import { generateAdmissionPDF, calculateAge } from "../lib/admissionPdfGenerator";
 import "./AdmissionPage.css";
 
 const DECLARATION =
   "I hereby confirm that the above details are true and accurate. I agree to follow the rules, discipline, uniform code, and training instructions of MG Cricketer's Den.";
 
-function AdmissionPage({ user, onBack, selectedPlan, onOpenAuth }) {
+function AdmissionPage({ user, onBack, selectedPlan }) {
   const fileRef = useRef(null);
 
   const [loading, setLoading] = useState(false);
@@ -247,14 +248,6 @@ const DEFAULT_ACADEMY_BATCHES = [
       return;
     }
 
-    if (!user?.id) {
-      setError("Please log in to submit your admission application.");
-      if (typeof onOpenAuth === "function") {
-        onOpenAuth("login", "submit your academy admission application");
-      }
-      return;
-    }
-
     try {
       setLoading(true);
 
@@ -262,7 +255,7 @@ const DEFAULT_ACADEMY_BATCHES = [
       let photoUrlToSave = null;
       if (selectedPhoto) {
         const extension = (selectedPhoto.name.split(".").pop() || "jpg").toLowerCase();
-        const photoPath = `${user.id}/admission-${Date.now()}.${extension}`;
+        const photoPath = `${user?.id || "guest"}/admission-${Date.now()}.${extension}`;
 
         let uploadSuccess = false;
         let bucketUsed = "admission-photos";
@@ -312,7 +305,7 @@ const DEFAULT_ACADEMY_BATCHES = [
 
       // 3. Insert admission into database
       const admission = {
-        user_id: user.id,
+        user_id: user?.id || null,
         full_name: form.full_name.trim(),
         dob: form.dob,
         gender: form.gender,
@@ -484,14 +477,14 @@ const DEFAULT_ACADEMY_BATCHES = [
         <div className="adm-form-container">
           {error && (
             <div className="adm-alert-box adm-alert-error">
-              <span>⚠️</span>
+              <AlertCircle size={20} className="adm-alert-icon" />
               <p>{error}</p>
             </div>
           )}
 
           {success && (
             <div className="adm-alert-box adm-alert-success">
-              <span>✅</span>
+              <CheckCircle2 size={20} className="adm-alert-icon" />
               <div>
                 <h4>Application Submitted Successfully!</h4>
                 <p>{success}</p>
@@ -502,7 +495,7 @@ const DEFAULT_ACADEMY_BATCHES = [
           {/* SELECTED PLAN HIGHLIGHT BANNER */}
           {selectedPlan && (
             <div className="adm-selected-plan-banner">
-              <div className="adm-plan-banner-icon">🏏</div>
+              <div className="adm-plan-banner-icon"><Award size={24} /></div>
               <div className="adm-plan-banner-info">
                 <span className="adm-plan-banner-eyebrow">SELECTED TRAINING PLAN</span>
                 <h4 className="adm-plan-banner-title">
@@ -511,7 +504,7 @@ const DEFAULT_ACADEMY_BATCHES = [
                 <p className="adm-plan-banner-desc">{selectedPlan.description}</p>
               </div>
               <div className="adm-plan-banner-badge">
-                <span>✓ PLAN APPLIED</span>
+                <span>PLAN APPLIED</span>
               </div>
             </div>
           )}
@@ -537,7 +530,7 @@ const DEFAULT_ACADEMY_BATCHES = [
                       <img src={photoPreview} alt="Applicant Passport Photo Preview - MG Cricketer's Den Cricket Academy Admission Pondicherry" className="adm-uploaded-img" />
                     ) : (
                       <div className="adm-photo-empty">
-                        <span className="cam-icon">📷</span>
+                        <span className="cam-icon"><Camera size={26} /></span>
                         <strong>Passport Photo</strong>
                         <small>JPG, PNG or WebP</small>
                       </div>
@@ -557,7 +550,7 @@ const DEFAULT_ACADEMY_BATCHES = [
                     className="adm-upload-trigger-btn"
                     onClick={() => fileRef.current?.click()}
                   >
-                    {photoPreview ? "Change Photo 📷" : "Upload Photo 📷"}
+                    {photoPreview ? "Change Photo" : "Upload Photo"}
                   </button>
                   <span className="adm-file-note">Max 5 MB file size</span>
                 </div>
@@ -667,14 +660,16 @@ const DEFAULT_ACADEMY_BATCHES = [
                   className={`adm-toggle-btn ${form.parent_type === "Parent" ? "active" : ""}`}
                   onClick={() => handleParentType("Parent")}
                 >
-                  👨‍👩‍👧 Parents
+                  <Users size={15} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 6 }} />
+                  Parents
                 </button>
                 <button
                   type="button"
                   className={`adm-toggle-btn ${form.parent_type === "Guardian" ? "active" : ""}`}
                   onClick={() => handleParentType("Guardian")}
                 >
-                  🛡️ Guardian
+                  <Shield size={15} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 6 }} />
+                  Guardian
                 </button>
               </div>
 
@@ -969,13 +964,14 @@ const DEFAULT_ACADEMY_BATCHES = [
             <div className="adm-submit-bar">
               <button type="submit" className="adm-submit-btn" disabled={loading}>
                 {loading ? (
-                  <span>⏳ Processing Admission Application...</span>
+                  <span>Processing Admission Application...</span>
                 ) : (
-                  <span>🏏 Submit Official Admission Application →</span>
+                  <span>Submit Official Admission Application →</span>
                 )}
               </button>
               <p className="adm-submit-note">
-                🔒 Your details are protected securely. Upon submission, an official PDF application form will be generated automatically.
+                <Lock size={12} style={{ display: "inline-block", verticalAlign: "-1px", marginRight: 4 }} />
+                Your details are protected securely. Upon submission, an official PDF application form will be generated automatically.
               </p>
             </div>
           </form>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { MapPin, Zap, Target, Shield } from "lucide-react";
 import "./FacilitiesSection.css";
 
 const FACILITIES_DATA = [
@@ -8,11 +9,11 @@ const FACILITIES_DATA = [
     type: "Practice Nets",
     location: "North St, Thengaithittu, Puducherry",
     shortLoc: "Thengaithittu",
-    icon: "🏏",
+    iconType: "zap",
     theme: "astro",
     badge: "High-Speed Nets",
     tagline: "True pace, uniform bounce, all-weather synthetic wicket.",
-    tags: ["⚡ All-Weather Synthetic", "💡 Floodlit Cage", "⏱️ Hourly Slots"],
+    tags: ["All-Weather Synthetic", "Floodlit Cage", "Hourly Slots"],
     pitchType: "astro"
   },
   {
@@ -21,11 +22,11 @@ const FACILITIES_DATA = [
     type: "Practice Nets",
     location: "North St, Thengaithittu, Puducherry",
     shortLoc: "Thengaithittu",
-    icon: "🎯",
+    iconType: "target",
     theme: "natural",
     badge: "Authentic Turf",
     tagline: "Natural clay & grass pitch for authentic seam and spin.",
-    tags: ["🌱 Clay Turf Pitch", "🎯 Seam & Spin Prep", "⏱️ Hourly Slots"],
+    tags: ["Clay Turf Pitch", "Seam & Spin Prep", "Hourly Slots"],
     pitchType: "natural"
   },
   {
@@ -34,11 +35,11 @@ const FACILITIES_DATA = [
     type: "Match Arena",
     location: "Main Ground, Royapudupakkam, Puducherry",
     shortLoc: "Royapudupakkam",
-    icon: "🏟️",
+    iconType: "shield",
     theme: "open",
     badge: "Full Ground Arena",
     tagline: "Standard full-size cricket match ground for tournaments and team drills.",
-    tags: ["🏟️ Full Match Ground", "🏆 20/40 Overs Drills", "⏱️ Day Booking"],
+    tags: ["Full Match Ground", "20/40 Overs Drills", "Day Booking"],
     pitchType: "open"
   }
 ];
@@ -484,7 +485,11 @@ function FacilitiesSection({ onBookTurf }) {
               className={`facility-tab-btn ${idx === activeIdx ? "active" : ""}`}
               onClick={() => setActiveIdx(idx)}
             >
-              <span className="tab-icon">{fac.icon}</span>
+              <span className="tab-icon">
+                {fac.iconType === "zap" && <Zap size={18} />}
+                {fac.iconType === "target" && <Target size={18} />}
+                {fac.iconType === "shield" && <Shield size={18} />}
+              </span>
               <div className="tab-text">
                 <strong>{fac.name}</strong>
                 <small>{fac.shortLoc}</small>
@@ -544,7 +549,7 @@ function FacilitiesSection({ onBookTurf }) {
               <span>3D INTERACTIVE {(activeFacility.type || "").toUpperCase()}</span>
             </div>
             <div className="viewport-drag-hint">
-              <span>👆 Swipe or tap arrows to switch pitches</span>
+              <span>Swipe or tap arrows to view pitches</span>
             </div>
           </div>
 
@@ -553,7 +558,8 @@ function FacilitiesSection({ onBookTurf }) {
             <div className="info-header-row">
               <div>
                 <span className="info-location-pill">
-                  📍 {activeFacility.location}
+                  <MapPin size={13} style={{ marginRight: 6, display: "inline-block", verticalAlign: "-2px" }} />
+                  {activeFacility.location}
                 </span>
                 <h3 className="info-facility-title">{activeFacility.name}</h3>
                 <p className="info-facility-tagline">{activeFacility.tagline}</p>
@@ -564,7 +570,7 @@ function FacilitiesSection({ onBookTurf }) {
                 className="showcase-book-btn"
                 onClick={onBookTurf}
               >
-                🏏 BOOK THIS NET NOW →
+                BOOK THIS TURF →
               </button>
             </div>
 

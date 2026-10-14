@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Zap, Trophy } from "lucide-react";
 import "./Hero3DVisual.css";
 
 export default function Hero3DVisual() {
@@ -118,7 +119,7 @@ export default function Hero3DVisual() {
 
         {/* Interactive Stats Floating Cards */}
         <div className="hero-floating-stat stat-1">
-          <span className="stat-icon">⚡</span>
+          <span className="stat-icon"><Zap size={16} /></span>
           <div>
             <strong>100% Match Ready</strong>
             <small>Astro & Natural Turf</small>
@@ -126,7 +127,7 @@ export default function Hero3DVisual() {
         </div>
 
         <div className="hero-floating-stat stat-2">
-          <span className="stat-icon">🏆</span>
+          <span className="stat-icon"><Trophy size={16} /></span>
           <div>
             <strong>Puducherry's Premier</strong>
             <small>Professional Den</small>
