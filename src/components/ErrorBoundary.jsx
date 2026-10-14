@@ -33,7 +33,9 @@ export default class ErrorBoundary extends Component {
           textAlign: "center",
           gap: "16px",
         }}>
-          <span style={{ fontSize: "48px" }}>🏏</span>
+          <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(212,175,55,0.15)", border: "1px solid rgba(212,175,55,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto", color: "#d4af37", fontSize: "18px", fontWeight: "700" }}>
+            MG
+          </div>
           <h2 style={{ color: "#d4a017", fontFamily: "Outfit, sans-serif", margin: 0 }}>
             Something went wrong
           </h2>
@@ -69,7 +71,7 @@ export default class ErrorBoundary extends Component {
               fontSize: "14px",
             }}
           >
-            🔄 Reload Page
+            Reload Page
           </button>
         </div>
       );

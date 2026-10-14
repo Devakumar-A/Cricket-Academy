@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sendPasswordResetEmail } from "../utils/authResetHelper";
+import "./LoginPage.css";
 
 export default function ForgotPasswordPage({ onBack, onLogin }) {
   const [email, setEmail] = useState("");

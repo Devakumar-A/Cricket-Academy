@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BarChart2 } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import "./PlayerStatsPage.css";
 
@@ -74,7 +75,7 @@ function PlayerStatsPage({ onBack }) {
         {/* Loading State */}
         {loading && (
           <div className="players-status-box">
-            <span className="loading-icon">🏏</span>
+            <div className="gold-spinner" style={{ width: 32, height: 32, margin: "0 auto 12px" }}></div>
             <p>Loading player records...</p>
           </div>
         )}
@@ -90,7 +91,7 @@ function PlayerStatsPage({ onBack }) {
         {/* Empty State */}
         {!loading && !error && players.length === 0 && (
           <div className="players-status-box">
-            <span className="empty-icon">📊</span>
+            <BarChart2 size={36} style={{ color: "#d4af37", marginBottom: 12 }} />
             <h4>No active player records found</h4>
             <p>Player stats will appear here as soon as they are registered.</p>
           </div>
@@ -120,6 +121,10 @@ function PlayerStatsPage({ onBack }) {
                       <img
                         src={photoSrc}
                         alt={`${player.name} - MG Cricketer's Den Academy Cricket Athlete Pondicherry`}
+                        width="320"
+                        height="368"
+                        loading="lazy"
+                        decoding="async"
                         className="pro-player-img"
                       />
                     ) : (

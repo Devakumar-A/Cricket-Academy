@@ -79,7 +79,7 @@ function AdmissionPlansSection({ onSelectAdmission, onSelectPlan }) {
             >
               {plan.highlight && (
                 <div className="combo-ribbon">
-                  ★ COMPLETE TRAINING
+                  COMPLETE TRAINING
                 </div>
               )}
 

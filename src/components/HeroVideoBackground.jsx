@@ -144,7 +144,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery, splashA
             className="hero-cta-btn btn-primary"
             onClick={onBookTurf}
           >
-            🏏 BOOK YOUR TURF
+            BOOK YOUR TURF
           </button>
 
           <button
@@ -160,7 +160,7 @@ function HeroVideoBackground({ onBookTurf, onJoinAcademy, onViewGallery, splashA
             className="hero-cta-btn btn-gallery"
             onClick={onViewGallery}
           >
-            📸 GALLERY
+            VIEW GALLERY
           </button>
         </div>
       </div>

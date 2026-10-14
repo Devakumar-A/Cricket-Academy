@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { BarChart2 } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import "./PlayerStatsCarousel.css";
 
@@ -7,55 +8,9 @@ function PlayerStatsCarousel({ onViewAllStats }) {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedPlayerId, setExpandedPlayerId] = useState(null);
-  const [isPaused, setIsPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [activePlayerIndex, setActivePlayerIndex] = useState(0);
   const scrollContainerRef = useRef(null);
-
-  useEffect(() => {
-    loadPlayers();
-
-    // Dynamic Realtime Postgres Changes Subscription
-    const channel = supabase
-      .channel("realtime:player_stats_carousel")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "player_stats" },
-        (payload) => {
-          console.log("⚡ Realtime Player Stats Update:", payload);
-          loadPlayers();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
-
-  // -------------------------------------------------------------
-  // AUTO-SWIPE TIMER ENGINE (Smooth Auto-Scroll for dynamic players)
-  // -------------------------------------------------------------
-  useEffect(() => {
-    if (loading || players.length <= 1 || isPaused || isHovered || expandedPlayerId) {
-      return;
-    }
-
-    const interval = setInterval(() => {
-      if (!scrollContainerRef.current) return;
-      const container = scrollContainerRef.current;
-      const maxScroll = container.scrollWidth - container.clientWidth;
-
-      // If reached end, smooth scroll back to beginning
-      if (container.scrollLeft >= maxScroll - 25) {
-        container.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        const scrollStep = container.clientWidth < 640 ? 300 : 344;
-        container.scrollBy({ left: scrollStep, behavior: "smooth" });
-      }
-    }, 3800);
-
-    return () => clearInterval(interval);
-  }, [loading, players.length, isPaused, isHovered, expandedPlayerId]);
 
   async function loadPlayers() {
     try {
@@ -92,14 +47,77 @@ function PlayerStatsCarousel({ onViewAllStats }) {
     }
   }
 
-  function handleScroll(direction) {
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadPlayers();
+
+    // Dynamic Realtime Postgres Changes Subscription
+    const channel = supabase
+      .channel("realtime:player_stats_carousel")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "player_stats" },
+        (payload) => {
+          console.log("⚡ Realtime Player Stats Update:", payload);
+          loadPlayers();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  // -------------------------------------------------------------
+  // TRADITIONAL AUTO-SWIPE ENGINE (Smooth 5-second rotation)
+  // -------------------------------------------------------------
+  useEffect(() => {
+    if (loading || players.length <= 1 || isHovered || expandedPlayerId) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      if (!scrollContainerRef.current) return;
+      setActivePlayerIndex((prev) => {
+        const next = (prev + 1) % players.length;
+        const container = scrollContainerRef.current;
+        if (container && container.children[next]) {
+          const card = container.children[next];
+          const targetLeft = card.offsetLeft - (container.clientWidth - card.clientWidth) / 2;
+          container.scrollTo({
+            left: targetLeft,
+            behavior: "smooth",
+          });
+        }
+        return next;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [loading, players.length, isHovered, expandedPlayerId]);
+
+  function scrollToPlayer(index) {
     if (!scrollContainerRef.current) return;
-    const scrollStep = scrollContainerRef.current.clientWidth < 640 ? 300 : 344;
-    scrollContainerRef.current.scrollBy({
-      left: direction === "left" ? -scrollStep : scrollStep,
-      behavior: "smooth",
-    });
+    const container = scrollContainerRef.current;
+    const card = container.children[index];
+    if (card) {
+      const targetLeft = card.offsetLeft - (container.clientWidth - card.clientWidth) / 2;
+      container.scrollTo({
+        left: targetLeft,
+        behavior: "smooth",
+      });
+    }
+    setActivePlayerIndex(index);
   }
+
+  const handleTrackScroll = () => {
+    if (!scrollContainerRef.current || players.length === 0) return;
+    const container = scrollContainerRef.current;
+    const cardWidth = container.clientWidth < 640 ? 290 : 330;
+    const newIdx = Math.round(container.scrollLeft / cardWidth);
+    setActivePlayerIndex(Math.min(Math.max(0, newIdx), players.length - 1));
+  };
 
   function toggleExpand(e, playerId) {
     e.stopPropagation();
@@ -114,69 +132,26 @@ function PlayerStatsCarousel({ onViewAllStats }) {
   return (
     <section className="player-carousel-section" id="players-preview">
       <div className="home-section-container">
-        {/* Section Header */}
+        {/* Section Header — Clean without bulky controls */}
         <div className="player-carousel-header">
-          <div>
+          <div className="player-carousel-heading-wrap">
             <span className="section-badge">LIVE TRACKING</span>
             <h2 className="section-title">PERFORMANCE THAT SPEAKS</h2>
             <p className="section-subtitle">
               Dynamic statistics recorded directly from match performances at MG Cricketer's Den.
             </p>
           </div>
-
-          {/* Luxury Interactive Carousel Controls: Attractive Arrows + Pause/Resume */}
-          <div className="carousel-luxury-controls">
-            {/* Prev Arrow */}
-            <button
-              type="button"
-              className="carousel-gold-nav-btn prev-btn"
-              onClick={() => handleScroll("left")}
-              aria-label="Previous Player"
-              title="Previous Player"
-            >
-              <svg viewBox="0 0 24 24" className="nav-svg-icon" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-
-            {/* Pause / Resume Button */}
-            <button
-              type="button"
-              className={`carousel-pause-resume-btn ${isPaused ? "is-paused" : "is-playing"}`}
-              onClick={() => setIsPaused((prev) => !prev)}
-              aria-label={isPaused ? "Resume Auto-Swipe" : "Pause Auto-Swipe"}
-              title={isPaused ? "Resume Auto-Swipe" : "Pause Auto-Swipe"}
-            >
-              <span className="btn-action-icon">{isPaused ? "▶" : "⏸"}</span>
-              <span className="btn-label-text">
-                {isPaused ? "Resume" : "Pause"}
-              </span>
-            </button>
-
-            {/* Next Arrow */}
-            <button
-              type="button"
-              className="carousel-gold-nav-btn next-btn"
-              onClick={() => handleScroll("right")}
-              aria-label="Next Player"
-              title="Next Player"
-            >
-              <svg viewBox="0 0 24 24" className="nav-svg-icon" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
         </div>
 
         {/* Dynamic Carousel Container */}
         {loading ? (
           <div className="carousel-loading-state">
-            <span className="carousel-loading-spinner">🏏</span>
+            <div className="gold-spinner" style={{ width: 28, height: 28, margin: "0 auto 12px" }}></div>
             <p>Loading real-time player statistics...</p>
           </div>
         ) : players.length === 0 ? (
           <div className="carousel-empty-state">
-            <span className="empty-icon">📊</span>
+            <BarChart2 size={32} style={{ color: "#d4af37", marginBottom: 12 }} />
             <h3 className="empty-state-title">Player Records Active</h3>
             <p>Player statistics will appear here dynamically as academy matches conclude.</p>
             <button
@@ -188,14 +163,16 @@ function PlayerStatsCarousel({ onViewAllStats }) {
             </button>
           </div>
         ) : (
-          <div
-            className="carousel-track"
-            ref={scrollContainerRef}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onTouchStart={() => setIsHovered(true)}
-            onTouchEnd={() => setIsHovered(false)}
-          >
+          <>
+            <div
+              className="carousel-track"
+              ref={scrollContainerRef}
+              onScroll={handleTrackScroll}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              onTouchStart={() => setIsHovered(true)}
+              onTouchEnd={() => setIsHovered(false)}
+            >
             {players.map((player) => {
               const photoSrc = player.photo_url
                 ? player.photo_url.startsWith("http")
@@ -322,7 +299,27 @@ function PlayerStatsCarousel({ onViewAllStats }) {
                 </div>
               );
             })}
-          </div>
+            </div>
+
+            {/* Traditional Active Player Indicators */}
+            {players.length > 1 && (
+              <div className="player-carousel-dots-row">
+                {players.map((p, idx) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    aria-label={`View player ${p.name}`}
+                    onClick={() => scrollToPlayer(idx)}
+                    className="player-carousel-dot-btn"
+                  >
+                    <span
+                      className={`player-carousel-dot-pill ${idx === activePlayerIndex ? "active" : ""}`}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
         )}
 
         {/* Global CTA */}

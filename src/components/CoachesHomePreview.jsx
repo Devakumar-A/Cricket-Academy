@@ -40,8 +40,7 @@ function CoachesHomePreview({ onMeetCoaches }) {
           ============================================================ */}
       <div className="coaches-marquee-block">
         <div className="coaches-row-label">
-          <span className="coaches-live-pill">🏏 COACHING FACULTY</span>
-          <span className="coaches-hint-text">Hover or touch to pause • Tap to meet</span>
+          <span className="coaches-live-pill">COACHING FACULTY</span>
         </div>
 
         <div className="coaches-marquee-wrapper">

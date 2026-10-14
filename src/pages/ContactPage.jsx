@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MessageCircle, Phone, Mail, Clock, MapPin } from "lucide-react";
 import "./ContactPage.css";
 
 function ContactPage({ onBack, onSection }) {
@@ -42,11 +43,11 @@ function ContactPage({ onBack, onSection }) {
       return;
     }
 
-    const text = `*New Inquiry via MG Website*
-👤 *Name:* ${formData.name}
-📞 *Phone:* ${formData.phone}
-🎯 *Inquiry Type:* ${formData.inquiryType}
-📝 *Message:* ${formData.message || "I would like more information."}`;
+    const text = `*New Inquiry — MG Cricketer's Den*
+*Name:* ${formData.name}
+*Phone:* ${formData.phone}
+*Inquiry Type:* ${formData.inquiryType}
+*Message:* ${formData.message || "I would like more information."}`;
 
     const url = `https://wa.me/918122432905?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
@@ -100,7 +101,7 @@ function ContactPage({ onBack, onSection }) {
               rel="noopener noreferrer"
               className="channel-card channel-wa"
             >
-              <div className="channel-icon-box wa-icon">💬</div>
+              <div className="channel-icon-box wa-icon"><MessageCircle size={22} /></div>
               <div className="channel-info">
                 <span className="channel-tag">INSTANT RESPONSE</span>
                 <h3>WhatsApp Coordinator</h3>
@@ -117,7 +118,9 @@ function ContactPage({ onBack, onSection }) {
               rel="noopener noreferrer"
               className="channel-card channel-insta"
             >
-              <div className="channel-icon-box insta-icon">📸</div>
+              <div className="channel-icon-box insta-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              </div>
               <div className="channel-info">
                 <span className="channel-tag insta-tag">OFFICIAL INSTAGRAM</span>
                 <h3>@mg_cricketers_den</h3>
@@ -132,7 +135,7 @@ function ContactPage({ onBack, onSection }) {
               href="tel:+919597318892"
               className="channel-card channel-phone"
             >
-              <div className="channel-icon-box phone-icon">📞</div>
+              <div className="channel-icon-box phone-icon"><Phone size={22} /></div>
               <div className="channel-info">
                 <span className="channel-tag">DIRECT CALL</span>
                 <h3>Helpline & Inquiries</h3>
@@ -147,7 +150,7 @@ function ContactPage({ onBack, onSection }) {
               href="mailto:mgcricketersden@gmail.com"
               className="channel-card channel-email"
             >
-              <div className="channel-icon-box email-icon">✉️</div>
+              <div className="channel-icon-box email-icon"><Mail size={22} /></div>
               <div className="channel-info">
                 <span className="channel-tag">OFFICIAL DESK</span>
                 <h3>Email Inquiries</h3>
@@ -159,14 +162,14 @@ function ContactPage({ onBack, onSection }) {
 
             {/* Operating Hours */}
             <div className="channel-card channel-hours">
-              <div className="channel-icon-box hours-icon">⏰</div>
+              <div className="channel-icon-box hours-icon"><Clock size={22} /></div>
               <div className="channel-info">
                 <span className="channel-tag">ACADEMY TIMINGS</span>
                 <h3>Operating Hours</h3>
                 <p>Morning & Evening sessions + Night Floodlight slots.</p>
                 <div className="channel-highlight">5:30 AM – 11:30 PM (Daily)</div>
               </div>
-              <span className="channel-status-open">🟢 Active Every Day</span>
+              <span className="channel-status-open">Active Every Day</span>
             </div>
           </div>
 
@@ -221,12 +224,12 @@ function ContactPage({ onBack, onSection }) {
                     value={formData.inquiryType}
                     onChange={handleInputChange}
                   >
-                    <option value="Academy Admission">🎓 Academy Admission & Batches</option>
-                    <option value="Astro Wicket Booking">🏏 Astro Wicket Slot</option>
-                    <option value="Turf Wicket Booking">🌱 Turf Wicket Slot</option>
-                    <option value="Open Turf Wicket Ground Booking">🏟️ Open Turf Wicket Ground Arena</option>
-                    <option value="1-on-1 Coaching">🎯 Personal 1-on-1 Coaching Clinic</option>
-                    <option value="Other">💬 General Question / Feedback</option>
+                    <option value="Academy Admission">Academy Admission & Batches</option>
+                    <option value="Astro Wicket Booking">Astro Wicket Slot</option>
+                    <option value="Turf Wicket Booking">Turf Wicket Slot</option>
+                    <option value="Open Turf Wicket Ground Booking">Open Turf Wicket Ground Arena</option>
+                    <option value="1-on-1 Coaching">Personal 1-on-1 Coaching Clinic</option>
+                    <option value="Other">General Question / Feedback</option>
                   </select>
                 </div>
 
@@ -243,7 +246,7 @@ function ContactPage({ onBack, onSection }) {
                 </div>
 
                 <button type="submit" className="form-submit-btn">
-                  <span>💬 Send Inquiry via WhatsApp</span>
+                  <span>Send Inquiry via WhatsApp</span>
                   <span className="btn-arrow">→</span>
                 </button>
               </form>
@@ -261,17 +264,18 @@ function ContactPage({ onBack, onSection }) {
               <div className="venue-card-item">
                 <div className="venue-header-row">
                   <span className="venue-badge gold-badge">PRACTICE NETS FACILITY</span>
-                  <span className="venue-dot">Active 🟢</span>
+                  <span className="venue-dot">Active</span>
                 </div>
                 <h3>Thengaithittu Facility</h3>
                 <p className="venue-address">
-                  📍 North St, Thengaithittu, Puducherry, 605004
+                  <MapPin size={14} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                  North St, Thengaithittu, Puducherry, 605004
                 </p>
                 <div className="venue-chips-wrap">
-                  <span className="v-chip">🏏 1 Astro Turf Net</span>
-                  <span className="v-chip">🌱 1 Natural Clay Net</span>
-                  <span className="v-chip">⚡ LED Floodlights</span>
-                  <span className="v-chip">🎯 Bowling Machine</span>
+                  <span className="v-chip">1 Astro Turf Net</span>
+                  <span className="v-chip">1 Natural Clay Net</span>
+                  <span className="v-chip">LED Floodlights</span>
+                  <span className="v-chip">Bowling Machine</span>
                 </div>
                 <div className="venue-actions-row">
                   <a
@@ -280,7 +284,7 @@ function ContactPage({ onBack, onSection }) {
                     rel="noopener noreferrer"
                     className="venue-map-link"
                   >
-                    🗺️ Open in Google Maps →
+                    Open in Google Maps →
                   </a>
                   {onSection && (
                     <button
@@ -288,7 +292,7 @@ function ContactPage({ onBack, onSection }) {
                       className="venue-book-link"
                       onClick={() => onSection("booking")}
                     >
-                      Book Slot 🏏
+                      Book Slot →
                     </button>
                   )}
                 </div>
@@ -298,17 +302,18 @@ function ContactPage({ onBack, onSection }) {
               <div className="venue-card-item arena-card">
                 <div className="venue-header-row">
                   <span className="venue-badge green-badge">FULL MATCH GROUND</span>
-                  <span className="venue-dot">Active 🟢</span>
+                  <span className="venue-dot">Active</span>
                 </div>
                 <h3>Royapudupakkam Arena</h3>
                 <p className="venue-address">
-                  📍 Main Ground, Royapudupakkam, Puducherry
+                  <MapPin size={14} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                  Main Ground, Royapudupakkam, Puducherry
                 </p>
                 <div className="venue-chips-wrap">
-                  <span className="v-chip">🏟️ Full Match Arena</span>
-                  <span className="v-chip">🌱 Center Pitch</span>
-                  <span className="v-chip">🏆 Match Simulation</span>
-                  <span className="v-chip">🏏 League Prep</span>
+                  <span className="v-chip">Full Match Arena</span>
+                  <span className="v-chip">Center Pitch</span>
+                  <span className="v-chip">Match Simulation</span>
+                  <span className="v-chip">League Prep</span>
                 </div>
                 <div className="venue-actions-row">
                   <a
@@ -317,7 +322,7 @@ function ContactPage({ onBack, onSection }) {
                     rel="noopener noreferrer"
                     className="venue-map-link"
                   >
-                    🗺️ Open in Google Maps →
+                    Open in Google Maps →
                   </a>
                   <a
                     href="https://wa.me/918122432905?text=I%20am%20interested%20in%20booking%20the%20Royapudupakkam%20Match%20Ground."
@@ -325,7 +330,7 @@ function ContactPage({ onBack, onSection }) {
                     rel="noopener noreferrer"
                     className="venue-book-link green-book"
                   >
-                    Inquire Ground 🏟️
+                    Inquire Ground →
                   </a>
                 </div>
               </div>

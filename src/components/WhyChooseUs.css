@@ -64,37 +64,125 @@
 }
 
 /* ============================================================
-   DESKTOP 4-COLUMN GRID
+   ATMOSPHERIC AMBIENT GLOW ORBS
    ============================================================ */
-.why-choose-desktop-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-  position: relative;
-  z-index: 2;
+.why-bg-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(100px);
+  -webkit-filter: blur(100px);
+  z-index: 1;
 }
 
-/* Common Pillar Card Styling */
+.why-bg-glow-left {
+  width: 450px;
+  height: 450px;
+  top: 35%;
+  left: -120px;
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.08) 0%, rgba(212, 160, 23, 0) 70%);
+}
+
+.why-bg-glow-right {
+  width: 450px;
+  height: 450px;
+  bottom: 10%;
+  right: -120px;
+  background: radial-gradient(circle, rgba(14, 55, 115, 0.22) 0%, rgba(14, 55, 115, 0) 70%);
+}
+
+/* ============================================================
+   3D CARD DECK STAGE (UNIFIED DESKTOP & MOBILE)
+   ============================================================ */
+.why-3d-deck-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  height: 460px;
+  margin: 0 auto 20px;
+  perspective: 1800px;
+  -webkit-perspective: 1800px;
+  user-select: none;
+  cursor: pointer;
+  z-index: 2;
+  touch-action: pan-y;
+}
+
+/* Individual Slot in 3D Space — All anchored at (50%, 50%) for pure continuous transform */
+.why-deck-card-slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 410px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* CENTER (Active / Front Card) */
+.why-deck-card-slot.pos-center {
+  z-index: 30;
+  transform: translate3d(-50%, -50%, 50px) scale(1) rotateY(0deg);
+  opacity: 1;
+  filter: brightness(1);
+  pointer-events: auto;
+}
+
+/* RIGHT (Side Preview Card) */
+.why-deck-card-slot.pos-right {
+  z-index: 15;
+  transform: translate3d(calc(-50% + 280px), -50%, -90px) scale(0.86) rotateY(-14deg);
+  opacity: 0.74;
+  filter: brightness(0.68);
+  pointer-events: auto;
+}
+
+/* LEFT (Side Preview Card) */
+.why-deck-card-slot.pos-left {
+  z-index: 15;
+  transform: translate3d(calc(-50% - 280px), -50%, -90px) scale(0.86) rotateY(14deg);
+  opacity: 0.74;
+  filter: brightness(0.68);
+  pointer-events: auto;
+}
+
+/* BACK (Smoothly Hidden Behind Center) */
+.why-deck-card-slot.pos-back {
+  z-index: 5;
+  transform: translate3d(-50%, -50%, -240px) scale(0.72) rotateY(0deg);
+  opacity: 0;
+  filter: brightness(0.4);
+  pointer-events: none;
+}
+
+/* Common Pillar Card Inside Slot */
 .why-pillar-card {
   position: relative;
-  background: linear-gradient(160deg, rgba(19, 26, 38, 0.9) 0%, rgba(13, 17, 24, 0.95) 100%);
-  border: 1px solid rgba(212, 160, 23, 0.18);
-  border-radius: 22px;
-  padding: 30px 22px 26px;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid rgba(212, 160, 23, 0.28);
+  background: linear-gradient(165deg, rgba(19, 26, 38, 0.96) 0%, rgba(7, 10, 16, 0.99) 100%);
+  padding: 24px 22px;
   display: flex;
   flex-direction: column;
-  cursor: pointer;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  min-height: 280px;
+  justify-content: space-between;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
+  box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.why-pillar-card:hover,
-.why-pillar-card.active-pillar {
-  transform: translateY(-6px);
+.pos-center .why-pillar-card {
   border-color: #fde047;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 160, 23, 0.18);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 160, 23, 0.22);
 }
 
 /* 3D Background Canvas (Embedded in Card) */
@@ -105,247 +193,301 @@
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.85;
+  opacity: 0.65;
 }
 
-/* Card Content Overlay */
-.pillar-content-wrap {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+/* Top Glow in Card */
+.why-card-glow-overlay {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253, 224, 71, 0.12) 0%, transparent 70%);
+  filter: blur(40px);
   pointer-events: none;
+  z-index: 1;
 }
 
+.pos-center .why-card-glow-overlay {
+  background: radial-gradient(circle, rgba(253, 224, 71, 0.22) 0%, transparent 70%);
+}
+
+/* Card Header — Symmetrical and Clean */
 .pillar-header {
+  position: relative;
+  z-index: 3;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.pillar-icon-box {
-  font-size: 26px;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: rgba(212, 160, 23, 0.12);
-  border: 1px solid rgba(212, 160, 23, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  margin-bottom: 12px;
 }
 
 .pillar-number {
-  font-size: 12px;
-  font-weight: 900;
-  color: #fde047;
-  letter-spacing: 1px;
-  background: rgba(10, 14, 22, 0.8);
-  padding: 4px 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(212, 160, 23, 0.25);
-}
-
-.pillar-title {
-  font-size: 18px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
   font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 10px;
-  letter-spacing: -0.2px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  color: #fde047;
+  letter-spacing: 0.12em;
+  background: rgba(10, 14, 22, 0.85);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
 }
 
-.pillar-desc {
-  font-size: 13.5px;
-  color: #cbd5e1;
-  line-height: 1.65;
-  margin: 0 0 18px;
-  flex-grow: 1;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+.pillar-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(212, 160, 23, 0.12);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fde047;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* Card Content Overlay — Fitted & Readable */
+.pillar-content-wrap {
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+  margin-bottom: 14px;
+  pointer-events: none;
 }
 
 .pillar-tag {
   display: inline-block;
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
   color: #fde047;
-  background: rgba(10, 14, 22, 0.85);
-  border: 1px solid rgba(212, 160, 23, 0.35);
-  padding: 6px 14px;
-  border-radius: 8px;
-  align-self: flex-start;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  background: rgba(10, 14, 22, 0.9);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* ============================================================
-   MOBILE SINGLE UNIFIED CARD VIEW & CONTROLS
-   ============================================================ */
-.why-choose-mobile-wrapper {
-  display: none;
+.pillar-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.4px;
+  margin: 0 0 8px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+}
+
+.pillar-title-accent {
+  color: #fde047;
+}
+
+.pillar-desc {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.55;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Bottom Athletic Line & Dot */
+.pillar-bottom-bar {
   position: relative;
-  z-index: 2;
-  max-width: 480px;
-  margin: 0 auto;
-}
-
-.why-single-mobile-card {
-  position: relative;
-  background: linear-gradient(160deg, #131a26 0%, #0a0e16 100%);
-  border: 1px solid rgba(212, 160, 23, 0.4);
-  border-radius: 22px;
-  padding: 30px 22px 26px;
-  overflow: hidden;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 160, 23, 0.12);
-  min-height: 290px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ---- MOBILE INTERACTIVE CONTROLS BAR ---- */
-.why-mobile-controls-bar {
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 18px;
-  padding: 8px 14px;
-  background: linear-gradient(135deg, rgba(17, 24, 38, 0.85) 0%, rgba(9, 13, 20, 0.9) 100%);
-  border: 1px solid rgba(212, 160, 23, 0.3);
-  border-radius: 16px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  padding-top: 12px;
 }
 
-.why-nav-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(212, 160, 23, 0.3);
-  color: #fde047;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  padding: 10px 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.why-nav-btn:hover,
-.why-nav-btn:active {
+.pillar-bottom-line {
+  height: 1px;
+  flex: 1;
   background: rgba(212, 160, 23, 0.2);
-  border-color: #fde047;
-  transform: scale(0.97);
 }
 
-.why-pause-btn {
-  background: linear-gradient(135deg, rgba(212, 160, 23, 0.15) 0%, rgba(212, 160, 23, 0.06) 100%);
-  border: 1px solid rgba(212, 160, 23, 0.4);
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 10px 18px;
-  border-radius: 10px;
-  cursor: pointer;
+.pos-center .pillar-bottom-line {
+  background: linear-gradient(90deg, rgba(212, 160, 23, 0.4) 0%, rgba(253, 224, 71, 0.8) 100%);
+}
+
+.pillar-bottom-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fde047;
+  box-shadow: 0 0 10px rgba(253, 224, 71, 0.8);
+}
+
+/* ============================================================
+   ACTIVE CARD INDICATOR (PILLS + HINT)
+   ============================================================ */
+.why-deck-indicator-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.why-deck-dots-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: all 0.25s ease;
+  gap: 8px;
 }
 
-.why-pause-btn .ctrl-icon {
-  font-size: 13px;
-  color: #fde047;
-}
-
-.why-pause-btn.is-paused {
-  background: linear-gradient(135deg, #fde047 0%, #d4a017 100%);
-  color: #06090e;
-  border-color: #fde047;
-  box-shadow: 0 0 16px rgba(253, 224, 71, 0.45);
-}
-
-.why-pause-btn.is-paused .ctrl-icon {
-  color: #06090e;
-}
-
-/* ---- DOT INDICATORS ---- */
-.carousel-dots-row {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 14px;
-}
-
-.carousel-dot {
-  position: relative;
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
-  min-height: 28px;
+.why-deck-dot-btn {
   background: transparent;
   border: none;
-  padding: 0;
+  padding: 6px;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
 }
 
-.carousel-dot::after {
-  content: "";
+.why-deck-dot-pill {
   display: block;
+  height: 6px;
   width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
+  transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.carousel-dot.active::after {
-  background: #fde047;
-  width: 24px;
-  border-radius: 10px;
+.why-deck-dot-pill.active {
+  width: 32px;
+  background: linear-gradient(90deg, #fde047 0%, #d4a017 100%);
   box-shadow: 0 0 12px rgba(253, 224, 71, 0.6);
 }
 
 /* ============================================================
    RESPONSIVE BREAKPOINTS
    ============================================================ */
-@media (max-width: 1080px) {
-  .why-choose-desktop-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+@media (max-width: 1024px) {
+  .why-3d-deck-stage {
+    height: 440px;
+    max-width: 880px;
+  }
+  .why-deck-card-slot {
+    width: 360px;
+  }
+  .why-deck-card-slot.pos-right {
+    transform: translate3d(calc(-50% + 220px), -50%, -80px) scale(0.85) rotateY(-12deg);
+  }
+  .why-deck-card-slot.pos-left {
+    transform: translate3d(calc(-50% - 220px), -50%, -80px) scale(0.85) rotateY(12deg);
+  }
+  .why-deck-card-slot.pos-back {
+    transform: translate3d(-50%, -50%, -200px) scale(0.7) rotateY(0deg);
+  }
+  .why-pillar-card {
+    height: 385px;
   }
 }
 
 @media (max-width: 768px) {
   .why-choose-section {
-    padding: 60px 16px 50px;
+    padding: 55px 16px 45px;
   }
 
-  .section-heading-center {
-    margin-bottom: 28px;
+  .why-3d-deck-stage {
+    height: 420px;
+    perspective: 1200px;
+    -webkit-perspective: 1200px;
   }
 
-  /* Hide multi-column desktop grid */
-  .why-choose-desktop-grid {
-    display: none;
+  .why-deck-card-slot {
+    width: min(330px, 84vw);
   }
 
-  /* Show ONE unified mobile card with controls */
-  .why-choose-mobile-wrapper {
-    display: block;
+  .why-deck-card-slot.pos-center {
+    transform: translate3d(-50%, -50%, 30px) scale(1) rotateY(0deg);
+  }
+
+  .why-deck-card-slot.pos-right {
+    transform: translate3d(calc(-50% + 155px), -50%, -60px) scale(0.82) rotateY(-10deg);
+    opacity: 0.52;
+  }
+
+  .why-deck-card-slot.pos-left {
+    transform: translate3d(calc(-50% - 155px), -50%, -60px) scale(0.82) rotateY(10deg);
+    opacity: 0.52;
+  }
+
+  .why-deck-card-slot.pos-back {
+    transform: translate3d(-50%, -50%, -160px) scale(0.68) rotateY(0deg);
+    opacity: 0;
+  }
+
+  .why-pillar-card {
+    height: 365px;
+    padding: 20px 18px;
+  }
+
+  .pillar-title {
+    font-size: 20px;
+  }
+
+  .pillar-desc {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-3d-deck-stage {
+    height: 400px;
+    perspective: 900px;
+    -webkit-perspective: 900px;
+  }
+
+  .why-deck-card-slot {
+    width: min(295px, 86vw);
+  }
+
+  .why-deck-card-slot.pos-center {
+    transform: translate3d(-50%, -50%, 20px) scale(1) rotateY(0deg);
+  }
+
+  .why-deck-card-slot.pos-right {
+    transform: translate3d(calc(-50% + 120px), -50%, -50px) scale(0.80) rotateY(-8deg);
+    opacity: 0.38;
+  }
+
+  .why-deck-card-slot.pos-left {
+    transform: translate3d(calc(-50% - 120px), -50%, -50px) scale(0.80) rotateY(8deg);
+    opacity: 0.38;
+  }
+
+  .why-deck-card-slot.pos-back {
+    transform: translate3d(-50%, -50%, -130px) scale(0.65) rotateY(0deg);
+    opacity: 0;
+  }
+
+  .why-pillar-card {
+    height: 350px;
+    padding: 18px 16px;
+    border-radius: 22px;
+  }
+
+  .pillar-title {
+    font-size: 18.5px;
+  }
+
+  .pillar-desc {
+    font-size: 12px;
+    line-height: 1.48;
   }
 }

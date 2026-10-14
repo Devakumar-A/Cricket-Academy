@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ZoomIn } from "lucide-react";
 import "./GallerySection.css";
 
 // Curated high-definition Cricket Academy Images
@@ -112,7 +113,7 @@ function GallerySection() {
           ============================================================ */}
       <div className="gallery-marquee-block">
         <div className="gallery-row-label">
-          <span className="gallery-live-pill">📸 PHOTO ARCHIVE</span>
+          <span className="gallery-live-pill">PHOTO ARCHIVE</span>
           <span className="gallery-hint-text">Hover or touch to pause • Tap to expand</span>
         </div>
 
@@ -141,7 +142,7 @@ function GallerySection() {
                   <span className="gallery-item-tag">{item.tag}</span>
                   <h3 className="gallery-item-title">{item.title}</h3>
                 </div>
-                <div className="gallery-card-zoom-icon">🔍</div>
+                <div className="gallery-card-zoom-icon"><ZoomIn size={16} /></div>
               </div>
             ))}
 
@@ -166,7 +167,7 @@ function GallerySection() {
                   <span className="gallery-item-tag">{item.tag}</span>
                   <span className="gallery-item-title">{item.title}</span>
                 </div>
-                <div className="gallery-card-zoom-icon">🔍</div>
+                <div className="gallery-card-zoom-icon"><ZoomIn size={16} /></div>
               </div>
             ))}
           </div>
@@ -178,7 +179,7 @@ function GallerySection() {
           ============================================================ */}
       <div className="gallery-marquee-block gallery-videos-block">
         <div className="gallery-row-label">
-          <span className="gallery-live-pill gold-pill">🎥 VIDEO REELS</span>
+          <span className="gallery-live-pill gold-pill">VIDEO REELS</span>
           <span className="gallery-hint-text">Hover or touch to pause • Tap to watch</span>
         </div>
 

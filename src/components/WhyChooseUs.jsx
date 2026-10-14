@@ -1,11 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Target, Layers, Trophy, Activity } from "lucide-react";
 import "./WhyChooseUs.css";
 
 const whyChooseCards = [
   {
     id: 1,
-    icon: "🎯",
-    title: "Focused Training",
+    number: "01",
+    iconType: "target",
+    title: "FOCUSED",
+    accent: "TRAINING",
     description:
       "Structured batting and bowling drills designed to refine technique, improve execution, and build consistency.",
     tag: "Core Skill Development",
@@ -13,32 +16,53 @@ const whyChooseCards = [
   },
   {
     id: 2,
-    icon: "🏟️",
-    title: "Multiple Playing Conditions",
+    number: "02",
+    iconType: "layers",
+    title: "MULTIPLE PLAYING",
+    accent: "CONDITIONS",
     description:
-      "Practice on both Astro Wicket and Turf Wicket to adapt to pace, bounce, seam, and turn.",
+      "Practice on both Astro Wicket and Turf Wicket to adapt to pace, bounce, seam, and turn across competitive environments.",
     tag: "Surface Adaptability",
     visualType: "turf",
   },
   {
     id: 3,
-    icon: "🏆",
-    title: "Player Development",
+    number: "03",
+    iconType: "trophy",
+    title: "PLAYER",
+    accent: "DEVELOPMENT",
     description:
-      "Comprehensive player growth focusing on physical fitness, cricket fundamentals, and competitive mindset.",
+      "Comprehensive player growth focusing on physical fitness, cricket fundamentals, and a competitive winning mindset.",
     tag: "Long-term Growth",
     visualType: "trophy",
   },
   {
     id: 4,
-    icon: "🏏",
-    title: "Match Preparation",
+    number: "04",
+    iconType: "activity",
+    title: "MATCH",
+    accent: "PREPARATION",
     description:
       "Full-ground match simulation at our Royapudupakkam arena to prepare players for real tournament pressure.",
     tag: "Game Readiness",
     visualType: "stumps",
   },
 ];
+
+function renderPillarIcon(type) {
+  switch (type) {
+    case "target":
+      return <Target size={22} />;
+    case "layers":
+      return <Layers size={22} />;
+    case "trophy":
+      return <Trophy size={22} />;
+    case "activity":
+      return <Activity size={22} />;
+    default:
+      return null;
+  }
+}
 
 // -------------------------------------------------------------
 // DEDICATED SELF-CONTAINED 3D PILLAR CANVAS COMPONENT
@@ -96,7 +120,7 @@ function Pillar3DCanvas({ visualType }) {
       ctx.clearRect(0, 0, width, height);
 
       const cx = width * 0.5;
-      const cy = height * 0.48;
+      const cy = height * 0.35;
       const fov = 320;
 
       const project = (x, y, z) => {
@@ -332,58 +356,127 @@ function Pillar3DCanvas({ visualType }) {
   return <canvas ref={canvasRef} className="why-card-3d-bg-canvas" />;
 }
 
+// ================================================================
+// DETERMINE CARD POSITION IN 3D DECK
+// relative 0: center (front)
+// relative 1: right (deck side)
+// relative 2: back (transitioning behind)
+// relative 3: left (deck side)
+// ================================================================
+function getCardPosition(cardIndex, activeIndex, totalCards) {
+  const relative = (cardIndex - activeIndex + totalCards) % totalCards;
+  if (relative === 0) return "center";
+  if (relative === 1) return "right";
+  if (relative === totalCards - 1) return "left";
+  return "back";
+}
+
 // -------------------------------------------------------------
-// MAIN WHY CHOOSE US COMPONENT
+// MAIN WHY CHOOSE US COMPONENT (3D ROTATING DECK)
 // -------------------------------------------------------------
 function WhyChooseUs({ onExploreFacilities }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const touchStartX = useRef(null);
-  const touchEndX = useRef(null);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchMoved = useRef(false);
+  const timerRef = useRef(null);
 
-  // Auto-rotate every 4.5 seconds on mobile when not paused
+  // Helper to start the 5-second auto rotation
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % whyChooseCards.length);
+    }, 5000);
+  }, []);
+
+  // Helper to pause/clear the timer during user interaction
+  const pauseTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  // Helper to restart the 5-second timer cleanly from 0
+  const restartTimer = useCallback(() => {
+    pauseTimer();
+    startTimer();
+  }, [pauseTimer, startTimer]);
+
   useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % whyChooseCards.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [isPaused]);
+    startTimer();
+    return () => pauseTimer();
+  }, [startTimer, pauseTimer]);
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + whyChooseCards.length) % whyChooseCards.length);
+  const moveForward = useCallback(() => {
+    setActiveIndex((current) => (current + 1) % whyChooseCards.length);
+    restartTimer();
+  }, [restartTimer]);
+
+  const moveBackward = useCallback(() => {
+    setActiveIndex((current) => (current - 1 + whyChooseCards.length) % whyChooseCards.length);
+    restartTimer();
+  }, [restartTimer]);
+
+  const handleCardClick = (e, position, index) => {
+    e.stopPropagation();
+    if (position === "right") {
+      moveForward();
+    } else if (position === "left") {
+      moveBackward();
+    } else if (position === "center") {
+      moveForward();
+    } else {
+      setActiveIndex(index);
+      restartTimer();
+    }
   };
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % whyChooseCards.length);
-  };
-
-  const handleTogglePause = () => {
-    setIsPaused((prev) => !prev);
-  };
-
+  // Touch handlers for mobile with gesture disambiguation & smooth reset
   const handleTouchStart = (e) => {
-    touchStartX.current = e.targetTouches[0].clientX;
+    // Pause auto timer immediately when touch begins so it never triggers mid-swipe
+    pauseTimer();
+    if (e.touches && e.touches.length > 0) {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+      touchMoved.current = false;
+    }
   };
 
   const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX;
+    if (e.touches && e.touches.length > 0) {
+      const diffX = e.touches[0].clientX - touchStartX.current;
+      const diffY = e.touches[0].clientY - touchStartY.current;
+      if (Math.abs(diffX) > 8 || Math.abs(diffY) > 8) {
+        touchMoved.current = true;
+      }
+    }
   };
 
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const diff = touchStartX.current - touchEndX.current;
-    if (diff > 45) {
-      handleNext();
-    } else if (diff < -45) {
-      handlePrev();
+  const handleTouchEnd = (e) => {
+    if (touchMoved.current && e.changedTouches && e.changedTouches.length > 0) {
+      const diffX = e.changedTouches[0].clientX - touchStartX.current;
+      const diffY = e.changedTouches[0].clientY - touchStartY.current;
+
+      // Only count as horizontal swipe if horizontal movement dominates and exceeds 35px
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+        if (diffX < 0) {
+          moveForward();
+        } else {
+          moveBackward();
+        }
+      }
     }
-    touchStartX.current = null;
-    touchEndX.current = null;
+    // Always restart fresh 5-second timer on touch end
+    restartTimer();
   };
 
   return (
-    <section className="why-choose-section" id="why-choose-us">
+    <section className="why-choose-section" id="why-choose-us" aria-label="Why MG Cricketer's Den">
+      {/* Background Ambience Glow */}
+      <div className="why-bg-glow-orb why-bg-glow-left" aria-hidden="true" />
+      <div className="why-bg-glow-orb why-bg-glow-right" aria-hidden="true" />
+
       <div className="home-section-container">
         {/* SECTION HEADER */}
         <div className="section-heading-center">
@@ -396,124 +489,99 @@ function WhyChooseUs({ onExploreFacilities }) {
         </div>
 
         {/* =========================================================
-            DESKTOP 4-COLUMN GRID (EACH CARD HAS ITS OWN 3D ANIMATION)
-            ========================================================= */}
-        <div className="why-choose-desktop-grid">
-          {whyChooseCards.map((card, idx) => (
-            <div
-              key={card.id}
-              className={`why-pillar-card ${idx === activeIndex ? "active-pillar" : ""}`}
-              onMouseEnter={() => setActiveIndex(idx)}
-              onClick={() => setActiveIndex(idx)}
-            >
-              {/* Dedicated 3D Background Canvas */}
-              <Pillar3DCanvas visualType={card.visualType} />
-
-              <div className="pillar-content-wrap">
-                <div className="pillar-header">
-                  <div className="pillar-icon-box">{card.icon}</div>
-                  <span className="pillar-number">0{card.id}</span>
-                </div>
-                <h3 className="pillar-title">{card.title}</h3>
-                <p className="pillar-desc">{card.description}</p>
-                <div className="pillar-tag">{card.tag}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* =========================================================
-            MOBILE SINGLE UNIFIED CARD (DYNAMIC 3D BACKGROUND)
+            3D CARD DECK STAGE (UNIFIED DESKTOP & MOBILE)
             ========================================================= */}
         <div
-          className="why-choose-mobile-wrapper"
+          className="why-3d-deck-stage"
+          onClick={moveForward}
+          onMouseEnter={pauseTimer}
+          onMouseLeave={restartTimer}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          role="region"
+          aria-label="3D Pillar Card Deck"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              moveForward();
+            } else if (event.key === "ArrowRight") {
+              event.preventDefault();
+              moveForward();
+            } else if (event.key === "ArrowLeft") {
+              event.preventDefault();
+              moveBackward();
+            }
+          }}
         >
-          <div className="why-single-mobile-card">
-            {/* Dynamic 3D Background Canvas matching active pillar */}
-            <Pillar3DCanvas visualType={whyChooseCards[activeIndex].visualType} />
+          {whyChooseCards.map((card, index) => {
+            const position = getCardPosition(index, activeIndex, whyChooseCards.length);
 
-            <div className="pillar-content-wrap">
-              <div className="pillar-header">
-                <div className="pillar-icon-box">
-                  {whyChooseCards[activeIndex].icon}
+            return (
+              <div
+                key={card.id}
+                className={`why-deck-card-slot pos-${position}`}
+                onClick={(e) => handleCardClick(e, position, index)}
+              >
+                <div className="why-pillar-card">
+                  {/* Dedicated 3D Background Canvas */}
+                  <Pillar3DCanvas visualType={card.visualType} />
+
+                  {/* Atmospheric Glow */}
+                  <div className="why-card-glow-overlay" aria-hidden="true" />
+
+                  {/* Top Header Row — Balanced & Clean without redirect arrow */}
+                  <div className="pillar-header">
+                    <span className="pillar-number">{card.number}</span>
+                    <div className="pillar-icon-box">
+                      {renderPillarIcon(card.iconType)}
+                    </div>
+                  </div>
+
+                  {/* Content Block — Tailored for Crisp Readability */}
+                  <div className="pillar-content-wrap">
+                    <span className="pillar-tag">{card.tag}</span>
+                    <h3 className="pillar-title">
+                      {card.title}
+                      <br />
+                      <span className="pillar-title-accent">{card.accent}</span>
+                    </h3>
+                    <p className="pillar-desc">{card.description}</p>
+                  </div>
+
+                  {/* Bottom Athletic Accent Bar */}
+                  <div className="pillar-bottom-bar" aria-hidden="true">
+                    <div className="pillar-bottom-line" />
+                    <div className="pillar-bottom-dot" />
+                  </div>
                 </div>
-                <span className="pillar-number">
-                  0{whyChooseCards[activeIndex].id} / 04
-                </span>
               </div>
-              <h3 className="pillar-title">
-                {whyChooseCards[activeIndex].title}
-              </h3>
-              <p className="pillar-desc">
-                {whyChooseCards[activeIndex].description}
-              </p>
-              <div className="pillar-tag">
-                {whyChooseCards[activeIndex].tag}
-              </div>
-            </div>
-          </div>
+            );
+          })}
+        </div>
 
-          {/* =========================================================
-              MOBILE INTERACTIVE CONTROLS BAR (BACKWARD / PAUSE / FORWARD)
-              ========================================================= */}
-          <div className="why-mobile-controls-bar">
-            {/* Backward Button */}
-            <button
-              type="button"
-              className="why-nav-btn prev-btn"
-              onClick={handlePrev}
-              aria-label="Prev - Previous Pillar"
-              title="Previous"
-            >
-              ◀ Prev
-            </button>
-
-            {/* Pause / Play Toggle Button */}
-            <button
-              type="button"
-              className={`why-pause-btn ${isPaused ? "is-paused" : ""}`}
-              onClick={handleTogglePause}
-              aria-label={isPaused ? "Resume Auto-Play" : "Pause to Read"}
-              title={isPaused ? "Resume Auto-Play" : "Pause to Read"}
-            >
-              {isPaused ? (
-                <>
-                  <span className="ctrl-icon">▶</span>
-                  <span>Resume</span>
-                </>
-              ) : (
-                <>
-                  <span className="ctrl-icon">⏸</span>
-                  <span>Pause</span>
-                </>
-              )}
-            </button>
-
-            {/* Forward Button */}
-            <button
-              type="button"
-              className="why-nav-btn next-btn"
-              onClick={handleNext}
-              aria-label="Next - Next Pillar"
-              title="Next"
-            >
-              Next ▶
-            </button>
-          </div>
-
-          {/* DOT INDICATORS */}
-          <div className="carousel-dots-row">
-            {whyChooseCards.map((_, idx) => (
+        {/* ==========================================================
+            ACTIVE CARD INDICATOR (PILLS + HINT)
+            ========================================================== */}
+        <div className="why-deck-indicator-wrap">
+          <div className="why-deck-dots-row">
+            {whyChooseCards.map((card, index) => (
               <button
-                key={idx}
+                key={card.id}
                 type="button"
-                className={`carousel-dot ${idx === activeIndex ? "active" : ""}`}
-                onClick={() => setActiveIndex(idx)}
-                aria-label={`Slide ${idx + 1}`}
-              ></button>
+                aria-label={`Go to ${card.title} ${card.accent}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setActiveIndex(index);
+                  restartTimer();
+                }}
+                className="why-deck-dot-btn"
+              >
+                <span
+                  className={`why-deck-dot-pill ${index === activeIndex ? "active" : ""}`}
+                />
+              </button>
             ))}
           </div>
         </div>

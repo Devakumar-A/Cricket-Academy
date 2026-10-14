@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Target, Layers, Zap, Activity, Trophy, MapPin } from "lucide-react";
 import "./AboutPage.css";
 
 // -------------------------------------------------------------
@@ -291,28 +292,28 @@ function AboutPage({ onBack, onSection }) {
 
               <div className="narrative-highlights-grid">
                 <div className="highlight-pill">
-                  <span className="h-icon">🎯</span>
+                  <span className="h-icon"><Target size={18} /></span>
                   <div>
                     <strong>Focused Drills</strong>
                     <small>Skill repetition & technique</small>
                   </div>
                 </div>
                 <div className="highlight-pill">
-                  <span className="h-icon">🏟️</span>
+                  <span className="h-icon"><Layers size={18} /></span>
                   <div>
                     <strong>Dual Turf Pitches</strong>
                     <small>Astro & Natural clay nets</small>
                   </div>
                 </div>
                 <div className="highlight-pill">
-                  <span className="h-icon">⚡</span>
+                  <span className="h-icon"><Zap size={18} /></span>
                   <div>
                     <strong>Match Simulation</strong>
                     <small>Full arena game scenarios</small>
                   </div>
                 </div>
                 <div className="highlight-pill">
-                  <span className="h-icon">📈</span>
+                  <span className="h-icon"><Activity size={18} /></span>
                   <div>
                     <strong>Video Analytics</strong>
                     <small>Biomechanical breakdown</small>
@@ -326,14 +327,14 @@ function AboutPage({ onBack, onSection }) {
                   className="about-primary-btn"
                   onClick={() => onSection && onSection("admission")}
                 >
-                  Join Academy Batches 📝
+                  Join Academy Batches →
                 </button>
                 <button
                   type="button"
                   className="about-secondary-btn"
                   onClick={() => onSection && onSection("booking")}
                 >
-                  Book Practice Nets 🏏
+                  Book Practice Nets →
                 </button>
               </div>
             </div>
@@ -351,28 +352,28 @@ function AboutPage({ onBack, onSection }) {
 
             <div className="pillars-4-grid">
               <div className="about-pillar-box">
-                <div className="p-icon-box">🎯</div>
+                <div className="p-icon-box"><Target size={22} /></div>
                 <span className="p-num">01</span>
                 <h3>Grassroots to Elite Pathway</h3>
                 <p>Structured batting and bowling drills designed to refine core fundamentals, balance, and shot execution from beginner to state tournament levels.</p>
               </div>
 
               <div className="about-pillar-box">
-                <div className="p-icon-box">🏟️</div>
+                <div className="p-icon-box"><Layers size={22} /></div>
                 <span className="p-num">02</span>
                 <h3>Dual-Surface Pitch Adaptation</h3>
                 <p>Practice on both Astro Turf and Natural Turf wickets to train players against varying pace, steep bounce, seam movement, and spin angles.</p>
               </div>
 
               <div className="about-pillar-box">
-                <div className="p-icon-box">🏆</div>
+                <div className="p-icon-box"><Trophy size={22} /></div>
                 <span className="p-num">03</span>
                 <h3>Match Simulation & Pressure Play</h3>
                 <p>Full-ground tactical match play at our Royapudupakkam arena to prepare players for real tournament pressure and tactical awareness.</p>
               </div>
 
               <div className="about-pillar-box">
-                <div className="p-icon-box">📊</div>
+                <div className="p-icon-box"><Activity size={22} /></div>
                 <span className="p-num">04</span>
                 <h3>Discipline & Measurable Progress</h3>
                 <p>Fitness conditioning, fielding drills, video analysis reviews, and competitive mindset training to build mental stamina and sportsmanship.</p>
@@ -393,12 +394,15 @@ function AboutPage({ onBack, onSection }) {
               <div className="venue-detail-box">
                 <div className="v-tag gold-tag">PRACTICE NETS FACILITY</div>
                 <h3>Thengaithittu Facility</h3>
-                <p className="v-addr">📍 North St, Thengaithittu, Puducherry, 605004</p>
+                <p className="v-addr">
+                  <MapPin size={14} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                  North St, Thengaithittu, Puducherry, 605004
+                </p>
                 <div className="v-bullets">
-                  <span>🏏 1 Astro Turf Practice Net</span>
-                  <span>🌱 1 Natural Clay Turf Wicket</span>
-                  <span>⚡ High-Lumen LED Floodlights for Night Practice</span>
-                  <span>🎯 Automatic Bowling Machine & Safety Netting</span>
+                  <span>1 Astro Turf Practice Net</span>
+                  <span>1 Natural Clay Turf Wicket</span>
+                  <span>High-Lumen LED Floodlights for Night Practice</span>
+                  <span>Automatic Bowling Machine & Safety Netting</span>
                 </div>
                 <button
                   type="button"
@@ -412,12 +416,15 @@ function AboutPage({ onBack, onSection }) {
               <div className="venue-detail-box arena-box">
                 <div className="v-tag green-tag">FULL MATCH ARENA</div>
                 <h3>Royapudupakkam Ground</h3>
-                <p className="v-addr">📍 Main Ground, Royapudupakkam, Puducherry</p>
+                <p className="v-addr">
+                  <MapPin size={14} style={{ display: "inline-block", verticalAlign: "-2px", marginRight: 4 }} />
+                  Main Ground, Royapudupakkam, Puducherry
+                </p>
                 <div className="v-bullets">
-                  <span>🏟️ Full-Size Cricket Match Ground</span>
-                  <span>🌱 Natural Turf Center Pitch</span>
-                  <span>🏆 Full Match Simulation & League Preparation</span>
-                  <span>⚡ Open Match Rentals & Corporate Tournaments</span>
+                  <span>Full-Size Cricket Match Ground</span>
+                  <span>Natural Turf Center Pitch</span>
+                  <span>Full Match Simulation & League Preparation</span>
+                  <span>Open Match Rentals & Corporate Tournaments</span>
                 </div>
                 <button
                   type="button"

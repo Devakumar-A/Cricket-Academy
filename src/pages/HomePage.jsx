@@ -1,12 +1,19 @@
+import { lazy, Suspense } from "react";
 import HeroVideoBackground from "../components/HeroVideoBackground";
 import FacilitiesSection from "../components/FacilitiesSection";
 import SponsorsSection from "../components/SponsorsSection";
 import WhyChooseUs from "../components/WhyChooseUs";
 import CoachesHomePreview from "../components/CoachesHomePreview";
-import PlayerStatsCarousel from "../components/PlayerStatsCarousel";
-import AdmissionPlansSection from "../components/AdmissionPlansSection";
-import GallerySection from "../components/GallerySection";
 import "./HomePage.css";
+
+// Below-the-fold heavy sections loaded on-demand
+const PlayerStatsCarousel = lazy(() => import("../components/PlayerStatsCarousel"));
+const AdmissionPlansSection = lazy(() => import("../components/AdmissionPlansSection"));
+const GallerySection = lazy(() => import("../components/GallerySection"));
+
+function SectionFallback({ minHeight = 400 }) {
+  return <div style={{ minHeight: `${minHeight}px`, width: "100%" }} aria-hidden="true" />;
+}
 
 function HomePage({ onSection, splashActive = false }) {
   return (
@@ -35,71 +42,63 @@ function HomePage({ onSection, splashActive = false }) {
           <div className="flash-marquee-track">
             {/* Loop Item Set 1 */}
             <div className="flash-news-item">
-              <span className="flash-item-icon">⚡</span>
               <span className="flash-item-text">
                 <strong>24/7 ONLINE BOOKING:</strong> Turf & Practice Nets can be booked 24 Hours Online with Instant Slot Confirmation
               </span>
             </div>
-            <span className="flash-item-sep">✦</span>
+            <span className="flash-item-sep">•</span>
 
             <div className="flash-news-item">
-              <span className="flash-item-icon">🤝</span>
               <span className="flash-item-text">
                 <strong>SPONSORSHIP & PARTNERSHIPS:</strong> For Tournament Sponsorship & Brand Partnerships, Contact{" "}
                 <a href="tel:+918122432905" className="flash-link">+91 81224 32905</a>
               </span>
             </div>
-            <span className="flash-item-sep">✦</span>
+            <span className="flash-item-sep">•</span>
 
             <div className="flash-news-item">
-              <span className="flash-item-icon">🏏</span>
               <span className="flash-item-text">
                 <strong>ACADEMY ADMISSIONS OPEN:</strong> Weekday & Weekend Coaching Batches Open for Junior & Senior Players
               </span>
             </div>
-            <span className="flash-item-sep">✦</span>
+            <span className="flash-item-sep">•</span>
 
             <div className="flash-news-item">
-              <span className="flash-item-icon">🏟️</span>
               <span className="flash-item-text">
                 <strong>DUAL VENUE FACILITIES:</strong> Floodlit Astro & Natural Clay Turf Pitches at Thengaithittu & Royapudupakkam
               </span>
             </div>
-            <span className="flash-item-sep">✦</span>
+            <span className="flash-item-sep">•</span>
 
             {/* Duplicate Item Set 2 for seamless infinite loop */}
             <div className="flash-news-item" aria-hidden="true">
-              <span className="flash-item-icon">⚡</span>
               <span className="flash-item-text">
                 <strong>24/7 ONLINE BOOKING:</strong> Turf & Practice Nets can be booked 24 Hours Online with Instant Slot Confirmation
               </span>
             </div>
-            <span className="flash-item-sep" aria-hidden="true">✦</span>
+            <span className="flash-item-sep" aria-hidden="true">•</span>
 
             <div className="flash-news-item" aria-hidden="true">
-              <span className="flash-item-icon">🤝</span>
               <span className="flash-item-text">
                 <strong>SPONSORSHIP & PARTNERSHIPS:</strong> For Tournament Sponsorship & Brand Partnerships, Contact{" "}
                 <a href="tel:+918122432905" className="flash-link" tabIndex={-1}>+91 81224 32905</a>
               </span>
             </div>
-            <span className="flash-item-sep" aria-hidden="true">✦</span>
+            <span className="flash-item-sep" aria-hidden="true">•</span>
 
             <div className="flash-news-item" aria-hidden="true">
-              <span className="flash-item-icon">🏏</span>
               <span className="flash-item-text">
                 <strong>ACADEMY ADMISSIONS OPEN:</strong> Weekday & Weekend Coaching Batches Open for Junior & Senior Players
               </span>
             </div>
-            <span className="flash-item-sep" aria-hidden="true">✦</span>
+            <span className="flash-item-sep" aria-hidden="true">•</span>
 
             <div className="flash-news-item" aria-hidden="true">
-              <span className="flash-item-icon">🏟️</span>
               <span className="flash-item-text">
                 <strong>DUAL VENUE FACILITIES:</strong> Floodlit Astro & Natural Clay Turf Pitches at Thengaithittu & Royapudupakkam
               </span>
             </div>
-            <span className="flash-item-sep" aria-hidden="true">✦</span>
+            <span className="flash-item-sep" aria-hidden="true">•</span>
           </div>
         </div>
       </section>
@@ -117,16 +116,22 @@ function HomePage({ onSection, splashActive = false }) {
       <CoachesHomePreview onMeetCoaches={() => onSection("coaches")} />
 
       {/* 6. DYNAMIC PLAYER STATS CAROUSEL */}
-      <PlayerStatsCarousel onViewAllStats={() => onSection("players")} />
+      <Suspense fallback={<SectionFallback minHeight={480} />}>
+        <PlayerStatsCarousel onViewAllStats={() => onSection("players")} />
+      </Suspense>
 
       {/* 7. ADMISSION PLANS (WEEKDAY, WEEKEND, COMBO) */}
-      <AdmissionPlansSection
-        onSelectPlan={(plan) => onSection("admission", plan)}
-        onSelectAdmission={(plan) => onSection("admission", plan)}
-      />
+      <Suspense fallback={<SectionFallback minHeight={520} />}>
+        <AdmissionPlansSection
+          onSelectPlan={(plan) => onSection("admission", plan)}
+          onSelectAdmission={(plan) => onSection("admission", plan)}
+        />
+      </Suspense>
 
       {/* 8. ACADEMY MOMENTS GALLERY (MARQUEE PHOTOS & VIDEOS ROWS) */}
-      <GallerySection />
+      <Suspense fallback={<SectionFallback minHeight={600} />}>
+        <GallerySection />
+      </Suspense>
 
       {/* 9. TURF CTA BANNER */}
       <section className="mg-turf-cta-section">
@@ -142,7 +147,7 @@ function HomePage({ onSection, splashActive = false }) {
               className="turf-cta-btn"
               onClick={() => onSection("booking")}
             >
-              🏏 BOOK A TURF NOW →
+              BOOK A TURF NOW →
             </button>
           </div>
         </div>
@@ -160,7 +165,7 @@ function HomePage({ onSection, splashActive = false }) {
                 className="contact-main-btn"
                 onClick={() => onSection("contact")}
               >
-                📞 CONTACT HELPDESK →
+                CONTACT HELPDESK →
               </button>
               <a
                 href="https://www.instagram.com/mg_cricketers_den?igsi=MW5oODZ1bnd3d3VyZg=="
@@ -168,7 +173,7 @@ function HomePage({ onSection, splashActive = false }) {
                 rel="noopener noreferrer"
                 className="contact-insta-direct-btn"
               >
-                📸 VISIT INSTAGRAM →
+                VISIT INSTAGRAM →
               </a>
             </div>
           </div>
