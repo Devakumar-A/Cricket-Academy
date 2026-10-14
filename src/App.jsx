@@ -92,6 +92,13 @@ function App() {
 
   // 2. Dynamically update canonical link, title, and meta tags per active view
   useEffect(() => {
+    if (
+      window.location.pathname.toLowerCase().replace(/\/+$/, "") ===
+      "/reset-password"
+    ) {
+      return;
+    }
+
     const activeKey = authPage || currentPage;
     updatePageSEO(activeKey);
 

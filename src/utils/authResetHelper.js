@@ -68,7 +68,7 @@ export async function sendPasswordResetEmail(rawEmail) {
     return {
       success: true,
       message:
-        "If an account exists with this email, a password reset link has been sent. Please check your inbox and spam folder.",
+        "Password reset link has been sent. Please check your inbox and spam folder.",
     };
   } catch (err) {
     return {
