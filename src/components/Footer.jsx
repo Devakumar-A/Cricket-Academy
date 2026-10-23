@@ -279,7 +279,7 @@ function Footer({ onSection, onHome }) {
             <p className="developer-credit">
               Website designed &amp; developed by{" "}
               <a
-                href="https://cognolynx.com"
+                href="https://cognolynx.tech"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="developer-credit-link"
